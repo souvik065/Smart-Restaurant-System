@@ -1,0 +1,177 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMasterPage.master.cs" Inherits="Admin_AdminMasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="Template/lib/tailwindcss/base.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/components.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind-dark.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind-experimental.css" rel="stylesheet" />
+
+    <link href="Template/css/AdminMasterPage.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+
+<body class="bg-classic-dark-brown bg-opacity-90">
+    <form id="form1" runat="server">
+        <div class="container max-w-max">
+            <!--Top Nav Bar-->
+            <nav class="flex shadow-md border-b border-yellow-900 py-3 w-full  fixed bg-black text-white bg-opacity-80 py-5">
+                <!--Logo-->
+                <div class=" px-5 mx-5 text-2xl ">
+                    <a>
+                        <%--<image src="" alt="RESTAURANTLY"></image>--%>
+                        <h1 class="font-poppins text-3xl">RESTAURANTLY</h1>
+                    </a>
+                </div>
+                <!--Logo End-->
+                <div class="flex  w-full">
+                    <!--Mobile Menu Button-->
+                    <div class="mobile-menu-button">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                        </span>
+                    </div>
+                    <!--Mobile Menu Button End-->
+                    <div class="flex  w-full justify-between mx-10 ">
+                        <!--Search Bar-->
+                        <div class="">
+                            <div class="flex invisible sm:visible">
+                                <div class=" mx-1">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                        </svg>
+                                    </span>
+
+                                </div>
+                                <input type="text" class="bg-black bg-opacity-25" placeholder="Search" />
+                            </div>
+                        </div>
+                        <!--Search Bar End-->
+
+                        <!--Other Navigators-->
+                        <div class="flex   text-black">
+
+                            <div class="flex space-x-2">
+                                <div>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Other Navigators End-->
+                    </div>
+                </div>
+            </nav>
+            <!--Top Nav Bar End-->
+
+            <!--Side Nav Bar & Content-->
+            <div class="flex h-screen mx-w-max ">
+                <!--Aside Nav Bar bg-stone-800-->
+                <nav class="side-navbar bg-classic-dark-brown border-r border-yellow-900 w-72 text-classic-yellow bg-opacity-80 h-screen top-20  transform -translate-x-full  transition duration-200 ease-in-out fixed lg:translate-x-0">
+                    <ul class="py-10 px-5 space-y-5 font-poppins">
+                        <li>
+                            <a class="flex  font-bold">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                                    </svg>
+                                </i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex  font-bold ">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                                    </svg>
+                                </i>
+                                <span>Category</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex font-bold">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                                    </svg>
+                                </i>
+                                <span>Items</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--Aside Nav Bar End-->
+
+
+                <!--Content-->
+                <div class="  p-5 text-white border h-screen w-screen  my-24 mx-8 lg:ml-80 ">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+
+                </div>
+                <!--Content End-->
+
+            </div>
+            <!--Side Nav Bar & Content-->
+
+        </div>
+
+
+        <footer class="text-white h-36 bg-black mt-28 border-t border-yellow-900 lg:ml-72">
+            <div class="flex justify-center items-center text-center">
+                <div>
+                    <div class="py-10 space-y-3">
+                        <div>
+                            <p>&#169; Copywrite <b>Restaurantly</b>. All Rights Reserved</p>
+                        </div>
+                        <div class="text-sm">
+                            <p>Designed by <span class="text-classic-yellow">Souvik bhattacharya</span></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+        <%--<footer>
+            <div class="bg-black opacity-80 text-white  w-full">
+                Hello
+            </div>
+        </footer>--%>
+    </form>
+
+
+    <script src="Template/Js/AdminMasterPage.js"></script>
+</body>
+</html>
