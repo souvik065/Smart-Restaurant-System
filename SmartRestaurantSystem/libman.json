@@ -5,6 +5,10 @@
     {
       "library": "tailwindcss@2.2.19",
       "destination": "Admin/Template/lib/tailwindcss"
+    },
+    {
+      "library": "jquery@3.6.3",
+      "destination": "Admin/jquery/"
     }
   ]
 }
