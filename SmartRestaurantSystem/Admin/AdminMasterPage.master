@@ -16,6 +16,7 @@
 
     <link href="Template/css/AdminMasterPage.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="Template/css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="jquery/jquery.min.js"></script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -24,9 +25,9 @@
 
 <!--bg-classic-dark-brown-->
 
-<body class=" bg-stone-900   bg-opacity-90">
+<body class=" bg-stone-900 max-h-max  bg-opacity-90">
     <form id="form1" class="" runat="server">
-        <div class="w-full">
+        <div class="w-full h-full ">
             <!--Top Nav Bar-->
             <nav class="flex shadow-md border-b border-yellow-900  w-full  fixed bg-black text-white bg-opacity-80 py-3">
                 <!--Logo-->
@@ -99,7 +100,7 @@
             <!--Top Nav Bar End-->
 
             <!--Side Nav Bar & Content-->
-            <div class="flex h-screen w-full border ">
+            <div class="flex h-full w-full">
                 <!--Aside Nav Bar bg-stone-800-->
                 <nav class="side-navbar  bg-classic-dark-brown border-r border-yellow-900 w-72 text-slate-400 bg-opacity-80 h-screen top-[4.2rem]  transform -translate-x-full  transition duration-200 ease-in-out fixed lg:translate-x-0">
                     <div class="py-10 font-poppins-400 space-y-5 font-poppins w-full">
@@ -272,62 +273,50 @@
 
 
                 <!--Content-->
-                <div class="content-container  w-full border border-green-300 my-24 duration-200 lg:ml-72 ">
-                    <div class=" p-5 text-white w-full  ">
-                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1"  runat="server">
+                <div class="content-container  w-full h-full  duration-200 lg:ml-72 ">
+                    <div class=" p-5 text-white my-16 max-h-max w-full">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                         </asp:ContentPlaceHolder>
 
 
 
                     </div>
-                    <footer class="text-white h-36 bg-black my-auto border-t  border-yellow-900 border w-full">
-                    <div class="flex justify-center items-center text-center">
-                        <div>
-                            <div class="py-10 space-y-3">
-                                <div>
-                                    <p>&#169; Copywrite <b>Restaurantly</b>. All Rights Reserved</p>
-                                </div>
-                                <div class="text-sm">
-                                    <p>Designed by <span class="text-classic-yellow">Souvik bhattacharya</span></p>
+                    <footer class="text-white  h-36 bg-black  border-t  border-yellow-900  w-full">
+                        <div class="flex justify-center items-center text-center">
+                            <div>
+                                <div class="py-10 space-y-3">
+                                    <div>
+                                        <p>&#169; Copywrite <b>Restaurantly</b>. All Rights Reserved</p>
+                                    </div>
+                                    <div class="text-sm">
+                                        <p>Designed by <span class="text-classic-yellow">Souvik bhattacharya</span></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                </footer>
+                        </div>
+                    </footer>
+
                 </div>
+
                 <!--Content End-->
 
+
+
             </div>
-            <!--Side Nav Bar & Content-->
+        <!--Side Nav Bar & Content-->
 
         </div>
 
 
-        <%--        <footer class="text-white h-36 bg-black mt-28 border-t border-yellow-900 lg:ml-72">
-            <div class="flex justify-center items-center text-center">
-                <div>
-                    <div class="py-10 space-y-3">
-                        <div>
-                            <p>&#169; Copywrite <b>Restaurantly</b>. All Rights Reserved</p>
-                        </div>
-                        <div class="text-sm">
-                            <p>Designed by <span class="text-classic-yellow">Souvik bhattacharya</span></p>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-        </footer>--%>
 
-        <%--<footer>
-            <div class="bg-black opacity-80 text-white  w-full">
-                Hello
-            </div>
-        </footer>--%>
+
     </form>
 
 
     <script src="Template/Js/AdminMasterPage.js"></script>
+    <script src="Template/Js/sweetalert2@11.js"></script>
+    <script src="Template/Js/jquery.dataTables.min.js"></script>
 </body>
 </html>

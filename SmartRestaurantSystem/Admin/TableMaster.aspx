@@ -1,13 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMasterPage.master" AutoEventWireup="true" CodeFile="CategoryMaster.aspx.cs" Inherits="Admin_CategoryMaster" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMasterPage.master" AutoEventWireup="true" CodeFile="TableMaster.aspx.cs" Inherits="Admin_TableMaster" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <section class="h-full">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <section class="h-full">
         <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
-                    <h1 class="text-5xl">Category Master</h1>
+                    <h1 class="text-5xl">Table Master</h1>
                 </div>
             </div>
             <div class="font-poppins-400 capitalize text-gray-400 font-bold capitalize">
@@ -27,7 +27,7 @@
                         <div class="flex space-x-5 w-full">
 
                             <input id="hdnCategoryID" type="hidden" />
-                            <lable for="" class="my-auto">Category Name</lable>
+                            <lable for="" class="my-auto">Table No </lable>
                             <div class="w-full w-1/2">
                                 <div><span id="categorynameval" class="formerror text-red-600  text-sm"></span></div>
                                 <input id="txtCategoryName" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
@@ -57,11 +57,11 @@
 
             <div class="w-full my-5  shadow-2xl  text-classic-yellow font-poppins-400 bg-classic-brown py-5 px-5">
                 <div class="w-full">
-                    <table class="table-fixed" id="tblCategory">
+                    <table class="table-fixed" id="tblTable">
                         <thead>
                             <tr>
                                 <th>Sr.No</th>
-                                <th>Category Name</th>
+                                <th>Table No</th>
                                 <th class="justify-around">Actions</th>
                             </tr>
                         </thead>
@@ -69,7 +69,7 @@
                         <tfoot>
                             <tr>
                                 <th>Sr.No</th>
-                                <th>Category Name</th>
+                                <th>Table No</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>

@@ -13,6 +13,7 @@ const arrow = document.querySelector('.arrow');
 
 const navbarbtn = (widthSize) => {
     if (widthSize.matches) {
+        debugger;
 
         btn.addEventListener('click', () => {
             sidebar.classList.toggle('-translate-x-full');
@@ -22,7 +23,7 @@ const navbarbtn = (widthSize) => {
 
         
 
-    } else {
+    } else if(!widthSize.matches) {
         btn.addEventListener('click', () => {
             sidebar.classList.toggle('lg:translate-x-0');
             contentdiv.classList.toggle('lg:ml-72')
@@ -52,5 +53,8 @@ $(function () {
 })
 
 const widthSize = window.matchMedia("(max-width:1024px)");
+
+
 navbarbtn(widthSize);
 widthSize.addEventListener("change", navbarbtn);
+

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="Admin_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Admin_Default" %>
 
 <!DOCTYPE html>
 
@@ -16,7 +16,7 @@
     <link href="Template/css/DefaultPage.css" rel="stylesheet" />
 </head>
 <body>
-    <form id="form1" runat="server">
+       <form id="form1" runat="server">
         <div class="hero-bg-img h-screen w-screen absolute">
         </div>
         <div class="flex  justify-center items-center h-screen ">
@@ -52,6 +52,11 @@
                                 </div>
                                 <input id="txtPassword" class="bg-transparent border border-classic-dimyellow py-2 px-2" type="password" placeholder="Password" />
                             </div>
+
+                            <div>
+                                <input id="btnLogin" class="bg-yellow-900 text-white font-bold py-3 px-10 cursor-pointer hover:bg-yellow-700" type="button" value="Login" />
+
+                            </div>
                         </div>
                         <div>
                         </div>
@@ -62,5 +67,6 @@
 
         </div>
     </form>
+
 </body>
 </html>

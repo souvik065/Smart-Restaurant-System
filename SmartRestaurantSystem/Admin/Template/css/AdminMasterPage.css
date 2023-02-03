@@ -92,3 +92,16 @@ body {
 .border-classic-dimyellow {
     border-color: #625b4b;
 }
+
+
+.sweetalert {
+    border: 2px solid #625b4b;
+}
+
+.swal2-border-radius {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+

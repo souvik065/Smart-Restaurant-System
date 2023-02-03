@@ -1,8 +1,9 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/AdminMasterPage.master" AutoEventWireup="false" CodeFile="SupplierMaster.aspx.vb" Inherits="Admin_SupplierMaster" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMasterPage.master" AutoEventWireup="true" CodeFile="SupplierMaster.aspx.cs" Inherits="Admin_SupplierMaster" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <section class="max-h-max"></section>
      <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
         <div class="">
             <div>
@@ -32,25 +33,25 @@
 
                         <lable for="txtEmail" class="my-auto">EmailID </lable>
 
-                        <input id="txtEmail" placeholder="" class="bg-transparent border w-full border-classic-dimyellow   px-1"  type="text" />
+                        <input id="txtEmail" placeholder="" class="bg-transparent my-1 border w-full border-classic-dimyellow   px-1"  type="text" />
                     </div>
                     <div class="flex space-x-5 w-full">
 
-                        <lable for="txtContactNo" class="my-auto">Contact No </lable>
+                        <lable for="txtContactNo" class="my-auto w-1/3">Contact No </lable>
 
-                        <input id="txtContactNo" placeholder="example:- Slicer, Mixer" class="bg-transparent border font-thin w-full border-classic-dimyellow   px-1"  type="text" />
+                        <input id="txtContactNo" placeholder="example:- Slicer, Mixer" class="bg-transparent border my-1 font-thin w-full border-classic-dimyellow   px-1"  type="text" />
                     </div>
                      <div class="flex space-x-5 w-full">
 
-                        <lable for="txtContactPerson" class="my-auto">Contact Person </lable>
+                        <lable for="txtContactPerson" class="my-auto w-1/2">Contact Person </lable>
 
-                        <input id="txtContactPerson" placeholder="example:- Slicer, Mixer" class="bg-transparent border font-thin w-full border-classic-dimyellow px-1"  type="text" />
+                        <input id="txtContactPerson" placeholder="example:- Slicer, Mixer" class="bg-transparent border my-1 font-thin w-full border-classic-dimyellow px-1"  type="text" />
                     </div>
                      <div class="flex space-x-5 w-full">
 
                         <lable for="txtGstNo" class="my-auto">GST No </lable>
 
-                        <input id="txtGstNo" placeholder="example:- Slicer, Mixer" class="bg-transparent border font-thin w-full border-classic-dimyellow  px-1"  type="text" />
+                        <input id="txtGstNo" placeholder="example:- Slicer, Mixer" class="bg-transparent border my-1 font-thin w-full border-classic-dimyellow  px-1"  type="text" />
                     </div>
                      <div class="flex space-x-5 w-full">
 
@@ -79,5 +80,6 @@
 
     </div>
 
+    <section class="h-[500px]"></section>
 </asp:Content>
 
