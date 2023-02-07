@@ -48,9 +48,11 @@
                             <lable for="txtDishName" class="my-auto w-1/5">Dish Name </lable>
                             <input id="txtDishName" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
                         </div>
+                    </div>
                         <div class="flex space-x-5 w-full ">
 
                             <lable for="fuDishPhoto" class="my-auto">Dish Photo </lable>
+                            <div>
                             <input id="fuDishPhoto" class=" py-3 px-3 rounded-full
                                                         bg-gradient-to-br from-neutral-600 to-stone-700
                                                         file:rounded-full
@@ -61,9 +63,12 @@
                                                         file:shadow-lg file:shadow-yellow-900/50
                                                         cursor-pointer shadow-lg shadow-yellow-700/50
                                                         file:bg-yellow-800"
-                                type="file" />
+                                                        type="file" />
+                                </div>
+                            <img id="imgDishPhoto" alt="" src="#" width="100" height="60" style="display:block;" />
+                            <input id="hdnPhotoPath" type="hidden" />
                         </div>
-                    </div>
+
                     <!-- Fields End-->
 
                     <!-- Buttons -->
@@ -85,7 +90,7 @@
 
         <div class="w-full my-5  shadow-2xl  text-classic-yellow font-poppins-400 bg-classic-brown py-5 px-5">
             <div class="w-full">
-                <table class="table-fixed" id="tblDishes">
+                <table class="table-fixed" id="tblData">
                     <thead>
                         <tr>
                             <th>Sr.No</th>
@@ -117,9 +122,11 @@
     <section class="h-[500px]"></section>
 
     <script>
+// const { swal } = require("./Template/Js/sweetalert2@11");
+
 
         $(function () {
-            table = $("#tblDishes").DataTable({
+            table = $("#tblData").DataTable({
                 responsive: true,
                 autoWidth: false,
                 "deferRender": true
@@ -139,6 +146,8 @@
             $('#txtIngredience').val("");
             $('#txtDishName').val("");
             $('#hdnDishesID').val("");
+            $('#imgDishPhoto').removeAttr('src');
+            $('#imgDishPhoto').css('display', 'none');
 
             $("[id=btnSave]").val("Save");
             $("[id=btnClear]").val("Clear");
@@ -377,7 +386,94 @@
 
         }
 
-      
+
+        /* File Upload Funtions*/
+
+        $("#fuDishPhoto").on("change", function () {
+            debugger;
+            myfile = $(this).val();
+
+            if (myfile == '') {
+                document.getElementById("imgDishPhoto").src = "";
+                $("#imgDishPhoto").attr("style", "display:none");
+            }
+
+            console.log("My File: ",myfile);
+            var ext = myfile.split('.').pop();
+            console.log("Ext: ", ext);
+
+            var str = myfile.substring(0, 10) + "." + ext;
+            console.log("Str: ", str);
+            showFileSize(ext);
+
+        });
+
+        function showFileSize(ext)
+        {
+            debugger;
+
+            var input, file;
+            var fileUpload = $('#fuDishPhoto').get(0);
+            console.log('File Upload Get: ',fileUpload)
+
+            input = document.getElementById('fuDishPhoto');
+            file = fileUpload.files[0];
+
+            var size = parseFloat($('#fuDishPhoto')[0].files[0].size / 1024).toFixed(2);
+
+            if (size <= 500) {
+                var src = URL.createObjectURL(file);
+                var preview = document.getElementById("imgDishPhoto");
+                preview.src = src;
+                preview.style.display = "block";
+
+            } else {
+                swal("Size Limit !", "Photo Size must be smaller than 500 kb.", "warning");
+                $("#fuDishPhoto").val('');
+
+            }
+
+        }
+
+        function SaveImage() {
+
+            var fileUpload = $("#fuDishPhoto").get(0);
+            var files = fileUpload.files;
+
+            var data = new FormData();
+            var filepath = "";
+
+            for (var i = 0; i < files.length; i++)
+            {
+                data.append(files[i].name, files[i]);
+            }
+
+            if (files.length > 0)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "../FileHandler.ashx?Type=DishPhoto",
+                    data: data,
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        filepath = result;
+
+                    },
+                    error: function (err) {
+                        var e = err.d;
+                        console.log(e);
+
+                    }
+                });
+            }
+            return filepath;
+
+        }
+
+        /* File Upload Funtions End*/
+
 
 
         /* DropDown Filling Functions*/
@@ -436,6 +532,9 @@
 
         }
 
+        /* DropDown Filling Functions End*/
+
+
         /* Form Validation Functions*/
 
         function FormValidation(categoryid, subcategoryid, ingredience, dishname) {
@@ -480,6 +579,9 @@
 
 
         }
+
+        /* Form Validation Functions End*/
+
 
     </script>
 </asp:Content>
