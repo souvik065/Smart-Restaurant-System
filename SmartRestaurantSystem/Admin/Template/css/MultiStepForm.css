@@ -1,0 +1,31 @@
+﻿body {
+}
+
+/*.progress-bar .step .bullet:before,
+.progress-bar .step .bullet:after{
+    position:absolute;
+    content:'';
+    height:3px;
+    width:44px;
+    border:2px solid white;
+    background:#ff6a00;
+}
+*/
+
+.progress-line{
+    background:#ff6a00;
+    transform: scale(0);
+    transform-origin: left;
+    animation: animate 1s linear forwards;
+}
+
+.progress-done{
+    background:#ff6a00;
+   color:white;
+}
+
+@keyframes animate{
+    100%{
+        transform:scale(1);
+    }
+}

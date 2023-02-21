@@ -136,7 +136,7 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string DishMasterDelete(Int32 DishID)
+    public string DishMasterDelete(Int32 DishID, String DishPhoto)
     {
         SqlConnection con = new SqlConnection(Global.StrCon);
         String msg = "";
@@ -154,13 +154,18 @@ public class DishMasterWebService : System.Web.Services.WebService
 
                 con.Close();
 
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assests/Images/" + DishPhoto + ""));
+                if (fileInfo.Exists)
+                    fileInfo.Delete();
+
+                msg = "Record Deleted Successfully";
 
             }
 
         }
         catch (Exception Exe)
         {
-
+            msg = "Error" + Exe.Message;
 
         }
         finally

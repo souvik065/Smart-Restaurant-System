@@ -28,9 +28,9 @@
                             <input id="hdnSubCategoryID" type="hidden" />
                             <lable for="ddlCategory" class="my-auto w-1/3">Category Name</lable>
                             <div class="w-full">
-                                <div><span id="ddlCategoryWarning" class="formerror text-red-600  text-sm"></span></div>
+                                <div><span id="ddlCategoryWarning" class="formerror text-red-600 text-sm"></span></div>
 
-                                <select id="ddlCategory"  onchange="FormValDropDown(this.id)"  class=" bg-transparent text-gray-400 px-2 py-2 border w-full border-classic-dimyellow  text-center">
+                                <select id="ddlCategory" onchange="FormValDropDown(this.id)" class="text-gray-400 bg-transparent text-gray-400 px-2 py-2 border w-full border-classic-dimyellow  text-center">
                                     <option>--Selesct Category--</option>
 
                                 </select>
@@ -240,7 +240,7 @@
                         $(this).find("RowNumber").text(),
                         $(this).find("CategoryName").text(),
                         $(this).find("SubCategoryName").text(),
-                        
+
                         strEditDelete
 
                     ]).draw(false);
@@ -355,7 +355,7 @@
 
         }
 
-      
+
 
 
         /* DropDown Filling Functions*/

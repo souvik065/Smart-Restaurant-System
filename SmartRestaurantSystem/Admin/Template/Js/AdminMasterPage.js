@@ -9,8 +9,6 @@ const arrow = document.querySelector('.arrow');
 
 
 
-
-
 const navbarbtn = (widthSize) => {
     if (widthSize.matches) {
         debugger;
