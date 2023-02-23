@@ -4,13 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link href="Template/lib/tailwindcss/base.min.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/base.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/components.css" rel="stylesheet" />
-    <link href="Template/lib/tailwindcss/tailwind.css" rel="stylesheet" />
-    <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/components.min.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/tailwind-dark.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind-dark.min.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/tailwind-experimental.css" rel="stylesheet" />
-
+    <link href="Template/lib/tailwindcss/tailwind-experimental.min.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind.min.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/utilities.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/743a9d75bd.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://kit.fontawesome.com/743a9d75bd.css" crossorigin="anonymous">
 
@@ -60,7 +65,7 @@
                                     </span>
 
                                 </div>
-                                <input type="text" class="bg-black bg-opacity-25" placeholder="Search" />
+                                <input type="text" class="search-input outline-none bg-black bg-opacity-25"  placeholder="Search" />
                             </div>
                         </div>
                         <!--Search Bar End-->
@@ -155,7 +160,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="Tabels.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                    <a href="TableMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
                                         <div class="flex space-x-3">
                                             <i class="fa-solid fa-tablet-screen-button"></i><span>Table Master</span>
 
@@ -163,7 +168,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="Dishes.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                    <a href="DishMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
                                         <div class="flex space-x-3">
                                             <i class="fa-solid fa-bowl-food"></i><span>Dishes</span>
 
@@ -207,7 +212,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="StaffDetail.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                    <a href="StaffDetails.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
                                         <div class="flex space-x-3 ">
                                             <i class="fa-solid fa-tag"></i><span>Staff Details</span>
 

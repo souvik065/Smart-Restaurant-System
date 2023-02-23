@@ -28,7 +28,7 @@ public class FileHandler : IHttpHandler, System.Web.SessionState.IRequiresSessio
                     string filename = System.IO.Path.GetFileName(uploadFile.FileName);
                     string strExt = System.IO.Path.GetExtension(filename);
                     string strActualName = System.IO.Path.GetFileName(filename);
-                    string strFileName = DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString()+strGuID+strExt;
+                    string strFileName = DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString() + strGuID + strExt;
                     string savefile1 = fileInfo.ToString() + "/" + strFileName;
                     uploadFile.SaveAs(savefile1);
                     context.Session["DishPhoto"] = "DishPhoto/" + strFileName;
@@ -36,8 +36,31 @@ public class FileHandler : IHttpHandler, System.Web.SessionState.IRequiresSessio
 
                 }
             }
-        }
+            else if (Imgtype == "StaffPhoto")
+            {
+                string strGuID = Guid.NewGuid().ToString();
+                HttpFileCollection files = context.Request.Files;
+                for (int i = 0; i < files.Count; i++)
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/StaffPhoto/"));
+                    if (!fileInfo.Directory.Exists)
+                    {
+                        fileInfo.Directory.Create();
+                    }
 
+                    HttpPostedFile uploadFile = files[i];
+                    string filename = System.IO.Path.GetFileName(uploadFile.FileName);
+                    string strExt = System.IO.Path.GetExtension(filename);
+                    string strActualName = System.IO.Path.GetFileName(filename);
+                    string strFileName = DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString() + strGuID + strExt;
+                    string savefile1 = fileInfo.ToString() + "/" + strFileName;
+                    uploadFile.SaveAs(savefile1);
+                    context.Session["StaffPhoto"] = "StaffPhoto/" + strFileName;
+                    context.Response.Write("StaffPhoto/" + strFileName);
+
+                }
+            }
+        }
     }
 
     public bool IsReusable

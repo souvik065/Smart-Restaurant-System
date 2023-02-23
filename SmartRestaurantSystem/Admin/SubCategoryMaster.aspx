@@ -387,6 +387,9 @@
 
         }
 
+        /* DropDown Filling Functions End*/
+
+
         /* Form Validation Functions*/
 
         function FormValidation(subcategoryname, categoryid) {
@@ -421,6 +424,9 @@
 
 
         }
+
+        /* Form Validation Functions End*/
+
 
     </script>
 </asp:Content>

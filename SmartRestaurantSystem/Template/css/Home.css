@@ -1,0 +1,10 @@
+﻿body {
+}
+
+
+section.sec1 {
+    background: rgba(0,0,0,0.5) url('../img/hero-bg.jpg');
+    background-size: cover;
+    background-attachment:fixed;
+    background-blend-mode:darken;
+}

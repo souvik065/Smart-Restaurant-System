@@ -1,0 +1,58 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="ClientMasterPage.master.cs" Inherits="ClientMasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="Template/lib/tailwindcss/base.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/components.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
+    <link href="Template/css/ClientAdminPage.css" rel="stylesheet" />
+    <script src="Template/js/ClientMasterPage.js"></script>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    <nav class="fixed bg-black bg-opacity-50 w-full flex justify-center items-center border text-white  ">
+        <div class="flex  justify-between border w-full mx-5 lg:mx-64 px-10">
+            <div>
+                <h1>
+                    <span class="text-3xl"><a href="#">RESTAURANTLY</a></span>
+                </h1>
+
+            </div>
+            <div class="flex navigations my-auto space-x-10  ">
+                <div>Home</div>
+                <div>About</div>
+                <div>Menu</div>
+                <div>Home</div>
+                <div>Home</div>
+                <div>Home</div>
+                
+            </div>
+            <div class="table-booking  my-auto  ">
+                <div>
+                    <button>Book a Table</button>
+                </div>
+
+            </div>
+            <div class="my-auto lg:hidden">
+                <span><svg class="h-9" xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+</span>
+            </div>
+        </div>
+    </nav>
+
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMasterPage.master" AutoEventWireup="true" CodeFile="TableMaster.aspx.cs" Inherits="Admin_TableMaster" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <section class="h-full">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <section class="h-full">
         <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
@@ -16,7 +16,7 @@
         </div>
 
         <div>
-            <div class="flex py-3 text-classic-yellow font-poppins-400 font-bold px-3 shadow-2xl bg-classic-brown w-full">
+            <div class="flex hidden py-3 text-classic-yellow font-poppins-400 font-bold px-3 shadow-2xl bg-classic-brown w-full">
                 <div class="border border-b-2 py-3 px-5"><span>Add</span></div>
                 <div class="border py-3 px-5"><span>View</span></div>
             </div>
@@ -24,17 +24,20 @@
                 <div class="w-full">
                     <div class="font-poppins-400 text-xl w-full space-y-10 font-bold">
                         <!-- Fields -->
-                        <div class="flex space-x-5 w-full">
+                        <!-- Table No -->
 
-                            <input id="hdnCategoryID" type="hidden" />
-                            <lable for="" class="my-auto">Table No </lable>
-                            <div class="w-full w-1/2">
-                                <div><span id="categorynameval" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtCategoryName" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
-
-
+                        <div class="flex space-x-5 w-full text-center">
+                            <div class="w-1/6">
+                                <input id="hdnTableID" type="hidden" />
+                                <lable for="" class="my-auto">Table No </lable>
+                            </div>
+                            <div class=" w-1/5">
+                                <div><span id="txtTableNoWarning" class="formerror text-red-600  text-sm"></span></div>
+                                <input id="txtTableNo" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
                             </div>
                         </div>
+                        <!-- Table No End-->
+
                         <!-- Fields End-->
 
                         <!-- Buttons -->
@@ -94,27 +97,19 @@
     <script>
 
         $(function () {
-            table = $("#tblCategory").DataTable({
+            table = $("#tblTable").DataTable({
                 responsive: true,
                 autoWidth: false,
                 "deferRender": true
             })
-            FillCategoryDetails(0);
+            FillTableNoDetails(0);
         })
 
-        function FormValidation(categoryname) {
-            var returnval = true;
-            if (categoryname.val() == "") {
-                $("#categorynameval").text("* Category Name Should not be Empty ");
-                returnval = false;
-            }
-
-            return returnval;
-        }
+        
 
         function ClearFields() {
-            $('#txtCategoryName').val("");
-            $('#hdnCategoryID').val("");
+            $('#txtTableNo').val("");
+            $('#hdnTableID').val("");
 
             $("[id=btnSave]").val("Save");
             $("[id=btnClear]").val("Clear");
@@ -123,23 +118,23 @@
 
 
 
-      
+
 
 
         $("#btnSave").on('click', function () {
-            var categoryname = $('#txtCategoryName');
-            var categoryid = $('#hdnCategoryID');
+            var tableno = $('#txtTableNo');
+            var tableid = $('#hdnTableID');
 
-            var Validate = FormValidation(categoryname);
+            var Validate = FormValidation(tableno);
             if (Validate == true) {
-                var CategoryID = categoryid.val() == "" ? 0 : categoryid.val();
-                var CategoryName = categoryname.val().trim();
+                var TableID = tableid.val() == "" ? 0 : tableid.val();
+                var TableNo = tableno.val().trim();
 
                 $.ajax({
 
-                    url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterManage",
+                    url: "WebServices/TableMasterWebService.asmx/TableMasterManage",
                     method: "POST",
-                    data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + "}",
+                    data: "{TableID:" + JSON.stringify(TableID) + ", TableNo:" + JSON.stringify(TableNo) + "}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
@@ -159,7 +154,7 @@
                     }
 
                 });
-                FillCategoryDetails(0);
+                FillTableNoDetails(0);
                 ClearFields();
             }
 
@@ -168,9 +163,9 @@
 
 
         $("#btnClear").on('click', function () {
-            var categoryid = $("#hdnCategoryID");
+            var tableid = $("#hdnTableID");
 
-            if (categoryid.val() > 0) {
+            if (tableid.val() > 0) {
 
                 $("[id=btnSave]").val("Save");
                 $("[id=btnClear]").val("Clear");
@@ -192,12 +187,12 @@
 
         });
 
-        function FillCategoryDetails(CategoryID) {
+        function FillTableNoDetails(TableID) {
             $.ajax({
 
-                url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
+                url: "WebServices/TableMasterWebService.asmx/TableMasterGet",
                 method: "POST",
-                data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
+                data: "{TableID:" + JSON.stringify(TableID) + "}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: OnSuccess,
@@ -211,6 +206,7 @@
 
 
         function OnSuccess(response) {
+            debugger;
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
 
@@ -223,13 +219,13 @@
 
                     var strEditDelete = "";
 
-                    strEditDelete += " <input class=\"bg-yellow-900 mx-2 text-center text-white py-3 px-5 hover:bg-yellow-700 cursor-pointer\" onclick=\"EditCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Edit\" />";
-                    strEditDelete += " <input class=\"bg-red-900 text-center text-white py-3 px-5 hover:bg-red-600 cursor-pointer\" onclick=\"DeleteCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Delete\" />";
+                    strEditDelete += " <input class=\"bg-yellow-900 mx-2 text-center text-white py-3 px-5 hover:bg-yellow-700 cursor-pointer\" onclick=\"EditTableNo(" + $(this).find("TableID").text() + ")\" type='button' value=\"Edit\" />";
+                    strEditDelete += " <input class=\"bg-red-900 text-center text-white py-3 px-5 hover:bg-red-600 cursor-pointer\" onclick=\"DeleteTableNo(" + $(this).find("TableID").text() + ")\" type='button' value=\"Delete\" />";
 
 
                     table.row.add([
                         $(this).find("RowNumber").text(),
-                        $(this).find("CategoryName").text(),
+                        $(this).find("TableNo").text(),
                         strEditDelete
 
                     ]).draw(false);
@@ -243,12 +239,12 @@
 
 
 
-        function EditCategory(CategoryID) {
+        function EditTableNo(TableID) {
             $.ajax({
 
-                url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
+                url: "WebServices/TableMasterWebService.asmx/TableMasterGet",
                 method: "POST",
-                data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
+                data: "{TableID:" + JSON.stringify(TableID) + "}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: OnEditSuccess,
@@ -258,7 +254,7 @@
                 }
 
             });
-            FillCategoryDetails(0);
+            FillTableNoDetails(0);
 
         }
 
@@ -269,17 +265,17 @@
             var xml = $(XmlDoc);
             var Details = xml.find("DataDetails");
 
-            $("[id=hdnCategoryID]").val(Details.find("CategoryID").text());
-            $("[id=txtCategoryName]").val(Details.find("CategoryName").text());
+            $("[id=hdnTableID]").val(Details.find("TableID").text());
+            $("[id=txtTableNo]").val(Details.find("TableNo").text());
 
-            $("[id=txtCategoryName]").focus();
+            $("[id=txtTableNo]").focus();
 
             $("[id=btnSave]").val("Update");
             $("[id=btnClear]").val("Cancle");
         }
 
 
-        function DeleteCategory(CategoryID) {
+        function DeleteTableNo(TableID) {
 
             swal.fire({
                 icon: "warning",
@@ -297,9 +293,9 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterDelete",
+                        url: "WebServices/TableMasterWebService.asmx/TableMasterDelete",
                         method: "POST",
-                        data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
+                        data: "{TableID:" + JSON.stringify(TableID) + "}",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (res) {
@@ -315,7 +311,7 @@
                         }
 
                     });
-                    FillCategoryDetails(0);
+                    FillTableNoDetails(0);
                     ClearFields();
 
                     swal.fire({
@@ -325,7 +321,7 @@
                         background: '#27272a',
 
                     })
-                    
+
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swal.fire({
                         title: "Cancelled",
@@ -334,14 +330,48 @@
                         background: '#27272a',
 
                     })
-                   
+
                 }
             })
 
 
-            
+
 
         }
+
+
+        /* Form Validation Functions*/
+
+        function FormValidation(tableno) {
+            var returnval = true;
+            debugger;
+            if (tableno.val() == "") {
+                $('#txtTableNoWarning').text("*Please Enter the Table No");
+                returnval = false;
+            }
+
+
+            return returnval;
+
+        }
+
+        function FormValTextBox(id) {
+            if ($("#" + id).val() != "") {
+                $("#" + id + "Warning").text("");
+            }
+
+
+        }
+
+        function FormValDropDown(id) {
+            if ($("#" + id).val() != 0) {
+                $("#" + id + "Warning").text("");
+            }
+
+
+        }
+
+        /* Form Validation Functions End*/
 
 
 

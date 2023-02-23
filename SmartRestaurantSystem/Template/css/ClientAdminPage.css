@@ -1,0 +1,15 @@
+﻿body {
+}
+
+
+@media (max-width:992px)
+{
+    .navigations{
+        display:none;
+    }
+
+    .table-booking{
+        display:none;
+    }
+
+}
