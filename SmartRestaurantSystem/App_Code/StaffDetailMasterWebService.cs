@@ -88,7 +88,7 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod] //-- Executing SubCategory GET/Read Function --// 
-    public string StaffMasterGet(Int32 StaffID)
+    public string StaffDetailMasterGet(Int32 StaffID)
     {
         SqlConnection con = new SqlConnection(Global.StrCon);
         SqlCommand cmd = new SqlCommand("StaffDetailMasterGet", con);
@@ -137,7 +137,7 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string StaffMasterDelete(Int32 StaffID, String StaffPhoto)
+    public string StaffDetailMasterDelete(Int32 StaffID, String StaffPhoto)
     {
         SqlConnection con = new SqlConnection(Global.StrCon);
         String msg = "";
@@ -155,7 +155,7 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
 
                 con.Close();
 
-                System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assests/Images/" + StaffPhoto + ""));
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + StaffPhoto + ""));
                 if (fileInfo.Exists)
                     fileInfo.Delete();
 

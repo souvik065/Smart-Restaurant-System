@@ -192,6 +192,8 @@
             $('#ddlStaffType').val(0);
             $('#txtStaffName').val("");
             $('#txtMobileNo').val("");
+            $('#txtAddress').val("");
+
             $('#hdnStaffID').val("");
             $('#imgStaffPhoto').removeAttr('src');
             $('#imgStaffPhoto').css('display', 'none');
@@ -237,7 +239,7 @@
 
                 $.ajax({
 
-                    url: "WebServices/StaffMasterWebService.asmx/StaffMasterManage",
+                    url: "WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterManage",
                     method: "POST",
                     data: "{StaffID:" + JSON.stringify(StaffID) + ", StaffTypeID:" + JSON.stringify(StaffTypeID) + ",StaffName:" + JSON.stringify(StaffName) + " ,MobileNo:" + JSON.stringify(MobileNo) + ",Address:" + JSON.stringify(Address) + ",StaffPhoto:" + JSON.stringify(StaffPhoto) + "}",
                     contentType: "application/json; charset=utf-8",
@@ -259,7 +261,7 @@
                     }
 
                 });
-                FillDishDetails(0);
+                FillStaffDetails(0);
                 ClearFields();
             }
 
@@ -295,7 +297,7 @@
         function FillStaffDetails(StaffID) {
             $.ajax({
 
-                url: "WebServices/StaffMasterWebService.asmx/StaffMasterGet",
+                url: "WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterGet",
                 method: "POST",
                 data: "{StaffID:" + JSON.stringify(StaffID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -351,10 +353,10 @@
 
 
 
-        function EditDish(DishID) {
+        function EditStaff(StaffID) {
             $.ajax({
 
-                url: "WebServices/StaffDetailMasterWebService.asmx/StaffMasterGet",
+                url: "WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterGet",
                 method: "POST",
                 data: "{StaffID:" + JSON.stringify(StaffID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -376,19 +378,19 @@
             var xml = $(XmlDoc);
             var Details = xml.find("DataDetails");
 
-            $("[id=hdnDishID]").val(Details.find("DishID").text());
-            $("[id=ddlCategory]").val(Details.find("CategoryID").text());
-            ListAllSubCategory(Details.find("CategoryID").text());
-            $("[id=ddlSubCategory]").val(Details.find("SubCategoryID").text());
-            $("[id=txtIngredience]").val(Details.find("Ingredience").text());
-            $("[id=txtDishName]").val(Details.find("DishName").text());
+            $("[id=hdnStaffID]").val(Details.find("StaffID").text());
+            $("[id=ddlStaffType]").val(Details.find("StaffTypeID").text());
+            $("[id=txtStaffName]").val(Details.find("StaffName").text());
+            $("[id=txtMobileNo]").val(Details.find("MobileNo").text());
+            $("[id=txtAddress]").val(Details.find("Address").text());
 
-            $("#hdnPhotoPath").val(Details.find("DishPhoto").text());
-            $("#imgDishPhoto").attr("style", "display:block");
-            $("#imgDishPhoto").prop("src", "../Assets/Images/" + Details.find("DishPhoto").text());
+
+            $("#hdnPhotoPath").val(Details.find("StaffPhoto").text());
+            $("#imgStaffPhoto").attr("style", "display:block");
+            $("#imgStaffPhoto").prop("src", "../Assets/Images/" + Details.find("StaffPhoto").text());
             var prelabel = document.querySelector(".ImagePreviewLabel");
             prelabel.classList.add("hidden");
-            $("[id*=txtDishName]").focus();
+            $("[id*=txtStaffName]").focus();
 
             $("[id=btnSave]").val("Update");
             $("[id=btnClear]").val("Cancle");

@@ -4,10 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <section class="h-full">
-        <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
+        <div class="w-full my-5 text-classic-yellow font-playfair-display-700 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
-                    <h1 class="text-5xl">Category Master</h1>
+                    <h1 class=" text-5xl">Category Master</h1>
                 </div>
             </div>
             <div class="font-poppins-400 capitalize text-gray-400 font-bold capitalize">

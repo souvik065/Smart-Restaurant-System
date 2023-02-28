@@ -5,11 +5,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <section class=" card justify-around flex space-x-10  w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
         <div class="progress-bar flex font-bold w-full justify-around mx-52 ">
-            
+
+            <!-- Step-1 Dish Name & Category -->
             <div class="step text-center space-y-4">
                 <p>Dish Name</p>
                 <div class="bullet flex space-x-2 ">
-                    <span  class="border progress-done py-1 px-3 rounded-full">1</span>
+                    <span id="step1" class="border  py-1 px-3 rounded-full">1</span>
                     <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -20,12 +21,20 @@
                 </div>
 
             </div>
-            <span class="progress-line h-1 w-1/5 bg-yellow-900 my-auto"></span>
+
+            <!-- -- Step 1 Progress Line -- -->
+            <span id="step1ProgressLine" class=" h-1 w-1/5 bg-yellow-900 my-auto"></span>
+            <!-- -- Step 1 Progress Line End -- -->
+
+
+            <!-- Step-1 Dish Name & Category End-->
+
+            <!-- Step-2   -->
             <div class="step text-center space-y-4">
-                <p>Ingredience</p>
-                <div class="flex space-x-2 ">
-                    <span class="border py-1 px-3 rounded-full">2</span>
-                    <span class="relative hidden text-orange-600 left-1 top-[0.5rem] ">
+                <p>Dish Name</p>
+                <div class="bullet flex space-x-2 ">
+                    <span id="step2" class="border  py-1 px-3 rounded-full">2</span>
+                    <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -33,14 +42,22 @@
 
                     </span>
                 </div>
-            </div>
-            <span class="h-1 w-1/5 bg-yellow-900 my-auto"></span>
 
+            </div>
+
+            <!-- -- Step 2 Progress Line -- -->
+            <span id="step2ProgressLine" class=" h-1 w-1/5 bg-yellow-900 my-auto"></span>
+            <!-- -- Step 2 Progress Line End -- -->
+
+
+            <!-- Step-2     End-->
+
+            <!-- Step-3    -->
             <div class="step text-center space-y-4">
-                <p>Dish Photo</p>
-                <div class="flex space-x-2 ">
-                    <span class="border py-1 px-3 rounded-full">3</span>
-                    <span class="relative hidden text-orange-600 left-1 top-[0.5rem] ">
+                <p>Dish Name</p>
+                <div class="bullet flex space-x-2 ">
+                    <span id="step3" class="border  py-1 px-3 rounded-full">3</span>
+                    <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -48,11 +65,20 @@
 
                     </span>
                 </div>
+
             </div>
+
+            <!-- -- Step 3 Progress Line -- -->
+            <span id="step3ProgressLine" class=" h-1 w-1/5 bg-yellow-900 my-auto"></span>
+            <!-- -- Step 3 Progress Line End -- -->
+
+
+            <!-- Step-3   &  End-->
+
         </div>
     </section>
     <section data-multi-step>
-
+        <!-- Step 1  -->
         <div data-step class="card  hidden w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <h3 class="">This is Step 1</h3>
             <div class="flex space-x-5 w-full">
@@ -77,6 +103,8 @@
             <!--Action Buttons End-->
 
         </div>
+        <!-- Step 1  -->
+
         <div data-step class="card hidden w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <h3 class="">This is Step 2</h3>
             <div class="flex space-x-5 w-full">

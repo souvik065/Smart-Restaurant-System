@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls;
+
 
 /// <summary>
-/// Summary description for DisheMasterWebService
+/// Summary description for SupplierMasterWebService
 /// </summary>
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 [System.Web.Script.Services.ScriptService]
-public class DishMasterWebService : System.Web.Services.WebService
+public class SupplierMasterWebService : System.Web.Services.WebService
 {
 
-    public DishMasterWebService()
+    public SupplierMasterWebService()
     {
 
         //Uncomment the following line if using designed components 
@@ -25,23 +26,24 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string DishMasterManage(Int32 DishID, Int32 CategoryID, Int32 SubCategoryID,  String Ingredience, String DishName, String DishPhoto)
+    public string SupplierMasterManage(Int32 SupplierID, String SupplierName, String Email, String ContactNo, String ContactPerson,String GSTNo, String Address)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
         try
         {
-            if (DishID == 0)
+            if (SupplierID == 0)
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("DishMasterInsert", con);
+                SqlCommand cmd = new SqlCommand("SupplierMasterInsert", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@CategoryID", CategoryID).DbType = DbType.Int32;
-                cmd.Parameters.AddWithValue("@SubCategoryID", SubCategoryID).DbType = DbType.Int32;
-                cmd.Parameters.AddWithValue("@Ingredience", Ingredience).DbType = DbType.String;
-                cmd.Parameters.AddWithValue("@DishName", DishName).DbType = DbType.String;
-                cmd.Parameters.AddWithValue("@DishPhoto", DishPhoto).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@SupplierName", SupplierName).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@Email", Email).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@ContactNo", ContactNo).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@ContactPerson", ContactPerson).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@GSTNo", GSTNo).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@Address", Address).DbType = DbType.String;
 
 
                 cmd.ExecuteNonQuery();
@@ -56,14 +58,15 @@ public class DishMasterWebService : System.Web.Services.WebService
 
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("DishMasterUpdate", con);
+                SqlCommand cmd = new SqlCommand("SupplierMasterUpdate", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
-                cmd.Parameters.AddWithValue("@CategoryID", CategoryID).DbType = DbType.Int32;
-                cmd.Parameters.AddWithValue("@SubCategoryID", SubCategoryID).DbType = DbType.Int32;
-                cmd.Parameters.AddWithValue("@Ingredience", Ingredience).DbType = DbType.String;
-                cmd.Parameters.AddWithValue("@DishName", DishName).DbType = DbType.String;
-                cmd.Parameters.AddWithValue("@DishPhoto", DishPhoto).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@SupplierID", SupplierID).DbType = DbType.Int32;
+                cmd.Parameters.AddWithValue("@SupplierName", SupplierName).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@Email", Email).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@ContactNo", ContactNo).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@ContactPerson", ContactPerson).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@GSTNo", GSTNo).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@Address", Address).DbType = DbType.String;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
@@ -87,12 +90,12 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod] //-- Executing SubCategory GET/Read Function --// 
-    public string DishMasterGet(Int32 DishID)
+    public string SupplierMasterGet(Int32 SupplierID)
     {
         SqlConnection con = new SqlConnection(Global.StrCon);
-        SqlCommand cmd = new SqlCommand("DishMasterGet", con);
+        SqlCommand cmd = new SqlCommand("SupplierMasterGet", con);
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
+        cmd.Parameters.AddWithValue("@SupplierID", SupplierID).DbType = DbType.Int32;
         return GetDataWithoutPaging(cmd).GetXml();
     }
 
@@ -100,6 +103,7 @@ public class DishMasterWebService : System.Web.Services.WebService
 
     public DataSet GetDataWithoutPaging(SqlCommand cmd)
     {
+        String msg;
         SqlConnection con = new SqlConnection(Global.StrCon);
         DataSet ds = new DataSet();
         try
@@ -120,7 +124,7 @@ public class DishMasterWebService : System.Web.Services.WebService
         }
         catch (Exception Exe)
         {
-
+            msg = Exe.Message;
 
         }
         finally
@@ -136,28 +140,24 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string DishMasterDelete(Int32 DishID, String DishPhoto)
+    public string SupplierMasterDelete(Int32 SupplierID)
     {
         SqlConnection con = new SqlConnection(Global.StrCon);
         String msg = "";
         try
         {
-            if (DishID > 0)
+            if (SupplierID > 0)
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("DishMasterDelete", con);
+                SqlCommand cmd = new SqlCommand("SupplierMasterDelete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
+                cmd.Parameters.AddWithValue("@SupplierID", SupplierID).DbType = DbType.Int32;
 
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
                 con.Close();
-
-                System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + DishPhoto + ""));
-                if (fileInfo.Exists)
-                    fileInfo.Delete();
 
                 msg = "Record Deleted Successfully";
 
@@ -182,15 +182,15 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
 
-    [WebMethod] //-- Executing GET/Read Function of Category List --// 
-    public List<ListItem> ListAllDishes()
+    [WebMethod] //-- Executing GET/Read Function of Supplier List --// 
+    public List<ListItem> ListAllSupplier()
     {
 
         SqlConnection con = new SqlConnection(Global.StrCon);
         List<ListItem> List = new List<ListItem>();
         try
         {
-            SqlCommand cmd = new SqlCommand("ListAllDish", con);
+            SqlCommand cmd = new SqlCommand("ListAllSupplier", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
             using (SqlDataReader sdr = cmd.ExecuteReader())
@@ -200,8 +200,8 @@ public class DishMasterWebService : System.Web.Services.WebService
                     List.Add(new ListItem
                     {
 
-                        Value = sdr["DishID"].ToString(),
-                        Text = sdr["DishName"].ToString()
+                        Value = sdr["SupplierID"].ToString(),
+                        Text = sdr["SupplierName"].ToString()
 
                     });
 

@@ -1,17 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMasterPage.master" AutoEventWireup="true" CodeFile="MaterialCategoryMaster.aspx.cs" Inherits="Admin_MaterialCategoryMaster" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <section class="h-full">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <section class="h-full">
         <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
-                    <h1 class="text-5xl">Staff Type</h1>
+                    <h1 class="text-5xl">Material Category Master</h1>
                 </div>
             </div>
             <div class="font-poppins-400 capitalize text-gray-400 font-bold capitalize">
-                <div><span class="capitalize">Master > Staff Type</span></div>
+                <div><span class="capitalize">Inventory > Material Category Master</span></div>
             </div>
         </div>
 
@@ -26,15 +26,14 @@
                         <!-- Fields -->
                         <!-- Table No -->
 
-                        <div class="flex space-x-5 w-full text-center">
-                            <div class="w-1/6">
-                                <input id="hdnMaterialCategoryID" type="hidden" />
+                        <div class=" space-y-2 w-full ">
+                            <input id="hdnMaterialCategoryID" type="hidden" />
+                            <div>
                                 <lable for="" class="my-auto">Material Category Name </lable>
+                                <span id="txtMaterialCategoryNameWarning" class="formerror text-red-600  text-sm"></span>
                             </div>
-                            <div class=" w-1/3">
-                                <div><span id="txtMaterialCategoryNameWarning" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtMaterialCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
-                            </div>
+
+                            <input id="txtMaterialCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400 md:w-1/2 w-full border border-classic-dimyellow  py-1 px-2" type="text" />
                         </div>
                         <!-- Table No End-->
 

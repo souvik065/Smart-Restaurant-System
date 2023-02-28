@@ -26,7 +26,7 @@ public class MaterialMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string MaterialMasterManage(Int32 MaterialID,Int32 MaterialCategoryID, String MaterialName, String MeasuredIn)
+    public string MaterialMasterManage(Int32 MaterialID,Int32 MaterialCategoryID, String MaterialName, String MeasuredIn, String MaterialPhoto)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -41,6 +41,7 @@ public class MaterialMasterWebService : System.Web.Services.WebService
                 cmd.Parameters.AddWithValue("@MaterialName", MaterialName).DbType = DbType.String;
                 cmd.Parameters.AddWithValue("@MaterialCategoryID", MaterialCategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@MeasuredIn", MeasuredIn).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@MaterialPhoto", MaterialPhoto).DbType = DbType.String;
 
 
                 cmd.ExecuteNonQuery();
@@ -61,6 +62,8 @@ public class MaterialMasterWebService : System.Web.Services.WebService
                 cmd.Parameters.AddWithValue("@MaterialName", MaterialName).DbType = DbType.String;
                 cmd.Parameters.AddWithValue("@MaterialCategoryID", MaterialCategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@MeasuredIn", MeasuredIn).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@MaterialPhoto", MaterialPhoto).DbType = DbType.String;
+
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
