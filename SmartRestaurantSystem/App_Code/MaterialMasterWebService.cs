@@ -85,7 +85,7 @@ public class MaterialMasterWebService : System.Web.Services.WebService
         }
         return msg;
     }
-
+    
     [WebMethod] //-- Executing Material Master GET/Read Function --// 
     public string MaterialMasterGet(Int32 MaterialID)
     {
@@ -93,6 +93,17 @@ public class MaterialMasterWebService : System.Web.Services.WebService
         SqlCommand cmd = new SqlCommand("MaterialMasterGet", con);
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@MaterialID", MaterialID).DbType = DbType.Int32;
+        return GetDataWithoutPaging(cmd).GetXml();
+    }
+
+
+    [WebMethod] //-- Listing all Material By Category --// 
+    public string ListAllMaterialByCategory(Int32 MaterialCategoryID)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("ListAllMaterialByCategory", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@MaterialCategoryID", MaterialCategoryID).DbType = DbType.Int32;
         return GetDataWithoutPaging(cmd).GetXml();
     }
 

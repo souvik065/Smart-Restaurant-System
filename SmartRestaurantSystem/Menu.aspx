@@ -113,7 +113,7 @@
 
         function FillCategoryMenu() {
             $.ajax({
-                url: "Admin/WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
+                url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
                 method: "POST",
                 data: "{CategoryID:0}",
                 contentType: "application/json; charset=utf-8",

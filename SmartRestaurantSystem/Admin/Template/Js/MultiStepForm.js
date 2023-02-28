@@ -32,6 +32,7 @@ multiStepForm.addEventListener("click", e => {
     showCurrentStep()
 })
 
+
 function FillProgressLine() {
     if (currentStep > 0) {
         step1.classList.add("progress-done");

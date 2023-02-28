@@ -95,8 +95,8 @@
         </section>
         <!-- MultiStep Progrees Bar End-->
 
-        <section data-multi-step class="font-poppins-400 text-xl font-bold">
-            <!-- Step 1  -->
+        <section data-multi-step id="test1" class="font-poppins-400 text-xl font-bold">
+            <!-- Step 1  Dish Category & Name-->
             <div data-step class="card  hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
                 <h3 class="">This is Step 1</h3>
                 <!--Other Fields -->
@@ -118,8 +118,9 @@
 
                     <!-- Sub-Category Name -->
                     <div class=" w-full ">
-                        
-                        <lable for="dllSubCategory" class="my-auto ">Sub-Category Name </lable><span id="ddlSubCategoryWarning" class="formerror text-red-600 text-sm">vsdvsv</span>
+
+                        <lable for="dllSubCategory" class="my-auto ">Sub-Category Name </lable>
+                        <span id="ddlSubCategoryWarning" class="formerror text-red-600 text-sm">vsdvsv</span>
                         <select id="ddlSubCategory" onchange="FormValDropDown(this.id)" class="  bg-transparent py-3 px-2 border w-full border-classic-dimyellow  text-center">
                             <option>--Selesct--</option>
 
@@ -141,7 +142,7 @@
                 <!-- Action buttons -->
                 <div class="flex space-x-10">
                     <div class="">
-                        <input id="btnNext" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
+                        <input id="btnNext" onclick="" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
 
                     <div>
@@ -155,18 +156,15 @@
 
             <div data-step class="card hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
                 <h3 class="">This is Step 2</h3>
-                <div class="flex space-x-5 w-full">
+                <div id="MaterialCategories" class="overflow-y-auto max-h-48 border">
+                    <div class="min-h-[6rem] border  h-5 w-16">
 
-                    <lable for="txtSubCategoryName" class="my-auto">Sub-Category Name</lable>
-                    <div class="w-1/2">
-                        <div><span id="txtSubCategoryNameWarning" class="formerror text-red-600  text-sm"></span></div>
-                        <input id="txtSubCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
                     </div>
                 </div>
 
                 <!-- Action buttons -->
                 <div class="flex space-x-10">
-                    
+
                     <div class="">
                         <input id="btnPrevious" data-previous class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Previous" />
                     </div>
@@ -371,7 +369,9 @@
     <link href="Template/css/MultiStepForm.css" rel="stylesheet" />
     <script src="Template/Js/MultiStepForm.js"></script>
     <script>
-        // const { swal } = require("./Template/Js/sweetalert2@11");
+
+
+
 
 
         $(function () {
@@ -382,6 +382,7 @@
             })
             FillDishDetails(0);
             ListAllCategory();
+            // ListAllMaterialCategory();
         })
 
         function CategoryOnChange(id, value) {
@@ -442,7 +443,7 @@
 
                 $.ajax({
 
-                    url: "WebServices/DishMasterWebService.asmx/DishMasterManage",
+                    url: "../WebServices/DishMasterWebService.asmx/DishMasterManage",
                     method: "POST",
                     data: "{DishID:" + JSON.stringify(DishID) + ", SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + " ,Ingredience:" + JSON.stringify(Ingredience) + ",DishName:" + JSON.stringify(DishName) + ",DishPhoto:" + JSON.stringify(DishPhoto) + "}",
                     contentType: "application/json; charset=utf-8",
@@ -500,7 +501,7 @@
         function FillDishDetails(DishID) {
             $.ajax({
 
-                url: "WebServices/DishMasterWebService.asmx/DishMasterGet",
+                url: "../WebServices/DishMasterWebService.asmx/DishMasterGet",
                 method: "POST",
                 data: "{DishID:" + JSON.stringify(DishID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -559,7 +560,7 @@
         function EditDish(DishID) {
             $.ajax({
 
-                url: "WebServices/DishMasterWebService.asmx/DishMasterGet",
+                url: "../WebServices/DishMasterWebService.asmx/DishMasterGet",
                 method: "POST",
                 data: "{DishID:" + JSON.stringify(DishID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -618,7 +619,7 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/DishMasterWebService.asmx/DishMasterDelete",
+                        url: "../WebServices/DishMasterWebService.asmx/DishMasterDelete",
                         method: "POST",
                         data: "{DishID:" + JSON.stringify(DishID) + ", DishPhoto:" + JSON.stringify(DishPhoto) + "}",
                         contentType: "application/json; charset=utf-8",
@@ -758,7 +759,7 @@
 
             $.ajax({
 
-                url: "WebServices/CategoryMasterWebService.asmx/ListAllCategory",
+                url: "../WebServices/CategoryMasterWebService.asmx/ListAllCategory",
                 method: "POST",
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
@@ -785,7 +786,7 @@
 
             $.ajax({
 
-                url: "WebServices/SubCategoryMasterWebService.asmx/ListAllSubCategory",
+                url: "../WebServices/SubCategoryMasterWebService.asmx/ListAllSubCategory",
                 method: "POST",
                 data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -806,6 +807,94 @@
             });
 
 
+        }
+
+        function ListAllMaterial(CategoryID) {
+            //const materialcategories = [...document.querySelectorAll("[data-material-category]")]
+            //materialcategories.map(cat => {
+
+            $.ajax({
+                url: "../WebServices/MaterialMasterWebService.asmx/ListAllMaterialByCategory",
+                method: "POST",
+                data: "{MaterialCategoryID:" + JSON.stringify(CategoryID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnListAllMaterialSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+
+
+
+            //})
+
+        }
+
+        function OnListAllMaterialSuccess(response) {
+            debugger;
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+            var Details = xml.find("DataDetails");
+
+            var divTag = "";
+            var MaterialCategoryID;
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    divTag += ` <div class="min-h-[6rem] border  h-5 w-16" >
+                                            `+ $(this).find("MaterialName").text() + `
+                                 </div>
+                                `;
+                    MaterialCategoryID = $(this).find("MaterialCategoryID").text();
+                })
+            }
+            else {
+
+            }
+            $("#" + MaterialCategoryID).html(divTag);
+        }
+
+        function ListAllMaterialCategory() {
+            $.ajax({
+                url: "../WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterGet",
+                method: "POST",
+                data: "{MaterialCategoryID:0}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnListAllMaterialCategorySuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+
+        function OnListAllMaterialCategorySuccess(response) {
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+            var Details = xml.find("DataDetails");
+
+            var divTag = "";
+
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    divTag += ` <div data-material-category id="` + $(this).find("MaterialCategoryID").text() + `" class="flex space-x-10 border border-red-400 overflow-x-auto py-5" onload="ListAllMaterial(` + $(this).find("MaterialCategoryID").text() + `)">
+                                   
+                                </div>`;
+                })
+
+
+            }
+            else {
+
+            }
+            $("#MaterialCategories").html(divTag)
         }
         /* DropDown Filling Functions End*/
 
@@ -873,6 +962,14 @@
 
         }
         /* Form Validation Functions End*/
+
+        function test23() {
+            const materialcategories = [...document.querySelectorAll("[data-material-category]")]
+            materialcategories.map(cat => {
+                ListAllMaterial(cat.id)
+            })
+        }
+        test23();
 
 
     </script>
