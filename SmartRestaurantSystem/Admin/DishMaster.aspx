@@ -24,7 +24,7 @@
 
                 <!-- Step-1 Dish Name & Category -->
                 <div class="step text-center space-y-4">
-                    <p>Dish Category & Name</p>
+                    <p>Dish Details</p>
                     <div class="bullet flex space-x-2 ">
                         <span id="step1" class="border  py-1 px-3 rounded-full">1</span>
                         <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
@@ -91,17 +91,37 @@
 
                 <!-- Step-3   &  End-->
 
+                <div class="step text-center space-y-4">
+                    <p>Finished</p>
+                    <div class="bullet flex space-x-2 ">
+                        <span id="finished" class="border  py-1 px-1 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg></span>
+                       
+                    </div>
+
+                </div>
+
             </div>
         </section>
         <!-- MultiStep Progrees Bar End-->
 
-        <section data-multi-step id="test1" class="font-poppins-400 text-xl font-bold">
-            <!-- Step 1  Dish Category & Name-->
+        <!-- Hidden Fields Start-->
+        <input id="hdnDishID" type="hidden" />
+        <input id="fuDishPhoto" class="hidden py-3 px-3 rounded-full" type="file" />
+        <input id="hdnPhotoPath" type="hidden" />
+        <!-- Hidden Fields End-->
+
+
+        <!-- Multi-Step-Form  Start-->
+        <section data-multi-step-form id="test1" class="font-poppins-400 text-xl font-bold">
+
+            <!-- Step 1  Dish Category & Name Start-->
             <div data-step class="card  hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
                 <h3 class="">This is Step 1</h3>
                 <!--Other Fields -->
                 <div class="grid gap-11 2xl:grid-cols-3  xl:grid-cols-2  ">
-                    <input id="hdnDishID" type="hidden" />
 
                     <!-- Category Name -->
                     <div class="  w-full ">
@@ -143,18 +163,19 @@
                 <!-- Action buttons -->
                 <div class="flex space-x-10">
                     <div class="">
-                        <input id="btnNext" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
+                        <input id="btnStep1Next" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
 
                     <div>
-                        <input id="btnClear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
+                        <input id="btnStep1Clear" onclick="ClearField()" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
                 </div>
                 <!--Action Buttons End-->
 
             </div>
-            <!-- Step 1 Dish Category & Name End -->
+            <!-- Step 1 Dish Category & Name End-->
 
+            <!-- Step 2 Ingredients Start-->
             <div data-step class="card hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
                 <h3 class="">This is Step 2</h3>
                 <div id="MaterialCategories" class="overflow-y-auto max-h-96 border">
@@ -164,57 +185,83 @@
                 <div class="flex space-x-10">
 
                     <div class="">
-                        <input id="btnPrevious" data-previous class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Previous" />
+                        <input id="btnStep2Previous" data-previous class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Previous" />
                     </div>
                     <div class="">
-                        <input id="btnNext" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
+                        <input id="btnStep2Next" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
                     <div>
-                        <input id="btnClear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
+                        <input id="btnStep2Clear" onclick="ClearField()" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
                 </div>
                 <!--Action Buttons End-->
 
             </div>
+            <!-- Step 2 Ingredients End-->
+
+            <!-- Step 3 Dish Photo Start-->
             <div data-step class="card hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
                 <h3 class="">This is Step 3</h3>
-                <div class="flex space-x-5 w-full">
+                <div class="flex justify-center w-full ">
 
-                    <lable for="txtSubCategoryName" class="my-auto">Sub-Category Name</lable>
-                    <div class="w-1/2">
-                        <div><span id="txtSubCategoryNameWarning" class="formerror text-red-600  text-sm"></span></div>
-                        <input id="txtSubCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
+                    <!--Image Preview-->
+                    <div class="md:flex md:justify-center  ">
+                        <div class="text-center min-w-[15rem] max-w-[20rem] h-full rounded-lg overflow-hidden ">
+                            <div><span id="imgDishPhotoWarning" class="formerror text-red-600  text-sm"></span></div>
+
+                            <label for="fuDishPhoto" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <img id="imgDishPhoto" alt="" onchange="FormValTextBox(this.id)" src="#" style="display: none;" class="h-full w-full" />
+                                <div class="ImagePreviewLabel  flex flex-col items-center justify-center absolute pt-5 pb-6">
+                                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentcolor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 16a4 4 0 01-.88-7.903a5 5 0 1115.9 6l16 6a5 5 0 011 9.9m15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">png or jpg  (max. 800x400px)</p>
+                                </div>
+                            </label>
+                        </div>
                     </div>
+                    <!--Image Preview End-->
                 </div>
 
                 <!-- Action buttons -->
                 <div class="flex space-x-10">
 
                     <div class="">
-                        <input id="btnPrevious" data-previous class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Previous" />
+                        <input id="btnStep3Previous" data-previous class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Previous" />
                     </div>
                     <div class="">
-                        <input id="btnSubmit" class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Submit" />
+                        <input id="btnSubmit" data-next  class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Submit" />
                     </div>
                     <div>
-                        <input id="btnClear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
+                        <input id="btnStep3Clear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
                 </div>
                 <!--Action Buttons End-->
 
             </div>
+            <!-- Step 3 Dish Photo End-->
+
+            <div data-step class="flex card hidden justify-center items-center text-center w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
+                <div>
+                    <h1 class="text-5xl text-green-600">Success</h1>
+                    <h4 class="text-3xl">Dish Added Successfully</h4>
+                    <input type="button" onclick="AddDish()" value="+ Add Dish" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer"/>
+                </div>
+            </div>
 
 
         </section>
+        <!-- Multi-Step-Form  End-->
 
 
-        <div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5">
+        <%--<div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5">
             <div class="w-full">
                 <div class="font-poppins-400 text-xl w-full space-y-12 px-5 py-5 font-bold">
 
                     <!-- Fields -->
 
-                    <!--Image Preview-->
+
+                    <%--<!--Image Preview-->
                     <div class="md:flex md:justify-center xl:items-end xl:justify-start ">
                         <div class="text-center min-w-[15rem]  h-[17rem] rounded-lg overflow-hidden ">
                             <div><span id="imgDishPhotoWarning" class="formerror text-red-600  text-sm"></span></div>
@@ -230,98 +277,22 @@
                             </label>
                         </div>
                     </div>
-                    <!--Image Preview End-->
+                    <!--Image Preview End-->--%>
 
-                    <!--Other Fields -->
-                    <div class="grid gap-11 md:grid-cols-2  ">
-                        <!-- Category Name -->
-                        <div class="flex space-x-5 w-full ">
-                            <input id="hdnDishID" type="hidden" />
-                            <lable for="dllCategory" class="my-auto">Category Name </lable>
-                            <div class="w-full">
-                                <div><span id="ddlCategoryWarning" class="formerror text-red-600 text-sm"></span></div>
+                
 
-                                <select id="ddlCategory" onchange="CategoryOnChange(this.id,this.value)" class="mx-auto  bg-transparent py-3 px-2 border w-full border-classic-dimyellow w-1/2 text-center">
-                                    <option>--Selesct Category--</option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Category Name End-->
-
-                        <!-- Sub-Category Name -->
-                        <div class="flex space-x-5 w-full ">
-
-                            <lable for="dllSubCategory" class="my-auto">Sub-Category Name </lable>
-                            <div class="w-full">
-                                <div><span id="ddlSubCategoryWarning" class="formerror text-red-600 text-sm"></span></div>
-
-                                <select id="ddlSubCategory" onchange="FormValDropDown(this.id)" class="  bg-transparent py-3 px-2 border w-full border-classic-dimyellow w-1/2 text-center">
-                                    <option>--Selesct Sub-Category--</option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Sub-Category Name End-->
-
-                        <!-- Ingredience-->
-                        <div class="flex space-x-5 w-full ">
-                            <lable for="txtIngredience" class="my-auto w-1/5">Ingredience </lable>
-                            <div class="w-full">
-                                <div><span id="txtIngredienceWarning" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtIngredience" onkeyup="FormValTextBox(this.id)" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
-                            </div>
-                        </div>
-                        <!-- Ingredience End-->
-
-                        <!-- Dish Name -->
-                        <div class="flex space-x-5 w-full ">
-                            <lable for="txtDishName" class="my-auto w-1/5">Dish Name </lable>
-                            <div class="w-full">
-                                <div><span id="txtDishNameWarning" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtDishName" onkeyup="FormValTextBox(this.id)" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
-                            </div>
-                        </div>
-                        <!-- Dish Name End-->
-
+               <%-- <!-- Buttons -->
+                <div class="flex space-x-10">
+                    <div class="">
+                        <input id="btnSave" class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer active:bg-black" type="button" value="Save" />
                     </div>
-                    <!--Other Fields End-->
-
-
                     <div>
-                        <input id="fuDishPhoto" class="hidden py-3 px-3 rounded-full
-                                                        bg-gradient-to-br from-neutral-600 to-stone-700
-                                                        file:rounded-full
-                                                        file:border-none
-                                                        file:text-white
-                                                        file:px-6 file:py-3
-                                                        file:cursor-pointer
-                                                        file:shadow-lg file:shadow-yellow-900/50
-                                                        cursor-pointer shadow-lg shadow-yellow-700/50
-                                                        file:bg-yellow-800"
-                            type="file" />
+                        <input id="btnClear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
-                    <input id="hdnPhotoPath" type="hidden" />
-
-
-                    <!-- Fields End-->
-
-                    <!-- Buttons -->
-                    <div class="flex space-x-10">
-                        <div class="">
-                            <input id="btnSave" class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer active:bg-black" type="button" value="Save" />
-                        </div>
-                        <div>
-                            <input id="btnClear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
-                        </div>
-                    </div>
-                    <!-- Buttons End-->
-
-
                 </div>
-            </div>
+                <!-- Buttons End-->--%>
 
-        </div>
+
 
         <!--Table Section-->
         <div class="w-full my-5  shadow-2xl  text-classic-yellow font-poppins-400 bg-classic-brown py-5 px-5">
@@ -369,6 +340,7 @@
     <script>
         // Variables
         var ingredients = [];
+        var idishid = "";
 
         $(function () {
             table = $("#tblData").DataTable({
@@ -387,48 +359,34 @@
         }
 
 
-        function ClearFields() {
-
-            var prelabel = document.querySelector(".ImagePreviewLabel");
-            prelabel.classList.remove("hidden");
-            $('#ddlCategory').val(0);
-            $('#ddlSubCategory').val(0);
-            $('#txtIngredience').val("");
-            $('#txtDishName').val("");
-            $('#hdnDishesID').val("");
-            $('#imgDishPhoto').removeAttr('src');
-            $('#imgDishPhoto').css('display', 'none');
-
-            $("[id=btnSave]").val("Save");
-            $("[id=btnClear]").val("Clear");
-
+        function AddDish() {
+            currentStep = 0;
+            showCurrentStep();
         }
 
 
-        $("#btnSave").on('click', function () {
+        $("#btnSubmit").on('click', function () {
             debugger;
 
             var categoryid = $('#ddlCategory');
             var subcategoryid = $('#ddlSubCategory');
             var dishid = $('#hdnDishID');
             var dishname = $('#txtDishName');
-            var ingredience = $('#txtIngredience');
             var dishphoto = $('#fuDishPhoto');
             // var dishphoto = $("#DishPhoto");
-            var hdnphototpath = $("#hdnPhotoPath");
+            var hdnphotopath = $("#hdnPhotoPath");
 
 
-            var Validate = FormValidation(categoryid, subcategoryid, ingredience, dishname, dishphoto, hdnphototpath);
+            var Validate = FormValidation(categoryid, subcategoryid, dishname, dishphoto, hdnphotopath);
             if (Validate == true) {
 
                 var DishID = dishid.val() == "" ? 0 : dishid.val();
                 var CategoryID = categoryid.val();
                 var SubCategoryID = subcategoryid.val();
-                var Ingredience = ingredience.val().trim();
                 var DishName = dishname.val().trim();
                 var DishPhoto = ""
-                if (hdnphototpath.val() != "") {
-                    DishPhoto = hdnphototpath.val();
+                if (hdnphotopath.val() != "") {
+                    DishPhoto = hdnphotopath.val();
 
                 } else {
                     if (dishphoto.val() != "") {
@@ -441,19 +399,21 @@
 
                     url: "../WebServices/DishMasterWebService.asmx/DishMasterManage",
                     method: "POST",
-                    data: "{DishID:" + JSON.stringify(DishID) + ", SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + " ,Ingredience:" + JSON.stringify(Ingredience) + ",DishName:" + JSON.stringify(DishName) + ",DishPhoto:" + JSON.stringify(DishPhoto) + "}",
+                    data: "{DishID:" + JSON.stringify(DishID) + ", SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + ",DishName:" + JSON.stringify(DishName) + ",DishPhoto:" + JSON.stringify(DishPhoto) + "}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
                         var result = res.d;
                         if (result.includes("error")) {
                             console.log(result);
-                        } else if (result.includes("Success")) {
+                        } else if (!result.includes("error")) {
+                            idishid = result;
                             swal.fire({
                                 icon: "success",
-                                text: result,
+                                text: "Record Inserted Successfully",
                                 background: '#27272a',
                             })
+                            
                         }
                     },
                     error: function (err) {
@@ -461,38 +421,129 @@
                     }
 
                 });
+                InsertIngredients(idishid);
                 FillDishDetails(0);
-                ClearFields();
+                ResetPage();
+
+                currentStep += 1;
+                showCurrentStep();
             }
 
 
         });
 
 
-        $("#btnClear").on('click', function () {
-            var categoryid = $("#hdnDishID");
+        function InsertIngredients(DishID) {
+            debugger;
+            ingredients.map(ing => {
 
-            if (categoryid.val() > 0) {
+                $.ajax({
 
-                $("[id=btnSave]").val("Save");
-                $("[id=btnClear]").val("Clear");
+                    url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterInsert",
+                    method: "POST",
+                    data: "{MaterialID:" + JSON.stringify(ing) + ",DishID:" + JSON.stringify(DishID) + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var result = res.d;
+                        if (result.includes("error")) {
+                            console.log(result);
+                        } else if (!result.includes("error")) {
+                            
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
 
-                ClearFields();
+                });
 
-                Swal.fire({
-                    title: 'Cancled',
-                    text: 'Record Updation Terminted',
-                    color: "white",
-                    background: '#27272a',
-                    icon: 'info'
+            });
 
+            swal.fire({
+                icon: "success",
+                text: "All The Ingredients has been Inserted Successfully",
+                background: '#27272a',
+            })
+
+           
+        }
+
+
+        /* Clear Functions Start */
+        function ClearField() {
+            debugger;
+            if ($('#btnStep1Clear').click) {
+
+                $('#ddlCategory').val(0);
+                $('#ddlSubCategory').val(0);
+                $('#txtDishName').val("");
+
+            }
+
+            if ($('#btnStep2Clear').click) {
+                debugger;
+                var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+                checkboxes.map(box => {
+                    box.checked = false;
                 })
-
-            } else {
-                ClearFields();
+                ingredients = [];
             }
 
-        });
+            if ($('#btnStep3Clear').click) {
+
+            }
+           
+        }
+
+        function ResetPage() {
+            debugger;
+            var prelabel = document.querySelector(".ImagePreviewLabel");
+            prelabel.classList.remove("hidden");
+            $('#ddlCategory').val(0);
+            $('#ddlSubCategory').val(0);
+            $('#txtDishName').val("");
+            $('#hdnDishesID').val("");
+            $('#imgDishPhoto').removeAttr('src');
+            $('#imgDishPhoto').css('display', 'none');
+            idishid = "";
+
+            $("[id=btnSave]").val("Save");
+            $("[id=btnClear]").val("Clear");
+
+            
+
+        }
+
+        //$("#btnClear").on('click', function () {
+        //    var categoryid = $("#hdnDishID");
+
+        //    if (categoryid.val() > 0) {
+
+        //        $("[id=btnSave]").val("Save");
+        //        $("[id=btnClear]").val("Clear");
+
+        //        ClearFields();
+
+        //        Swal.fire({
+        //            title: 'Cancled',
+        //            text: 'Record Updation Terminted',
+        //            color: "white",
+        //            background: '#27272a',
+        //            icon: 'info'
+
+        //        })
+
+        //    } else {
+        //        ClearFields();
+        //    }
+
+        //});
+
+
+
+        /* Clear Functions End*/
+
 
         function FillDishDetails(DishID) {
             $.ajax({
@@ -642,7 +693,7 @@
 
                     });
                     FillDishDetails(0);
-                    ClearFields();
+                    
 
 
 
@@ -911,7 +962,8 @@
 
 
         /* Form Validation Functions*/
-        function FormValidation(categoryid, subcategoryid, ingredience, dishname, dishphoto, hdnphototpath) {
+        function FormValidation(categoryid, subcategoryid, dishname, dishphoto, hdnphotopath) {
+            debugger;
             var returnval = true;
             if (categoryid.val() == 0) {
                 $('#ddlCategoryWarning').text("*Please Select the Catgoey Name");
@@ -924,17 +976,13 @@
                 returnval = false;
             }
 
-            if (ingredience.val() == "") {
-                $('#txtIngredienceWarning').text("*Please Enter the Ingredience")
-                returnval = false;
-            }
 
             if (dishname.val() == "") {
                 $('#txtDishNameWarning').text("*Please Enter the Dish Name")
                 returnval = false;
             }
 
-            if (hdnphototpath.val() == '') {
+            if (hdnphotopath.val() == '') {
                 if (dishphoto.val() == '') {
                     $('#imgDishPhotoWarning').text("*Please Select the Dish Photo")
                     swal.fire({
@@ -957,6 +1005,7 @@
         }
 
         function Step1Validation(categoryid, subcategoryid, dishname) {
+            debugger;
             var returnval = true;
             if (categoryid.val() == 0) {
                 $('#ddlCategoryWarning').text("*Please Select the Catgoey Name");
@@ -979,6 +1028,7 @@
         }
 
         function Step2Validation(ingredients) {
+            debugger;
             var returnval = true;
             if (ingredients.length <= 0) {
                 swal.fire({
@@ -994,7 +1044,7 @@
             return returnval;
         }
 
-        
+
         /* Form Validation Functions End*/
 
         multiStepForm.addEventListener("click", e => {
@@ -1020,7 +1070,11 @@
                     }
                 }
 
-                
+                //if (currentStep == 2) {
+                //    currentStep += 1;
+                //}
+
+
 
             } else if (e.target.matches("[data-previous]")) {
                 currentStep -= 1
@@ -1045,7 +1099,7 @@
                 });
                 console.log(ingredients)
             }
-            
+
             showCurrentStep()
         })
 

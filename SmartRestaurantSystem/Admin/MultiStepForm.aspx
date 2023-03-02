@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <!-- Multi-Step-Progress-Bar -->
     <section class=" card justify-around flex space-x-10  w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
         <div class="progress-bar flex font-bold w-full justify-around mx-52 ">
 
@@ -21,13 +22,12 @@
                 </div>
 
             </div>
-
             <!-- -- Step 1 Progress Line -- -->
             <span id="step1ProgressLine" class=" h-1 w-1/5 bg-yellow-900 my-auto"></span>
             <!-- -- Step 1 Progress Line End -- -->
-
-
             <!-- Step-1 Dish Name & Category End-->
+
+
 
             <!-- Step-2   -->
             <div class="step text-center space-y-4">
@@ -44,13 +44,11 @@
                 </div>
 
             </div>
-
             <!-- -- Step 2 Progress Line -- -->
             <span id="step2ProgressLine" class=" h-1 w-1/5 bg-yellow-900 my-auto"></span>
             <!-- -- Step 2 Progress Line End -- -->
+            <!-- Step-2 End-->
 
-
-            <!-- Step-2     End-->
 
             <!-- Step-3    -->
             <div class="step text-center space-y-4">
@@ -77,8 +75,12 @@
 
         </div>
     </section>
+    <!-- Multi-Step-Progress-Bar -->
+
+
+    <!-- Multi-Step-Form Start-->
     <section data-multi-step>
-        <!-- Step 1  -->
+        <!-- Step 1  Dish Ctageory & Name Start-->
         <div data-step class="card  hidden w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <h3 class="">This is Step 1</h3>
             <div class="flex space-x-5 w-full">
@@ -103,8 +105,9 @@
             <!--Action Buttons End-->
 
         </div>
-        <!-- Step 1  -->
+        <!-- Step 1   Dish Ctageory & Name End-->
 
+        <!-- Step 2 Ingredients Start-->
         <div data-step class="card hidden w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <h3 class="">This is Step 2</h3>
             <div class="flex space-x-5 w-full">
@@ -131,6 +134,9 @@
             <!--Action Buttons End-->
 
         </div>
+        <!-- Step 2 Ingredients End-->
+
+        <!-- Step 3 Dish Photo Start-->
         <div data-step class="card hidden w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <h3 class="">This is Step 3</h3>
             <div class="flex space-x-5 w-full">
@@ -161,6 +167,8 @@
 
 
     </section>
+    <!-- Multi-Step-Form Start End-->
+
     <link href="Template/css/MultiStepForm.css" rel="stylesheet" />
     <script src="Template/Js/MultiStepForm.js"></script>
 </asp:Content>

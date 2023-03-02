@@ -1,6 +1,6 @@
 ﻿
 
-const multiStepForm = document.querySelector("[data-multi-step]")
+const multiStepForm = document.querySelector("[data-multi-step-form]")
 const formSteps = [...multiStepForm.querySelectorAll("[data-step]")]
 const step1 = document.getElementById('step1');
 const step1ProgressLine = document.getElementById('step1ProgressLine');
@@ -8,7 +8,7 @@ const step2 = document.getElementById('step2');
 const step2ProgressLine = document.getElementById('step2ProgressLine');
 const step3 = document.getElementById('step3');
 const step3ProgressLine = document.getElementById('step3ProgressLine');
-
+const finished = document.getElementById('finished');
 
 let currentStep = formSteps.findIndex(step => {
     return step.classList.contains("active");
@@ -18,6 +18,7 @@ let currentStep = formSteps.findIndex(step => {
 
 
 if (currentStep < 0) {
+    debugger;
     currentStep = 0
     showCurrentStep()
 
@@ -55,9 +56,16 @@ function FillProgressLine() {
         step3.classList.remove("progress-done");
         step3ProgressLine.classList.remove("progress-line")
     }
+
+    if (currentStep == 3) {
+        finished.classList.add("progress-done");
+    }
+
+
 }
 
 function showCurrentStep() {
+    debugger;
     formSteps.forEach((step, index) => {
         if (index === currentStep) {
             step.classList.toggle("active", index == currentStep)

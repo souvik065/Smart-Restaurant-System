@@ -43,10 +43,10 @@ public class DishMasterWebService : System.Web.Services.WebService
                 cmd.Parameters.AddWithValue("@DishPhoto", DishPhoto).DbType = DbType.String;
 
 
-                cmd.ExecuteNonQuery();
+                msg = cmd.ExecuteScalar().ToString();
                 cmd.Dispose();
 
-                msg = "Record Inserted Successfully";
+               
 
                 con.Close();
             }
