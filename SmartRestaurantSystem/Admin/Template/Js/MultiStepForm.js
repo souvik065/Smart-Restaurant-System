@@ -9,11 +9,12 @@ const step2ProgressLine = document.getElementById('step2ProgressLine');
 const step3 = document.getElementById('step3');
 const step3ProgressLine = document.getElementById('step3ProgressLine');
 
+
 let currentStep = formSteps.findIndex(step => {
     return step.classList.contains("active");
 })
 
-console.log(currentStep);
+
 
 
 if (currentStep < 0) {
@@ -22,15 +23,9 @@ if (currentStep < 0) {
 
 }
 
-multiStepForm.addEventListener("click", e => {
-    if (e.target.matches("[data-next]")) {
-        currentStep += 1
-    } else if (e.target.matches("[data-previous]")) {
-        currentStep -= 1
-    }
-    console.log("Pre",currentStep)
-    showCurrentStep()
-})
+
+
+
 
 
 function FillProgressLine() {
@@ -77,6 +72,7 @@ function showCurrentStep() {
         console.log("Current Step", currentStep)
     })
 }
+
 
 
 

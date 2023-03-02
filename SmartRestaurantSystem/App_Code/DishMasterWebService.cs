@@ -25,7 +25,7 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string DishMasterManage(Int32 DishID, Int32 CategoryID, Int32 SubCategoryID,  String Ingredience, String DishName, String DishPhoto)
+    public string DishMasterManage(Int32 DishID, Int32 CategoryID, Int32 SubCategoryID, String DishName, String DishPhoto)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -39,7 +39,6 @@ public class DishMasterWebService : System.Web.Services.WebService
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@CategoryID", CategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@SubCategoryID", SubCategoryID).DbType = DbType.Int32;
-                cmd.Parameters.AddWithValue("@Ingredience", Ingredience).DbType = DbType.String;
                 cmd.Parameters.AddWithValue("@DishName", DishName).DbType = DbType.String;
                 cmd.Parameters.AddWithValue("@DishPhoto", DishPhoto).DbType = DbType.String;
 
@@ -61,7 +60,6 @@ public class DishMasterWebService : System.Web.Services.WebService
                 cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@CategoryID", CategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@SubCategoryID", SubCategoryID).DbType = DbType.Int32;
-                cmd.Parameters.AddWithValue("@Ingredience", Ingredience).DbType = DbType.String;
                 cmd.Parameters.AddWithValue("@DishName", DishName).DbType = DbType.String;
                 cmd.Parameters.AddWithValue("@DishPhoto", DishPhoto).DbType = DbType.String;
                 cmd.ExecuteNonQuery();

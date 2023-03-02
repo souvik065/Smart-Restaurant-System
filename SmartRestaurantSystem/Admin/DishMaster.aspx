@@ -24,7 +24,7 @@
 
                 <!-- Step-1 Dish Name & Category -->
                 <div class="step text-center space-y-4">
-                    <p>Dish Name</p>
+                    <p>Dish Category & Name</p>
                     <div class="bullet flex space-x-2 ">
                         <span id="step1" class="border  py-1 px-3 rounded-full">1</span>
                         <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
@@ -47,7 +47,7 @@
 
                 <!-- Step-2   -->
                 <div class="step text-center space-y-4">
-                    <p>Dish Name</p>
+                    <p>Ingrediency</p>
                     <div class="bullet flex space-x-2 ">
                         <span id="step2" class="border  py-1 px-3 rounded-full">2</span>
                         <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
@@ -70,7 +70,7 @@
 
                 <!-- Step-3    -->
                 <div class="step text-center space-y-4">
-                    <p>Dish Name</p>
+                    <p>Dish Photo</p>
                     <div class="bullet flex space-x-2 ">
                         <span id="step3" class="border  py-1 px-3 rounded-full">3</span>
                         <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
@@ -101,12 +101,13 @@
                 <h3 class="">This is Step 1</h3>
                 <!--Other Fields -->
                 <div class="grid gap-11 2xl:grid-cols-3  xl:grid-cols-2  ">
+                    <input id="hdnDishID" type="hidden" />
+
                     <!-- Category Name -->
-                    <div class=" space-x-5 w-full ">
-                        <input id="hdnDishID" type="hidden" />
+                    <div class="  w-full ">
 
                         <lable for="dllCategory" class="my-auto ">Category Name </lable>
-                        <span id="ddlCategoryWarning" class="formerror text-red-600 text-sm">dsdsascsvsvsdjkvasgvyi</span>
+                        <span id="ddlCategoryWarning" class="formerror text-red-600 text-sm"></span>
 
                         <select id="ddlCategory" onchange="CategoryOnChange(this.id,this.value)" class="mx-auto  bg-transparent py-3 px-2 border w-full border-classic-dimyellow w-1/2 text-center">
                             <option>--Selesct--</option>
@@ -120,7 +121,7 @@
                     <div class=" w-full ">
 
                         <lable for="dllSubCategory" class="my-auto ">Sub-Category Name </lable>
-                        <span id="ddlSubCategoryWarning" class="formerror text-red-600 text-sm">vsdvsv</span>
+                        <span id="ddlSubCategoryWarning" class="formerror text-red-600 text-sm"></span>
                         <select id="ddlSubCategory" onchange="FormValDropDown(this.id)" class="  bg-transparent py-3 px-2 border w-full border-classic-dimyellow  text-center">
                             <option>--Selesct--</option>
 
@@ -142,7 +143,7 @@
                 <!-- Action buttons -->
                 <div class="flex space-x-10">
                     <div class="">
-                        <input id="btnNext" onclick="" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
+                        <input id="btnNext" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
 
                     <div>
@@ -152,14 +153,11 @@
                 <!--Action Buttons End-->
 
             </div>
-            <!-- Step 1  -->
+            <!-- Step 1 Dish Category & Name End -->
 
             <div data-step class="card hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
                 <h3 class="">This is Step 2</h3>
-                <div id="MaterialCategories" class="overflow-y-auto max-h-48 border">
-                    <div class="min-h-[6rem] border  h-5 w-16">
-
-                    </div>
+                <div id="MaterialCategories" class="overflow-y-auto max-h-96 border">
                 </div>
 
                 <!-- Action buttons -->
@@ -369,10 +367,8 @@
     <link href="Template/css/MultiStepForm.css" rel="stylesheet" />
     <script src="Template/Js/MultiStepForm.js"></script>
     <script>
-
-
-
-
+        // Variables
+        var ingredients = [];
 
         $(function () {
             table = $("#tblData").DataTable({
@@ -382,7 +378,7 @@
             })
             FillDishDetails(0);
             ListAllCategory();
-            // ListAllMaterialCategory();
+            ListAllMaterialCategory();
         })
 
         function CategoryOnChange(id, value) {
@@ -810,8 +806,7 @@
         }
 
         function ListAllMaterial(CategoryID) {
-            //const materialcategories = [...document.querySelectorAll("[data-material-category]")]
-            //materialcategories.map(cat => {
+
 
             $.ajax({
                 url: "../WebServices/MaterialMasterWebService.asmx/ListAllMaterialByCategory",
@@ -829,8 +824,6 @@
 
 
 
-            //})
-
         }
 
         function OnListAllMaterialSuccess(response) {
@@ -844,9 +837,17 @@
             if (Details.length > 0) {
                 $.each(Details, function () {
 
-                    divTag += ` <div class="min-h-[6rem] border  h-5 w-16" >
-                                            `+ $(this).find("MaterialName").text() + `
-                                 </div>
+                    divTag += `<div class=" h-[9rem] overflow-hidden bg-classic-dark-brown  min-w-[5rem] max-w-[9rem] px-3 rounded " >
+                                <div class="">
+                                    <input id="Checkbox`+ $(this).find("MaterialName").text() + `" class="MaterialCheckbox"  type="checkbox" name="Material" value="` + $(this).find("MaterialID").text() + `" />
+                                    <label for="Checkbox`+ $(this).find("MaterialName").text() + `" class="cursor-pointer w-full h-full  ">
+                                        <div class="rounded ">
+                                        <img class="w-full  max-h-max " src="../Assets/Images/`+ $(this).find("MaterialPhoto").text() + `" />
+                                        </div>
+                                        <div class="font-semibold text-gray-400">`+ $(this).find("MaterialName").text() + `</div>
+                                    </label>
+                                </div>
+                            </div>
                                 `;
                     MaterialCategoryID = $(this).find("MaterialCategoryID").text();
                 })
@@ -884,8 +885,13 @@
             if (Details.length > 0) {
                 $.each(Details, function () {
 
-                    divTag += ` <div data-material-category id="` + $(this).find("MaterialCategoryID").text() + `" class="flex space-x-10 border border-red-400 overflow-x-auto py-5" onload="ListAllMaterial(` + $(this).find("MaterialCategoryID").text() + `)">
-                                   
+                    divTag += ` <div  class=" space-x-10  overflow-x-auto py-2 px-2 border-t border-t border-classic-dimyellow" >
+                                    <div class="">
+                                      <h4 class="font-playfair-display-500 font-bold">`+ $(this).find("MaterialCategoryName").text() + `</h4>
+                                    </div>
+                                    <div data-material-category class="flex py-2 space-x-10"  id="` + $(this).find("MaterialCategoryID").text() + `" >
+
+                                    </div>
                                 </div>`;
                 })
 
@@ -894,7 +900,12 @@
             else {
 
             }
-            $("#MaterialCategories").html(divTag)
+            $("#MaterialCategories").html(divTag);
+
+            $.each(Details, function () {
+                ListAllMaterial($(this).find("MaterialCategoryID").text());
+
+            })
         }
         /* DropDown Filling Functions End*/
 
@@ -902,7 +913,6 @@
         /* Form Validation Functions*/
         function FormValidation(categoryid, subcategoryid, ingredience, dishname, dishphoto, hdnphototpath) {
             var returnval = true;
-            debugger;
             if (categoryid.val() == 0) {
                 $('#ddlCategoryWarning').text("*Please Select the Catgoey Name");
                 returnval = false;
@@ -946,30 +956,99 @@
 
         }
 
-        function FormValTextBox(id) {
-            if ($("#" + id).val() != "") {
-                $("#" + id + "Warning").text("");
+        function Step1Validation(categoryid, subcategoryid, dishname) {
+            var returnval = true;
+            if (categoryid.val() == 0) {
+                $('#ddlCategoryWarning').text("*Please Select the Catgoey Name");
+                returnval = false;
             }
 
+            if (subcategoryid.val() == 0) {
+                $('#ddlSubCategoryWarning').text("*Please Select the SubCatgoey Name")
+                console.log(subcategoryid.val());
+                returnval = false;
+            }
+
+            if (dishname.val() == "") {
+                $('#txtDishNameWarning').text("*Please Enter the Dish Name")
+                returnval = false;
+            }
+
+            return returnval;
 
         }
 
-        function FormValDropDown(id) {
-            if ($("#" + id).val() != 0) {
-                $("#" + id + "Warning").text("");
+        function Step2Validation(ingredients) {
+            var returnval = true;
+            if (ingredients.length <= 0) {
+                swal.fire({
+                    title: "Ingredients is Not Selected",
+                    text: "Please Select the Ingredients",
+                    icon: "Altert",
+                    background: '#27272a',
+
+                })
+                returnval = false;
             }
 
-
+            return returnval;
         }
+
+        
         /* Form Validation Functions End*/
 
-        function test23() {
-            const materialcategories = [...document.querySelectorAll("[data-material-category]")]
-            materialcategories.map(cat => {
-                ListAllMaterial(cat.id)
-            })
-        }
-        test23();
+        multiStepForm.addEventListener("click", e => {
+
+            if (e.target.matches("[data-next]")) {
+                debugger;
+
+                if (currentStep == 1) {
+                    var validate = Step2Validation(ingredients);
+                    if (validate == true) {
+                        currentStep += 1;
+                    }
+                }
+
+                if (currentStep == 0) {
+                    var categoryid = $('#ddlCategory');
+                    var subcategoryid = $('#ddlSubCategory');
+                    var dishname = $('#txtDishName');
+                    var validate = Step1Validation(categoryid, subcategoryid, dishname)
+                    if (validate == true) {
+                        currentStep += 1
+
+                    }
+                }
+
+                
+
+            } else if (e.target.matches("[data-previous]")) {
+                currentStep -= 1
+            }
+
+            // Storing Ingredience to an Array Variable 
+            var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+            for (var checkbox of checkboxes) {
+                checkbox.addEventListener("click", function () {
+                    if (this.checked == true) {
+                        if (!ingredients.includes(this.value)) {
+                            ingredients.push(this.value);
+
+                        }
+
+                    } else {
+                        if (ingredients.includes(this.value)) {
+
+                            ingredients.splice(ingredients.indexOf(this.value), 1)
+                        }
+                    }
+                });
+                console.log(ingredients)
+            }
+            
+            showCurrentStep()
+        })
+
 
 
     </script>

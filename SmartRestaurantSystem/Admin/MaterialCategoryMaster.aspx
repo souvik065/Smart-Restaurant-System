@@ -131,7 +131,7 @@
 
                 $.ajax({
 
-                    url: "WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterManage",
+                    url: "../WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterManage",
                     method: "POST",
                     data: "{MaterialCategoryID:" + JSON.stringify(MaterialCategoryID) + ", MaterialCategoryName:" + JSON.stringify(MaterialCategoryName) + "}",
                     contentType: "application/json; charset=utf-8",
@@ -189,7 +189,7 @@
         function FillMaterialCategoryDetails(MaterialCategoryID) {
             $.ajax({
 
-                url: "WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterGet",
+                url: "../WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterGet",
                 method: "POST",
                 data: "{MaterialCategoryID:" + JSON.stringify(MaterialCategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -241,7 +241,7 @@
         function EditMaterialCategory(MaterialCategoryID) {
             $.ajax({
 
-                url: "WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterGet",
+                url: "../WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterGet",
                 method: "POST",
                 data: "{MaterialCategoryID:" + JSON.stringify(MaterialCategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -292,7 +292,7 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterDelete",
+                        url: "../WebServices/MaterialCategoryMasterWebService.asmx/MaterialCategoryMasterDelete",
                         method: "POST",
                         data: "{MaterialCategoryID:" + JSON.stringify(MaterialCategoryID) + "}",
                         contentType: "application/json; charset=utf-8",

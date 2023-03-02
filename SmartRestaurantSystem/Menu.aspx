@@ -1,15 +1,15 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/ClientMasterPage.master" AutoEventWireup="false" CodeFile="Menu.aspx.vb" Inherits="Menu" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientMasterPage.master" AutoEventWireup="true" CodeFile="Menu.aspx.cs" Inherits="Menu" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <section class="h-screen bg-restaurantly-brown text-white">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <section class="h-full bg-restaurantly-brown text-white">
         <div class="flex  justify-center py-10">
             <div class="w-full mx-5 text-classic-yellow">
                 <!-- Section Title -->
-                <div class="section-title my-16  w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10">
-                    <h2 class="title font-semibold text-gray-400">MENU</h2>
-                    <p class="font-playfair-display-700 text-3xl">Choose Your Category</p>
+                <div class="section-title my-16 space-y-5 w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10">
+                    <h2 class="title font-semibold text-gray-400 ">M E N U</h2>
+                    <p class="font-playfair-display-700 text-5xl">Choose Your Category</p>
                 </div>
                 <!-- Section Title End-->
 
@@ -26,7 +26,7 @@
                 </div>
                 <!-- Filters End-->
 
-                <!-- Menu List -->
+                <!-- Category List -->
                 <div class="text-white menu-list">
                     <div class="grid xl:grid-cols-3 md:grid-cols-2  md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10" id="CategoryMenu">
 

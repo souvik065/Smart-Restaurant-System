@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <section class="h-full">
-        <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
+        <div class="w-full my-5 text-classic-yellow font-playfair-display-700 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
                     <h1 class="text-5xl">Table Master</h1>
@@ -23,18 +23,18 @@
             <div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 ">
                 <div class="w-full">
                     <div class="font-poppins-400 text-xl w-full space-y-10 font-bold">
+                        <!-- ID -->
+                        <input id="hdnTableID" type="hidden" />
+                        <!-- ID End-->
+
                         <!-- Fields -->
                         <!-- Table No -->
 
-                        <div class="flex space-x-5 w-full text-center">
-                            <div class="w-1/6">
-                                <input id="hdnTableID" type="hidden" />
-                                <lable for="" class="my-auto">Table No </lable>
+                        <div class="w-full ">
+                            <div>
+                            <lable for="" class="my-auto">Table No </lable><span id="txtTableNoWarning" class="formerror text-red-600  text-sm"></span>
                             </div>
-                            <div class=" w-1/5">
-                                <div><span id="txtTableNoWarning" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtTableNo" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
-                            </div>
+                            <input id="txtTableNo" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  w-1/2 border  border-classic-dimyellow  py-1 px-2" type="text" />
                         </div>
                         <!-- Table No End-->
 
@@ -105,7 +105,7 @@
             FillTableNoDetails(0);
         })
 
-        
+
 
         function ClearFields() {
             $('#txtTableNo').val("");
@@ -132,7 +132,7 @@
 
                 $.ajax({
 
-                    url: "WebServices/TableMasterWebService.asmx/TableMasterManage",
+                    url: "../WebServices/TableMasterWebService.asmx/TableMasterManage",
                     method: "POST",
                     data: "{TableID:" + JSON.stringify(TableID) + ", TableNo:" + JSON.stringify(TableNo) + "}",
                     contentType: "application/json; charset=utf-8",
@@ -190,7 +190,7 @@
         function FillTableNoDetails(TableID) {
             $.ajax({
 
-                url: "WebServices/TableMasterWebService.asmx/TableMasterGet",
+                url: "../WebServices/TableMasterWebService.asmx/TableMasterGet",
                 method: "POST",
                 data: "{TableID:" + JSON.stringify(TableID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -242,7 +242,7 @@
         function EditTableNo(TableID) {
             $.ajax({
 
-                url: "WebServices/TableMasterWebService.asmx/TableMasterGet",
+                url: "../WebServices/TableMasterWebService.asmx/TableMasterGet",
                 method: "POST",
                 data: "{TableID:" + JSON.stringify(TableID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -293,7 +293,7 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/TableMasterWebService.asmx/TableMasterDelete",
+                        url: "../WebServices/TableMasterWebService.asmx/TableMasterDelete",
                         method: "POST",
                         data: "{TableID:" + JSON.stringify(TableID) + "}",
                         contentType: "application/json; charset=utf-8",

@@ -36,36 +36,27 @@
 
                     <!--Naviagtion Menus -->
                     <div class="flex navigations my-auto space-x-10  ">
-                        <a href="#" class="">
+                        <a href="Home.aspx" class="">
                             <div class="cursor-pointer">
                                 <span>Home</span>
                             </div>
                         </a>
-                        <a href="#" class="">
+                        <a href="Menu.aspx" class="">
                             <div class="cursor-pointer">
                                 <span>Menu</span>
                             </div>
                         </a>
-                        <a href="#" class="">
+                        <a href="AboutUs.aspx" class="">
                             <div class="cursor-pointer">
                                 <span>About</span>
                             </div>
                         </a>
-                        <a href="#" class="">
+                        <a href="ContactUs.aspx" class="">
                             <div class="cursor-pointer">
-                                <span>Home</span>
+                                <span>Contact Us</span>
                             </div>
                         </a>
-                        <a href="#" class="">
-                            <div class="cursor-pointer">
-                                <span>Home</span>
-                            </div>
-                        </a>
-                        <a href="#" class="">
-                            <div class="cursor-pointer">
-                                <span>Home</span>
-                            </div>
-                        </a>
+                       
 
 
                     </div>
@@ -100,35 +91,35 @@
 
                     <div class="py-2 my-5 text-center space-y-10 h-screen">
                         <div>
-                            <a href="#" class="text-center ">
+                            <a href="Home.aspx" class="text-center ">
                                 <div class="cursor-pointer">
                                     <span>Home</span>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#" class="text-center ">
+                            <a href="AboutUs.aspx" class="text-center ">
                                 <div class="cursor-pointer">
                                     <span>About</span>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#" class="text-center ">
+                            <a href="Menu.aspx" class="text-center ">
                                 <div class="cursor-pointer">
-                                    <span>Menus</span>
+                                    <span>Menu</span>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#" class="text-center ">
+                            <a href="Specials.aspx" class="text-center ">
                                 <div class="cursor-pointer">
                                     <span>Specials</span>
                                 </div>
                             </a>
                         </div>
                         <div>
-                            <a href="#" class="text-center ">
+                            <a href="ContactUs.aspx" class="text-center ">
                                 <div class="cursor-pointer">
                                     <span>Contact</span>
                                 </div>
@@ -149,56 +140,77 @@
         </div>
 
         <!-- Footer -->
-
-        <footer class="text-white w-full border py-3 ">
-            <div class="flex justify-center border">
-                <div class="flex grid 2xl:grid-cols-4 justify-between w-full border mx-10">
-                    <div>
+        <footer class="text-white w-full  py-3 border-t border-classic-dimyellow py-10">
+            <div class="flex justify-center ">
+                <div class="flex grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 space-y-10 justify-between w-full  mx-10">
+                    <!-- Address -->
+                    <div class="my-10">
 
                         <h3 class="text-2xl">RESTAURANTLY</h3>
+                        <br />
                         <p>
                             B/301, Shree sai Apartment,
                             <br />
                             Satimatani Sharee,surat-395003
+                            <br />
+                            <br />
+                            <strong>Phone No: </strong>+91 6451535458
+                            <br />
+                            <strong>Email: </strong>restaurantly@gmail.com
+
                         </p>
                         <div>
                             <div class=""></div>
                         </div>
 
                     </div>
+                    <!-- Address End-->
+
+
+                    <!-- Usefull Link -->
                     <div>
-                        <div><h4 class="font-playfair-display-600">Useful Links</h4></div>
-                        <ul class="text-sm space-y-5 font-open-sans-400">
+                        <div><h4 class="font-playfair-display-700 text-xl">Useful Links</h4></div>
+                        <ul class="text-sm space-y-4 space-x-2 font-open-sans-400">
                             <li></li>
-                            <li><a>Home</a></li>
-                            <li><a>Home</a></li>
-                            <li><a>Home</a></li>
-                            <li><a>Home</a></li>
+                            <li><a href="#"><span class="font-bold text-classic-yellow">></span> Home</a></li>
+                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> About</a></li>
+                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> Menu</a></li>
+                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> Special</a></li>
+                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> Contact Us</a></li>
+
                         </ul>
                     </div>
+                    <!-- Usefull Link End-->
+
+                    <!-- Our Services -->
                     <div>
-                        <div><h4 class="font-playfair-display-600">Useful Links</h4></div>
-                        <ul class="text-sm space-y-5">
+                        <div><h4 class="font-playfair-display-700 text-xl">Our Services</h4></div>
+                        <ul class="text-sm font-semibold space-y-5 space-x-5 font-open-sans-600">
                             <li></li>
-                            <li><a>Home</a></li>
-                            <li><a>Home</a></li>
-                            <li><a>Home</a></li>
-                            <li><a>Home</a></li>
+                            <li><a>Catering</a></li>
+                            <li><a>Cloud Kitchen</a></li>
+                            
                         </ul>
                     </div>
-                    <div>
-                        <h4></h4>
-                        <p></p>
-                        <div class="rounded border flex">
-                            <input type="text" class="bg-transparent w-full "/>
-                            <input type="button" class="bg-transparent rounded" value="Subscribe" />
+                    <!-- Our Services End-->
+
+                    <!-- Our NewsLetter -->
+                    <div class="space-y-5">
+                        <h4 class="font-playfair-display-700 text-xl">Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <div class="rounded-full  border border-classic-dimyellow h-10 flex">
+                            <input type="text" class="bg-transparent rounded-full w-full px-3"/>
+                            <input type="button" class=" rounded-full px-5 cursor-pointer font-semibold bg-classic-yellow " value="Subscribe" />
                         </div>
                     </div>
+                    <!-- Our NewsLetter End-->
+
 
 
                 </div>
             </div>
         </footer>
+
         <footer class=" bottom-0 text-white  h-36 bg-black  border-t  border-yellow-900  w-full">
             <div class="flex justify-center items-center text-center">
                 <div>

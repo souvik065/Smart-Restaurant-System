@@ -15,7 +15,21 @@ $(window).on('scroll', function () {
     }
 });
 
+function FormValTextBox(id) {
+    if ($("#" + id).val() != "") {
+        $("#" + id + "Warning").text("");
+    }
 
+
+}
+
+function FormValDropDown(id) {
+    if ($("#" + id).val() != 0) {
+        $("#" + id + "Warning").text("");
+    }
+
+
+}
 
 //$('.side-nav-bar-button').on('click', function () {
 //    debugger;

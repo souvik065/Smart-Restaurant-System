@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <section class="h-full">
         <!-- Page Heading -->
-        <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
+        <div class="w-full my-5 text-classic-yellow font-playfair-display-700 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
                     <h1 class="text-5xl">Sub-Category Master</h1>
@@ -24,25 +24,20 @@
 
                     <!-- Fields -->
                     <div class="grid gap-10 md:grid-cols-2 ">
-                        <div class="flex space-x-5 w-full ">
+                        <div class=" w-full ">
                             <input id="hdnSubCategoryID" type="hidden" />
-                            <lable for="ddlCategory" class="my-auto w-1/3">Category Name</lable>
-                            <div class="w-full">
-                                <div><span id="ddlCategoryWarning" class="formerror text-red-600 text-sm"></span></div>
+                            <lable for="ddlCategory" class="my-auto w-1/3">Category Name</lable><span id="ddlCategoryWarning" class="formerror text-red-600 text-sm"></span>
 
-                                <select id="ddlCategory" onchange="FormValDropDown(this.id)" class="text-gray-400 bg-transparent text-gray-400 px-2 py-2 border w-full border-classic-dimyellow  text-center">
-                                    <option>--Selesct Category--</option>
+                            <select id="ddlCategory" onchange="FormValDropDown(this.id)" class="text-gray-400 bg-transparent text-gray-400 px-2 py-2 border w-full border-classic-dimyellow  text-center">
+                                <option>--Selesct Category--</option>
 
-                                </select>
-                            </div>
+                            </select>
                         </div>
-                        <div class="flex space-x-5 w-full">
+                        <div class=" w-full">
 
-                            <lable for="txtSubCategoryName" class="my-auto">Sub-Category Name</lable>
-                            <div class="w-1/2">
-                                <div><span id="txtSubCategoryNameWarning" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtSubCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
-                            </div>
+                            <lable for="txtSubCategoryName" class="my-auto">Sub-Category Name</lable><span id="txtSubCategoryNameWarning" class="formerror text-red-600  text-sm"></span>
+
+                            <input id="txtSubCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
                         </div>
                     </div>
                     <!-- Fields End -->
@@ -146,7 +141,7 @@
 
                 $.ajax({
 
-                    url: "WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterManage",
+                    url: "../WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterManage",
                     method: "POST",
                     data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + " ,SubCategoryName:" + JSON.stringify(SubCategoryName) + "}",
                     contentType: "application/json; charset=utf-8",
@@ -204,7 +199,7 @@
         function FillSubCategoryDetails(CategoryID) {
             $.ajax({
 
-                url: "WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterGet",
+                url: "../WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterGet",
                 method: "POST",
                 data: "{SubCategoryID:" + JSON.stringify(CategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -257,7 +252,7 @@
         function EditSubCategory(SubCategoryID) {
             $.ajax({
 
-                url: "WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterGet",
+                url: "../WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterGet",
                 method: "POST",
                 data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -310,7 +305,7 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterDelete",
+                        url: "../WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterDelete",
                         method: "POST",
                         data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + "}",
                         contentType: "application/json; charset=utf-8",
@@ -364,7 +359,7 @@
 
             $.ajax({
 
-                url: "WebServices/CategoryMasterWebService.asmx/ListAllCategory",
+                url: "../WebServices/CategoryMasterWebService.asmx/ListAllCategory",
                 method: "POST",
                 data: "{}",
                 contentType: "application/json; charset=utf-8",

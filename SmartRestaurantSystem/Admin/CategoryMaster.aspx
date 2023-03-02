@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <section class="h-full">
+        <!--Page Heading -->
         <div class="w-full my-5 text-classic-yellow font-playfair-display-700 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
@@ -14,26 +15,26 @@
                 <div><span class="capitalize">Master > Category Master</span></div>
             </div>
         </div>
+        <!--Page Heading End-->
 
         <div>
-            <div class="flex py-3 text-classic-yellow font-poppins-400 font-bold px-3 shadow-2xl bg-classic-brown w-full">
+            <div class="flex py-3 hidden text-classic-yellow font-poppins-400 font-bold px-3 shadow-2xl bg-classic-brown w-full">
                 <div class="border border-b-2 py-3 px-5"><span>Add</span></div>
                 <div class="border py-3 px-5"><span>View</span></div>
             </div>
             <div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 ">
                 <div class="w-full">
                     <div class="font-poppins-400 text-xl w-full space-y-10 font-bold">
+                        <input id="hdnCategoryID" type="hidden" />
+
                         <!-- Fields -->
-                        <div class="flex space-x-5 w-full">
+                        <div class="  w-full">
 
-                            <input id="hdnCategoryID" type="hidden" />
-                            <lable for="" class="my-auto">Category Name</lable>
-                            <div class="w-full w-1/2">
-                                <div><span id="categorynameval" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtCategoryName" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
+                            <lable for="" class="my-auto">Category Name</lable><span id="categorynameval" class="formerror text-red-600  text-sm"></span>
+
+                            <input id="txtCategoryName" class="bg-transparent text-gray-400  border w-1/2 border-classic-dimyellow  py-1 px-2" type="text" />
 
 
-                            </div>
                         </div>
                         <!-- Fields End-->
 
@@ -123,7 +124,7 @@
 
 
 
-      
+
 
 
         $("#btnSave").on('click', function () {
@@ -137,7 +138,7 @@
 
                 $.ajax({
 
-                    url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterManage",
+                    url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterManage",
                     method: "POST",
                     data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + "}",
                     contentType: "application/json; charset=utf-8",
@@ -195,7 +196,7 @@
         function FillCategoryDetails(CategoryID) {
             $.ajax({
 
-                url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
+                url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
                 method: "POST",
                 data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -246,7 +247,7 @@
         function EditCategory(CategoryID) {
             $.ajax({
 
-                url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
+                url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterGet",
                 method: "POST",
                 data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -297,7 +298,7 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/CategoryMasterWebService.asmx/CategoryMasterDelete",
+                        url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterDelete",
                         method: "POST",
                         data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
                         contentType: "application/json; charset=utf-8",
@@ -325,7 +326,7 @@
                         background: '#27272a',
 
                     })
-                    
+
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swal.fire({
                         title: "Cancelled",
@@ -334,12 +335,12 @@
                         background: '#27272a',
 
                     })
-                   
+
                 }
             })
 
 
-            
+
 
         }
 
