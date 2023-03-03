@@ -58,4 +58,53 @@ public class IngredientsMasterWebService : System.Web.Services.WebService {
         return msg;
     }
 
+    [WebMethod] //-- Executing Category GET/Read Function --// 
+    public string IngredientsMasterGet(Int32 DishID)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("IngredientsMasterGet", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
+        return GetDataWithoutPaging(cmd).GetXml();
+    }
+
+
+
+    public DataSet GetDataWithoutPaging(SqlCommand cmd)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        DataSet ds = new DataSet();
+        try
+        {
+            con.Open();
+
+            using (SqlDataAdapter adp = new SqlDataAdapter())
+            {
+                cmd.Connection = con;
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "DataDetails");
+
+
+            }
+            con.Close();
+
+
+        }
+        catch (Exception Exe)
+        {
+
+
+        }
+        finally
+        {
+
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+        }
+        return ds;
+
+    }
+
 }

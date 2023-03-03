@@ -59,6 +59,9 @@ function FillProgressLine() {
 
     if (currentStep == 3) {
         finished.classList.add("progress-done");
+    } else {
+        finished.classList.remove("progress-done");
+
     }
 
 

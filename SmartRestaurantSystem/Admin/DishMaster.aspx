@@ -23,9 +23,9 @@
             <div class="progress-bar flex font-bold w-full justify-around 2xl:mx-52 xl: ">
 
                 <!-- Step-1 Dish Name & Category -->
-                <div class="step text-center space-y-4">
+                <div class="step  text-center space-y-4 ">
                     <p>Dish Details</p>
-                    <div class="bullet flex space-x-2 ">
+                    <div class="bullet flex space-x-2  justify-center">
                         <span id="step1" class="border  py-1 px-3 rounded-full">1</span>
                         <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
 
@@ -48,7 +48,7 @@
                 <!-- Step-2   -->
                 <div class="step text-center space-y-4">
                     <p>Ingrediency</p>
-                    <div class="bullet flex space-x-2 ">
+                    <div class="bullet flex space-x-2 justify-center">
                         <span id="step2" class="border  py-1 px-3 rounded-full">2</span>
                         <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
 
@@ -71,7 +71,7 @@
                 <!-- Step-3    -->
                 <div class="step text-center space-y-4">
                     <p>Dish Photo</p>
-                    <div class="bullet flex space-x-2 ">
+                    <div class="bullet flex space-x-2 justify-center">
                         <span id="step3" class="border  py-1 px-3 rounded-full">3</span>
                         <span class="relative hidden left-1 text-orange-600 top-[0.5rem] ">
 
@@ -93,7 +93,7 @@
 
                 <div class="step text-center space-y-4">
                     <p>Finished</p>
-                    <div class="bullet flex space-x-2 ">
+                    <div class="bullet flex space-x-2 justify-center">
                         <span id="finished" class="border  py-1 px-1 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -167,6 +167,10 @@
                     </div>
 
                     <div>
+                        <input id="btnCancel"  class="border border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                    </div>
+
+                    <div>
                         <input id="btnStep1Clear" onclick="ClearField()" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
                 </div>
@@ -190,6 +194,11 @@
                     <div class="">
                         <input id="btnStep2Next" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
+
+                    <div>
+                        <input id="btnCancel"  class="border border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                    </div>
+
                     <div>
                         <input id="btnStep2Clear" onclick="ClearField()" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
@@ -232,6 +241,11 @@
                     <div class="">
                         <input id="btnSubmit" data-next  class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Submit" />
                     </div>
+
+                    <div>
+                        <input id="btnCancel"  class="border border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                    </div>
+
                     <div>
                         <input id="btnStep3Clear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
@@ -252,47 +266,6 @@
 
         </section>
         <!-- Multi-Step-Form  End-->
-
-
-        <%--<div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5">
-            <div class="w-full">
-                <div class="font-poppins-400 text-xl w-full space-y-12 px-5 py-5 font-bold">
-
-                    <!-- Fields -->
-
-
-                    <%--<!--Image Preview-->
-                    <div class="md:flex md:justify-center xl:items-end xl:justify-start ">
-                        <div class="text-center min-w-[15rem]  h-[17rem] rounded-lg overflow-hidden ">
-                            <div><span id="imgDishPhotoWarning" class="formerror text-red-600  text-sm"></span></div>
-
-                            <label for="fuDishPhoto" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <img id="imgDishPhoto" alt="" onchange="FormValTextBox(this.id)" src="#" style="display: none;" class="h-full w-full" />
-                                <div class="ImagePreviewLabel  flex flex-col items-center justify-center absolute pt-5 pb-6">
-                                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentcolor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 16a4 4 0 01-.88-7.903a5 5 0 1115.9 6l16 6a5 5 0 011 9.9m15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">click to upload</span> or drag and drop</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">png or jpg  (max. 800x400px)</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                    <!--Image Preview End-->--%>
-
-                
-
-               <%-- <!-- Buttons -->
-                <div class="flex space-x-10">
-                    <div class="">
-                        <input id="btnSave" class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer active:bg-black" type="button" value="Save" />
-                    </div>
-                    <div>
-                        <input id="btnClear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
-                    </div>
-                </div>
-                <!-- Buttons End-->--%>
-
-
 
         <!--Table Section-->
         <div class="w-full my-5  shadow-2xl  text-classic-yellow font-poppins-400 bg-classic-brown py-5 px-5">
@@ -362,6 +335,7 @@
         function AddDish() {
             currentStep = 0;
             showCurrentStep();
+            FillProgressLine();
         }
 
 
@@ -373,7 +347,6 @@
             var dishid = $('#hdnDishID');
             var dishname = $('#txtDishName');
             var dishphoto = $('#fuDishPhoto');
-            // var dishphoto = $("#DishPhoto");
             var hdnphotopath = $("#hdnPhotoPath");
 
 
@@ -407,10 +380,10 @@
                         if (result.includes("error")) {
                             console.log(result);
                         } else if (!result.includes("error")) {
-                            idishid = result;
+                            InsertIngredients(result);
                             swal.fire({
                                 icon: "success",
-                                text: "Record Inserted Successfully",
+                                text: result,
                                 background: '#27272a',
                             })
                             
@@ -421,7 +394,7 @@
                     }
 
                 });
-                InsertIngredients(idishid);
+                
                 FillDishDetails(0);
                 ResetPage();
 
@@ -432,6 +405,7 @@
 
         });
 
+        /* Ingredients Master Methods Start*/
 
         function InsertIngredients(DishID) {
             debugger;
@@ -468,6 +442,64 @@
 
            
         }
+
+        function FillIngredientsDetails(DishID) {
+            $.ajax({
+
+                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterGet",
+                method: "POST",
+                data: "{DishID:" + JSON.stringify(DishID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnIngredientsMasterGetSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+
+        function OnIngredientsMasterGetSuccess(response) {
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+            table.clear();
+            ingredients = [];
+
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    ingredients.push($(this).find("MaterialID").text())
+                })
+
+
+                $.each(Details, function () {
+
+                    var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+                    checkboxes.map(checkbox => {
+                        if (checkbox.id == $(this).find("MaterialID").text()) {
+                            checkbox.checked = true;
+                        }
+                    })
+
+                })
+                
+
+
+            }
+            else {
+                table.clear().draw();
+            }
+
+        }
+
+
+       
+
+        /* Ingredients Master Methods End*/
 
 
         /* Clear Functions Start */
@@ -506,39 +538,46 @@
             $('#hdnDishesID').val("");
             $('#imgDishPhoto').removeAttr('src');
             $('#imgDishPhoto').css('display', 'none');
-            idishid = "";
-
+            ingredients = [];
             $("[id=btnSave]").val("Save");
             $("[id=btnClear]").val("Clear");
 
-            
+            var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+            checkboxes.map(checkbox => {
+                checkbox.checked = false;
+            });
 
         }
 
-        //$("#btnClear").on('click', function () {
-        //    var categoryid = $("#hdnDishID");
+        function Cancle() {
 
-        //    if (categoryid.val() > 0) {
+            $("#btnCancle").on('click', function () {
+                var categoryid = $("#hdnDishID");
 
-        //        $("[id=btnSave]").val("Save");
-        //        $("[id=btnClear]").val("Clear");
+                if (categoryid.val() > 0) {
 
-        //        ClearFields();
+                    $("[id=btnSave]").val("Save");
+                    $("[id=btnClear]").val("Clear");
 
-        //        Swal.fire({
-        //            title: 'Cancled',
-        //            text: 'Record Updation Terminted',
-        //            color: "white",
-        //            background: '#27272a',
-        //            icon: 'info'
+                    ClearFields();
 
-        //        })
+                    Swal.fire({
+                        title: 'Cancled',
+                        text: 'Record Updation Terminted',
+                        color: "white",
+                        background: '#27272a',
+                        icon: 'info'
 
-        //    } else {
-        //        ClearFields();
-        //    }
+                    })
 
-        //});
+                } else {
+                    ClearFields();
+                }
+
+            });
+
+        }
+        
 
 
 
@@ -1070,9 +1109,7 @@
                     }
                 }
 
-                //if (currentStep == 2) {
-                //    currentStep += 1;
-                //}
+                
 
 
 
