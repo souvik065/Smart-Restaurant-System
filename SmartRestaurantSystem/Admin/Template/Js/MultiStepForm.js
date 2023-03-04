@@ -18,7 +18,6 @@ let currentStep = formSteps.findIndex(step => {
 
 
 if (currentStep < 0) {
-    debugger;
     currentStep = 0
     showCurrentStep()
 
@@ -68,7 +67,6 @@ function FillProgressLine() {
 }
 
 function showCurrentStep() {
-    debugger;
     formSteps.forEach((step, index) => {
         if (index === currentStep) {
             step.classList.toggle("active", index == currentStep)

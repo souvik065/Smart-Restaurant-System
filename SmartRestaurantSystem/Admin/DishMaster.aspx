@@ -6,7 +6,7 @@
 
     <section>
         <!-- Header -->
-        <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
+        <div class="w-full my-5  text-classic-yellow font-playfair-display-700 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
                     <h1 class="text-5xl">Dishe Master</h1>
@@ -118,8 +118,9 @@
         <section data-multi-step-form id="test1" class="font-poppins-400 text-xl font-bold">
 
             <!-- Step 1  Dish Category & Name Start-->
-            <div data-step class="card  hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
-                <h3 class="">This is Step 1</h3>
+            <div data-step class="card step hidden w-full my-5 text-classic-yellow bg-classic-brown py-5 px-5 shadow-2xl space-y-10">
+                <div></div>
+                <h3 class="font-playfair-display-700 text-3xl text-gray-400 ">Dish Details</h3>
                 <!--Other Fields -->
                 <div class="grid gap-11 2xl:grid-cols-3  xl:grid-cols-2  ">
 
@@ -313,7 +314,9 @@
     <script>
         // Variables
         var ingredients = [];
+        var ingredientsname = [];
         var idishid = "";
+        var test1 = "";
 
         $(function () {
             table = $("#tblData").DataTable({
@@ -324,6 +327,14 @@
             FillDishDetails(0);
             ListAllCategory();
             ListAllMaterialCategory();
+            FillIngredientsDetails(50);
+            
+            console.log(ingredientsname);
+
+            //var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+            //checkboxes.map(checkbox => {
+            //    console.log("Checkbox",checkbox.value);
+            //})
         })
 
         function CategoryOnChange(id, value) {
@@ -340,7 +351,7 @@
 
 
         $("#btnSubmit").on('click', function () {
-            debugger;
+            
 
             var categoryid = $('#ddlCategory');
             var subcategoryid = $('#ddlSubCategory');
@@ -380,13 +391,23 @@
                         if (result.includes("error")) {
                             console.log(result);
                         } else if (!result.includes("error")) {
-                            InsertIngredients(result);
-                            swal.fire({
-                                icon: "success",
-                                text: result,
-                                background: '#27272a',
-                            })
-                            
+                            if (DishID > 0) {
+                                DeleteIngredients(DishID);
+                                InsertIngredients(DishID)
+                                swal.fire({
+                                    icon: "success",
+                                    text: result,
+                                    background: '#27272a',
+                                })
+                            } else {
+                                InsertIngredients(result);
+                                swal.fire({
+                                    icon: "success",
+                                    text: "Dish Inserted Successfully",
+                                    background: '#27272a',
+                                })
+
+                            }
                         }
                     },
                     error: function (err) {
@@ -408,7 +429,7 @@
         /* Ingredients Master Methods Start*/
 
         function InsertIngredients(DishID) {
-            debugger;
+            
             ingredients.map(ing => {
 
                 $.ajax({
@@ -434,13 +455,47 @@
 
             });
 
-            swal.fire({
-                icon: "success",
-                text: "All The Ingredients has been Inserted Successfully",
-                background: '#27272a',
-            })
-
            
+        }
+
+        function UpdateIngredients(DishID) {
+            
+            //DeleteIngredients(DishID);
+            InsertIngredients(DishID);
+        }
+
+
+        function DeleteIngredients(DishID) {
+                debugger;
+            $.ajax({
+
+                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterDelete",
+                method: "POST",
+                data: "{DishID:" + JSON.stringify(DishID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var result = res.d;
+                    if (result.includes("error")) {
+                        console.log(result);
+                    } else if (result.includes("Success")) {
+                        msg = result;
+                        swal.fire({
+                            title: "Deleted",
+                            icon: "success",
+                            text: result,
+                            background: '#27272a',
+
+                        })
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+
         }
 
         function FillIngredientsDetails(DishID) {
@@ -460,38 +515,78 @@
             });
         }
 
-
         function OnIngredientsMasterGetSuccess(response) {
+           
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+            
+            ingredientsname = [];
+
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    ingredientsname.push($(this).find("MaterialName").text())
+                })
+
+            }
+            else {
+                
+            }
+            console.log("Ingredients Name: ", ingredientsname);
+        }
+
+
+        function EditIngredients(DishID) {
+            $.ajax({
+
+                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterGet",
+                method: "POST",
+                data: "{DishID:" + JSON.stringify(DishID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnIngredientsMasterEditSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+
+        function OnIngredientsMasterEditSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
 
             var Details = xml.find("DataDetails");
             table.clear();
             ingredients = [];
-
             if (Details.length > 0) {
                 $.each(Details, function () {
 
                     ingredients.push($(this).find("MaterialID").text())
                 })
+                console.log("Ingredients: ", ingredients);
 
+                //$.each(Details, function () {
+                //    debugger;
+                //    var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+                //    checkboxes.map(checkbox => {
+                //        if (checkbox.id == $(this).find("MaterialID").text()) {
+                //            checkbox.checked = true;
+                //        }
+                //    })
 
-                $.each(Details, function () {
+                //})
 
-                    var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
-                    checkboxes.map(checkbox => {
-                        if (checkbox.id == $(this).find("MaterialID").text()) {
-                            checkbox.checked = true;
-                        }
-                    })
-
-                })
                 
 
 
             }
             else {
-                table.clear().draw();
+                
             }
 
         }
@@ -504,7 +599,6 @@
 
         /* Clear Functions Start */
         function ClearField() {
-            debugger;
             if ($('#btnStep1Clear').click) {
 
                 $('#ddlCategory').val(0);
@@ -514,7 +608,6 @@
             }
 
             if ($('#btnStep2Clear').click) {
-                debugger;
                 var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
                 checkboxes.map(box => {
                     box.checked = false;
@@ -529,7 +622,6 @@
         }
 
         function ResetPage() {
-            debugger;
             var prelabel = document.querySelector(".ImagePreviewLabel");
             prelabel.classList.remove("hidden");
             $('#ddlCategory').val(0);
@@ -539,7 +631,7 @@
             $('#imgDishPhoto').removeAttr('src');
             $('#imgDishPhoto').css('display', 'none');
             ingredients = [];
-            $("[id=btnSave]").val("Save");
+            $("[id=btnSubmit]").val("Submit");
             $("[id=btnClear]").val("Clear");
 
             var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
@@ -578,9 +670,6 @@
 
         }
         
-
-
-
         /* Clear Functions End*/
 
 
@@ -603,7 +692,6 @@
 
 
         function OnSuccess(response) {
-            debugger;
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
 
@@ -612,10 +700,17 @@
 
             if (Details.length > 0) {
                 $.each(Details, function () {
-
+                    
 
                     var strEditDelete = "";
-
+                    var ings = "";
+                    var ing1 = "";
+                    FillIngredientsDetails($(this).find("DishID").text());
+                    ingredientsname.map(ing => {
+                         ing1 += ing + ",";
+                    })
+                    ings = ing1.replace(/,*$/, '');
+                    
                     strImage = "<img class='rounded-full'  src='../Assets/Images/" + $(this).find("DishPhoto").text() + "' style=' height:100px; width:100px; ' >"
                     strEditDelete += " <input class='bg-yellow-900 mx-2 xl:py-3 xl:px-5 text-center text-white py-1 px-5 hover:bg-yellow-700 cursor-pointer' onclick='EditDish(" + $(this).find("DishID").text() + ")' type='button' value='Edit' />";
                     strEditDelete += " <input class='bg-red-900 mx-2 xl:py-3 xl:px-5 text-center text-white py-1 px-3 hover:bg-red-600 cursor-pointer' onclick='DeleteDish(" + $(this).find("DishID").text() + ",\"" + $(this).find("DishPhoto").text() + "\")' type='button' value='Delete' />";
@@ -627,7 +722,7 @@
                         $(this).find("RowNumber").text(),
                         $(this).find("CategoryName").text(),
                         $(this).find("SubCategoryName").text(),
-                        $(this).find("Ingredience").text(),
+                        ings,
                         $(this).find("SubCategoryName").text(),
                         strImage,
                         strEditDelete
@@ -680,9 +775,30 @@
             $("#imgDishPhoto").prop("src", "../Assets/Images/" + Details.find("DishPhoto").text());
             var prelabel = document.querySelector(".ImagePreviewLabel");
             prelabel.classList.add("hidden");
+
+            EditIngredients(Details.find("DishID").text())
+            var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+            checkboxes.map(checkbox => {
+                checkbox.checked = false;
+            });
+            checkboxes.map(checkbox => {
+                debugger;
+
+                let index = ingredients.indexOf(checkbox.value);
+                if (index === -1) {
+
+                } else {
+                    checkbox.checked = true;
+                }
+
+                //if (ingredients.includes(checkbox.value, 1)){
+                //    checkbox.checked = true;
+                //}
+            })
+
             $("[id*=txtDishName]").focus();
 
-            $("[id=btnSave]").val("Update");
+            $("[id=btnSubmit]").val("Update");
             $("[id=btnClear]").val("Cancle");
         }
 
@@ -723,6 +839,7 @@
                                     background: '#27272a',
 
                                 })
+                                DeleteIngredients(DishID);
 
                             }
                         },
@@ -753,7 +870,6 @@
 
         /* File Upload Funtions*/
         $("#fuDishPhoto").on("change", function () {
-            debugger;
             myfile = $(this).val();
 
             if (myfile == '') {
@@ -772,7 +888,6 @@
         });
 
         function showFileSize(ext) {
-            debugger;
 
             var input, file;
             var fileUpload = $('#fuDishPhoto').get(0);
@@ -917,7 +1032,6 @@
         }
 
         function OnListAllMaterialSuccess(response) {
-            debugger;
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
             var Details = xml.find("DataDetails");
@@ -1002,7 +1116,6 @@
 
         /* Form Validation Functions*/
         function FormValidation(categoryid, subcategoryid, dishname, dishphoto, hdnphotopath) {
-            debugger;
             var returnval = true;
             if (categoryid.val() == 0) {
                 $('#ddlCategoryWarning').text("*Please Select the Catgoey Name");
@@ -1044,7 +1157,6 @@
         }
 
         function Step1Validation(categoryid, subcategoryid, dishname) {
-            debugger;
             var returnval = true;
             if (categoryid.val() == 0) {
                 $('#ddlCategoryWarning').text("*Please Select the Catgoey Name");
@@ -1067,7 +1179,6 @@
         }
 
         function Step2Validation(ingredients) {
-            debugger;
             var returnval = true;
             if (ingredients.length <= 0) {
                 swal.fire({
@@ -1089,7 +1200,7 @@
         multiStepForm.addEventListener("click", e => {
 
             if (e.target.matches("[data-next]")) {
-                debugger;
+                
 
                 if (currentStep == 1) {
                     var validate = Step2Validation(ingredients);

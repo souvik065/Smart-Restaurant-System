@@ -24,8 +24,24 @@
    color:white;
 }
 
+.step {
+    animation: transitionUp 1s linear forwards;
+}
+
 @keyframes animate{
     100%{
         transform:scale(1);
+    }
+}
+
+@keyframes transitionUp {
+    from {
+        opacity: 0;
+        transform: translateY(40%)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
