@@ -70,6 +70,8 @@ function showCurrentStep() {
     formSteps.forEach((step, index) => {
         if (index === currentStep) {
             step.classList.toggle("active", index == currentStep)
+            step.classList.toggle("step", index == currentStep)
+
             step.classList.remove("hidden", index == currentStep)
         } else {
             step.classList.add("hidden", index == currentStep)

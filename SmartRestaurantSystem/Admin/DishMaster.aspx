@@ -98,7 +98,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg></span>
-                       
+
                     </div>
 
                 </div>
@@ -144,7 +144,7 @@
                         <lable for="dllSubCategory" class="my-auto ">Sub-Category Name </lable>
                         <span id="ddlSubCategoryWarning" class="formerror text-red-600 text-sm"></span>
                         <select id="ddlSubCategory" onchange="FormValDropDown(this.id)" class="  bg-transparent py-3 px-2 border w-full border-classic-dimyellow  text-center">
-                            <option>--Selesct--</option>
+                            <option>--Select--</option>
 
                         </select>
                     </div>
@@ -168,7 +168,7 @@
                     </div>
 
                     <div>
-                        <input id="btnCancel"  class="border border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                        <input id="btnCancel" class="border hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
                     </div>
 
                     <div>
@@ -181,10 +181,12 @@
             <!-- Step 1 Dish Category & Name End-->
 
             <!-- Step 2 Ingredients Start-->
-            <div data-step class="card hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
-                <h3 class="">This is Step 2</h3>
-                <div id="MaterialCategories" class="overflow-y-auto max-h-96 border">
+            <div data-step class="card hidden step w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
+                <h3 class="font-playfair-display-700 text-3xl text-gray-400">Choose Your Ingredients</h3>
+                <!-- Ingredients Div Star-->
+                <div id="MaterialCategories" class="overflow-y-auto max-h-96 shadow-inner inset-1">
                 </div>
+                <!-- Ingredients Div End-->
 
                 <!-- Action buttons -->
                 <div class="flex space-x-10">
@@ -197,7 +199,7 @@
                     </div>
 
                     <div>
-                        <input id="btnCancel"  class="border border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                        <input id="btnCancel" class="border hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
                     </div>
 
                     <div>
@@ -210,8 +212,8 @@
             <!-- Step 2 Ingredients End-->
 
             <!-- Step 3 Dish Photo Start-->
-            <div data-step class="card hidden w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
-                <h3 class="">This is Step 3</h3>
+            <div data-step class="card hidden step w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
+                <h3 class="font-playfair-display-700 text-3xl text-gray-400">Upload Dish Photo</h3>
                 <div class="flex justify-center w-full ">
 
                     <!--Image Preview-->
@@ -240,11 +242,11 @@
                         <input id="btnStep3Previous" data-previous class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Previous" />
                     </div>
                     <div class="">
-                        <input id="btnSubmit" data-next  class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Submit" />
+                        <input id="btnSubmit" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Submit" />
                     </div>
 
                     <div>
-                        <input id="btnCancel"  class="border border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                        <input id="btnCancel" class="border hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
                     </div>
 
                     <div>
@@ -257,10 +259,10 @@
             <!-- Step 3 Dish Photo End-->
 
             <div data-step class="flex card hidden justify-center items-center text-center w-full my-5 text-classic-yellow  bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
-                <div>
+                <div class="space-y-10 py-5">
                     <h1 class="text-5xl text-green-600">Success</h1>
-                    <h4 class="text-3xl">Dish Added Successfully</h4>
-                    <input type="button" onclick="AddDish()" value="+ Add Dish" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer"/>
+
+                    <input type="button" onclick="AddDish()" value="+ Add Dish" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" />
                 </div>
             </div>
 
@@ -328,13 +330,10 @@
             ListAllCategory();
             ListAllMaterialCategory();
             FillIngredientsDetails(50);
-            
+
             console.log(ingredientsname);
 
-            //var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
-            //checkboxes.map(checkbox => {
-            //    console.log("Checkbox",checkbox.value);
-            //})
+            
         })
 
         function CategoryOnChange(id, value) {
@@ -351,7 +350,7 @@
 
 
         $("#btnSubmit").on('click', function () {
-            
+
 
             var categoryid = $('#ddlCategory');
             var subcategoryid = $('#ddlSubCategory');
@@ -415,7 +414,7 @@
                     }
 
                 });
-                
+
                 FillDishDetails(0);
                 ResetPage();
 
@@ -426,175 +425,7 @@
 
         });
 
-        /* Ingredients Master Methods Start*/
-
-        function InsertIngredients(DishID) {
-            
-            ingredients.map(ing => {
-
-                $.ajax({
-
-                    url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterInsert",
-                    method: "POST",
-                    data: "{MaterialID:" + JSON.stringify(ing) + ",DishID:" + JSON.stringify(DishID) + "}",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (res) {
-                        var result = res.d;
-                        if (result.includes("error")) {
-                            console.log(result);
-                        } else if (!result.includes("error")) {
-                            
-                        }
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
-
-                });
-
-            });
-
-           
-        }
-
-        function UpdateIngredients(DishID) {
-            
-            //DeleteIngredients(DishID);
-            InsertIngredients(DishID);
-        }
-
-
-        function DeleteIngredients(DishID) {
-                debugger;
-            $.ajax({
-
-                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterDelete",
-                method: "POST",
-                data: "{DishID:" + JSON.stringify(DishID) + "}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (res) {
-                    var result = res.d;
-                    if (result.includes("error")) {
-                        console.log(result);
-                    } else if (result.includes("Success")) {
-                        msg = result;
-                        swal.fire({
-                            title: "Deleted",
-                            icon: "success",
-                            text: result,
-                            background: '#27272a',
-
-                        })
-
-                    }
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-
-            });
-
-        }
-
-        function FillIngredientsDetails(DishID) {
-            $.ajax({
-
-                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterGet",
-                method: "POST",
-                data: "{DishID:" + JSON.stringify(DishID) + "}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: OnIngredientsMasterGetSuccess,
-                async: false,
-                error: function (err) {
-                    console.log(err);
-                }
-
-            });
-        }
-
-        function OnIngredientsMasterGetSuccess(response) {
-           
-            var xmlDoc = $.parseXML(response.d);
-            var xml = $(xmlDoc);
-
-            var Details = xml.find("DataDetails");
-            
-            ingredientsname = [];
-
-            if (Details.length > 0) {
-                $.each(Details, function () {
-
-                    ingredientsname.push($(this).find("MaterialName").text())
-                })
-
-            }
-            else {
-                
-            }
-            console.log("Ingredients Name: ", ingredientsname);
-        }
-
-
-        function EditIngredients(DishID) {
-            $.ajax({
-
-                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterGet",
-                method: "POST",
-                data: "{DishID:" + JSON.stringify(DishID) + "}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: OnIngredientsMasterEditSuccess,
-                async: false,
-                error: function (err) {
-                    console.log(err);
-                }
-
-            });
-        }
-
-
-        function OnIngredientsMasterEditSuccess(response) {
-            var xmlDoc = $.parseXML(response.d);
-            var xml = $(xmlDoc);
-
-            var Details = xml.find("DataDetails");
-            table.clear();
-            ingredients = [];
-            if (Details.length > 0) {
-                $.each(Details, function () {
-
-                    ingredients.push($(this).find("MaterialID").text())
-                })
-                console.log("Ingredients: ", ingredients);
-
-                //$.each(Details, function () {
-                //    debugger;
-                //    var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
-                //    checkboxes.map(checkbox => {
-                //        if (checkbox.id == $(this).find("MaterialID").text()) {
-                //            checkbox.checked = true;
-                //        }
-                //    })
-
-                //})
-
-                
-
-
-            }
-            else {
-                
-            }
-
-        }
-
-
        
-
-        /* Ingredients Master Methods End*/
 
 
         /* Clear Functions Start */
@@ -618,7 +449,7 @@
             if ($('#btnStep3Clear').click) {
 
             }
-           
+
         }
 
         function ResetPage() {
@@ -669,7 +500,7 @@
             });
 
         }
-        
+
         /* Clear Functions End*/
 
 
@@ -700,17 +531,17 @@
 
             if (Details.length > 0) {
                 $.each(Details, function () {
-                    
+
 
                     var strEditDelete = "";
                     var ings = "";
                     var ing1 = "";
                     FillIngredientsDetails($(this).find("DishID").text());
                     ingredientsname.map(ing => {
-                         ing1 += ing + ",";
+                        ing1 += ing + ",";
                     })
                     ings = ing1.replace(/,*$/, '');
-                    
+
                     strImage = "<img class='rounded-full'  src='../Assets/Images/" + $(this).find("DishPhoto").text() + "' style=' height:100px; width:100px; ' >"
                     strEditDelete += " <input class='bg-yellow-900 mx-2 xl:py-3 xl:px-5 text-center text-white py-1 px-5 hover:bg-yellow-700 cursor-pointer' onclick='EditDish(" + $(this).find("DishID").text() + ")' type='button' value='Edit' />";
                     strEditDelete += " <input class='bg-red-900 mx-2 xl:py-3 xl:px-5 text-center text-white py-1 px-3 hover:bg-red-600 cursor-pointer' onclick='DeleteDish(" + $(this).find("DishID").text() + ",\"" + $(this).find("DishPhoto").text() + "\")' type='button' value='Delete' />";
@@ -723,7 +554,7 @@
                         $(this).find("CategoryName").text(),
                         $(this).find("SubCategoryName").text(),
                         ings,
-                        $(this).find("SubCategoryName").text(),
+                        $(this).find("DishName").text(),
                         strImage,
                         strEditDelete
 
@@ -777,6 +608,7 @@
             prelabel.classList.add("hidden");
 
             EditIngredients(Details.find("DishID").text())
+            debugger;
             var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
             checkboxes.map(checkbox => {
                 checkbox.checked = false;
@@ -791,10 +623,10 @@
                     checkbox.checked = true;
                 }
 
-                //if (ingredients.includes(checkbox.value, 1)){
-                //    checkbox.checked = true;
-                //}
             })
+
+            currentStep = 0;
+            showCurrentStep();
 
             $("[id*=txtDishName]").focus();
 
@@ -849,7 +681,7 @@
 
                     });
                     FillDishDetails(0);
-                    
+
 
 
 
@@ -866,6 +698,164 @@
             })
 
         }
+
+
+
+        /* Ingredients Master Methods Start*/
+
+        function InsertIngredients(DishID) {
+
+            ingredients.map(ing => {
+
+                $.ajax({
+
+                    url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterInsert",
+                    method: "POST",
+                    data: "{MaterialID:" + JSON.stringify(ing) + ",DishID:" + JSON.stringify(DishID) + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var result = res.d;
+                        if (result.includes("error")) {
+                            console.log(result);
+                        } else if (!result.includes("error")) {
+
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+
+                });
+
+            });
+
+
+        }
+
+        function UpdateIngredients(DishID) {
+
+            //DeleteIngredients(DishID);
+            InsertIngredients(DishID);
+        }
+
+
+        function DeleteIngredients(DishID) {
+            debugger;
+            $.ajax({
+
+                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterDelete",
+                method: "POST",
+                data: "{DishID:" + JSON.stringify(DishID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var result = res.d;
+                    if (result.includes("error")) {
+                        console.log(result);
+                    } else if (result.includes("Success")) {
+                        msg = result;
+                        swal.fire({
+                            title: "Deleted",
+                            icon: "success",
+                            text: result,
+                            background: '#27272a',
+
+                        })
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+
+        }
+
+        function FillIngredientsDetails(DishID) {
+            $.ajax({
+
+                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterGet",
+                method: "POST",
+                data: "{DishID:" + JSON.stringify(DishID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnIngredientsMasterGetSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+        function OnIngredientsMasterGetSuccess(response) {
+
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+
+            ingredientsname = [];
+
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    ingredientsname.push($(this).find("MaterialName").text())
+                })
+
+            }
+            else {
+
+            }
+            console.log("Ingredients Name: ", ingredientsname);
+        }
+
+
+        function EditIngredients(DishID) {
+            $.ajax({
+
+                url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterGet",
+                method: "POST",
+                data: "{DishID:" + JSON.stringify(DishID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnIngredientsMasterEditSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+
+        function OnIngredientsMasterEditSuccess(response) {
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+            table.clear();
+            ingredients = [];
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    ingredients.push($(this).find("MaterialID").text())
+                })
+                console.log("Ingredients: ", ingredients);
+
+            }
+            else {
+
+            }
+
+        }
+
+
+
+
+        /* Ingredients Master Methods End*/
 
 
         /* File Upload Funtions*/
@@ -916,6 +906,7 @@
             }
 
         }
+        
 
         function SaveImage() {
 
@@ -1041,17 +1032,17 @@
             if (Details.length > 0) {
                 $.each(Details, function () {
 
-                    divTag += `<div class=" h-[9rem] overflow-hidden bg-classic-dark-brown  min-w-[5rem] max-w-[9rem] px-3 rounded " >
-                                <div class="">
-                                    <input id="Checkbox`+ $(this).find("MaterialName").text() + `" class="MaterialCheckbox"  type="checkbox" name="Material" value="` + $(this).find("MaterialID").text() + `" />
-                                    <label for="Checkbox`+ $(this).find("MaterialName").text() + `" class="cursor-pointer w-full h-full  ">
-                                        <div class="rounded ">
-                                        <img class="w-full  max-h-max " src="../Assets/Images/`+ $(this).find("MaterialPhoto").text() + `" />
+                    divTag += `<div class="h-[9rem] overflow-hidden bg-classic-dark-brown  min-w-[5rem] max-w-[9rem] px-3 rounded " >
+                                <div class=" ">
+                                    <input id="Checkbox`+ $(this).find("MaterialName").text() + `"  class="MaterialCheckbox" type="checkbox" name="Material" value="` + $(this).find("MaterialID").text() + `" />
+                                    <label for="Checkbox`+ $(this).find("MaterialName").text() + `" class="cursor-pointer w-full h-full text-center ">
+                                        <div class="rounded h-[5rem] overflow-hidden">
+                                            <img class="w-full max-h-max " src="../Assets/Images/`+ $(this).find("MaterialPhoto").text() + `" />
                                         </div>
-                                        <div class="font-semibold text-gray-400">`+ $(this).find("MaterialName").text() + `</div>
+                                        <div class="font-semibold text-gray-400 text-sm my-auto h-full">`+ $(this).find("MaterialName").text() + `</div>
                                     </label>
-                                </div>
-                            </div>
+                               </div>
+                              </div>
                                 `;
                     MaterialCategoryID = $(this).find("MaterialCategoryID").text();
                 })
@@ -1200,7 +1191,7 @@
         multiStepForm.addEventListener("click", e => {
 
             if (e.target.matches("[data-next]")) {
-                
+
 
                 if (currentStep == 1) {
                     var validate = Step2Validation(ingredients);
@@ -1220,7 +1211,7 @@
                     }
                 }
 
-                
+
 
 
 
@@ -1249,7 +1240,7 @@
             }
 
             showCurrentStep()
-        })
+        });
 
 
 

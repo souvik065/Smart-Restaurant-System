@@ -25,7 +25,7 @@ public class CategoryMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CategoryMasterManage(Int32 CategoryID, String CategoryName)
+    public string CategoryMasterManage(Int32 CategoryID, String CategoryName, String CategoryPhoto)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -38,6 +38,8 @@ public class CategoryMasterWebService : System.Web.Services.WebService
                 SqlCommand cmd = new SqlCommand("CategoryMasterInsert", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@CategoryName", CategoryName).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@CategoryPhoto", CategoryPhoto).DbType = DbType.String;
+
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
@@ -54,6 +56,8 @@ public class CategoryMasterWebService : System.Web.Services.WebService
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@categoryid", CategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@categoryname", CategoryName).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@CategoryPhoto", CategoryPhoto).DbType = DbType.String;
+
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 

@@ -22,17 +22,41 @@
                 <div class="border border-b-2 py-3 px-5"><span>Add</span></div>
                 <div class="border py-3 px-5"><span>View</span></div>
             </div>
+
+            <!-- Hidden Fields Start-->
+            <input id="hdnCategoryID" type="hidden" />
+            <input id="fuCategoryPhoto" class="hidden py-3 px-3 rounded-full" type="file" />
+            <input id="hdnPhotoPath" type="hidden" />
+            <!-- Hidden Fields End-->
             <div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 ">
                 <div class="w-full">
                     <div class="font-poppins-400 text-xl w-full space-y-10 font-bold">
-                        <input id="hdnCategoryID" type="hidden" />
+                        
 
                         <!-- Fields -->
-                        <div class="  w-full">
+                        <!--Image Preview-->
+                        <div class="md:flex md:justify-start  mx-5 justify-center">
+                            <div class="text-center min-w-[15rem] max-w-[20rem] h-full rounded-lg overflow-hidden ">
+                                <div><span id="imgCategoryPhotoWarning" class="formerror text-red-600  text-sm"></span></div>
 
-                            <lable for="" class="my-auto">Category Name</lable><span id="categorynameval" class="formerror text-red-600  text-sm"></span>
+                                <label for="fuCategoryPhoto" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    <img id="imgCategoryPhoto" alt="" onchange="FormValTextBox(this.id)" src="#" style="display: none;" class="h-full w-full" />
+                                    <div class="ImagePreviewLabel  flex flex-col items-center justify-center absolute pt-5 pb-6">
+                                        <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentcolor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 16a4 4 0 01-.88-7.903a5 5 0 1115.9 6l16 6a5 5 0 011 9.9m15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">click to upload</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">png or jpg  (max. 800x400px)</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <!--Image Preview End-->
 
-                            <input id="txtCategoryName" class="bg-transparent text-gray-400  border w-1/2 border-classic-dimyellow  py-1 px-2" type="text" />
+                        <div class="mx-5 w-full">
+                            <div>
+                                <lable for="" class="my-auto">Category Name</lable><span id="categorynameval" class="formerror text-red-600  text-sm"></span>
+                            </div>
+                            <input id="txtCategoryName" class="bg-transparent text-gray-400  border md:w-1/2 border-classic-dimyellow mr-5 w-4/5 py-1 px-2" type="text" />
 
 
                         </div>
@@ -63,6 +87,7 @@
                             <tr>
                                 <th>Sr.No</th>
                                 <th>Category Name</th>
+                                <th>Category Photo</th>
                                 <th class="justify-around">Actions</th>
                             </tr>
                         </thead>
@@ -71,6 +96,7 @@
                             <tr>
                                 <th>Sr.No</th>
                                 <th>Category Name</th>
+                                <th>Category Photo</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>
@@ -103,19 +129,40 @@
             FillCategoryDetails(0);
         })
 
-        function FormValidation(categoryname) {
+        function FormValidation(categoryname, categoryphoto, hdnphotopath) {
             var returnval = true;
             if (categoryname.val() == "") {
                 $("#categorynameval").text("* Category Name Should not be Empty ");
                 returnval = false;
             }
 
+            if (hdnphotopath.val() == '') {
+                if (categoryphoto.val() == '') {
+                    $('#imgCategoryPhotoWarning').text("*Please Select the Category Photo")
+                    swal.fire({
+                        title: "Category Photo is Not Selected",
+                        text: "Please Select the Dish Photo",
+                        icon: "warning",
+                        background: '#27272a',
+
+                    })
+
+                    returnval = false;
+                }
+
+            }
+
             return returnval;
         }
 
         function ClearFields() {
+            var prelabel = document.querySelector(".ImagePreviewLabel");
+            prelabel.classList.remove("hidden");
             $('#txtCategoryName').val("");
             $('#hdnCategoryID').val("");
+
+            $('#imgCategoryPhoto').removeAttr('src');
+            $('#imgCategoryPhoto').css('display', 'none');
 
             $("[id=btnSave]").val("Save");
             $("[id=btnClear]").val("Clear");
@@ -130,17 +177,29 @@
         $("#btnSave").on('click', function () {
             var categoryname = $('#txtCategoryName');
             var categoryid = $('#hdnCategoryID');
+            var categoryphoto = $('#fuCategoryPhoto');
+            var hdnphotopath = $("#hdnPhotoPath");
 
-            var Validate = FormValidation(categoryname);
+            var Validate = FormValidation(categoryname, categoryphoto, hdnphotopath);
             if (Validate == true) {
                 var CategoryID = categoryid.val() == "" ? 0 : categoryid.val();
                 var CategoryName = categoryname.val().trim();
+                var CategoryPhoto = ""
+                if (hdnphotopath.val() != "") {
+                    CategoryPhoto = hdnphotopath.val();
+
+                } else {
+                    if (categoryphoto.val() != "") {
+                        CategoryPhoto = SaveImage();
+
+                    }
+                }
 
                 $.ajax({
 
                     url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterManage",
                     method: "POST",
-                    data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + "}",
+                    data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + ", CategoryPhoto:" + JSON.stringify(CategoryPhoto)+"}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
@@ -223,7 +282,7 @@
 
 
                     var strEditDelete = "";
-
+                    strImage = "<img class='rounded-full'  src='../Assets/Images/" + $(this).find("CategoryPhoto").text() + "' style=' height:100px; width:100px; ' >"
                     strEditDelete += " <input class=\"bg-yellow-900 mx-2 text-center text-white py-3 px-5 hover:bg-yellow-700 cursor-pointer\" onclick=\"EditCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Edit\" />";
                     strEditDelete += " <input class=\"bg-red-900 text-center text-white py-3 px-5 hover:bg-red-600 cursor-pointer\" onclick=\"DeleteCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Delete\" />";
 
@@ -231,6 +290,7 @@
                     table.row.add([
                         $(this).find("RowNumber").text(),
                         $(this).find("CategoryName").text(),
+                        strImage,
                         strEditDelete
 
                     ]).draw(false);
@@ -272,6 +332,11 @@
 
             $("[id=hdnCategoryID]").val(Details.find("CategoryID").text());
             $("[id=txtCategoryName]").val(Details.find("CategoryName").text());
+            $("#hdnPhotoPath").val(Details.find("DishPhoto").text());
+            $("#imgDishPhoto").attr("style", "display:block");
+            $("#imgDishPhoto").prop("src", "../Assets/Images/" + Details.find("DishPhoto").text());
+            var prelabel = document.querySelector(".ImagePreviewLabel");
+            prelabel.classList.add("hidden");
 
             $("[id=txtCategoryName]").focus();
 
@@ -344,7 +409,90 @@
 
         }
 
+        /* File Upload Funtions*/
+        $("#fuCategoryPhoto").on("change", function () {
+            myfile = $(this).val();
 
+            if (myfile == '') {
+                document.getElementById("imgCategoryPhoto").src = "";
+                $("#imgCategoryPhoto").attr("style", "display:none");
+            }
+
+            console.log("My File: ", myfile);
+            var ext = myfile.split('.').pop();
+            console.log("Ext: ", ext);
+
+            var str = myfile.substring(0, 10) + "." + ext;
+            console.log("Str: ", str);
+            showFileSize(ext);
+
+        });
+
+        function showFileSize(ext) {
+
+            var input, file;
+            var fileUpload = $('#fuCategoryPhoto').get(0);
+            console.log('File Upload Get: ', fileUpload)
+
+            input = document.getElementById('fuCategoryPhoto');
+            file = fileUpload.files[0];
+
+            var size = parseFloat($('#fuCategoryPhoto')[0].files[0].size / 1024).toFixed(2);
+
+            if (size <= 500) {
+                var src = URL.createObjectURL(file);
+                var preview = document.getElementById("imgCategoryPhoto");
+                var prelabel = document.querySelector(".ImagePreviewLabel");
+                prelabel.classList.add("hidden");
+                preview.src = src;
+                preview.style.display = "block";
+                $('#imgCategoryPhotoWarning').text("")
+
+
+
+            } else {
+                swal.fire("Size Limit !", "Photo Size must be smaller than 500 kb.", "warning");
+                $("#fuCategoryPhoto").val('');
+
+            }
+
+        }
+
+        function SaveImage() {
+
+            var fileUpload = $("#fuCategoryPhoto").get(0);
+            var files = fileUpload.files;
+
+            var data = new FormData();
+            var filepath = "";
+
+            for (var i = 0; i < files.length; i++) {
+                data.append(files[i].name, files[i]);
+            }
+
+            if (files.length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "../FileHandler.ashx?Type=CategoryPhoto",
+                    data: data,
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        filepath = result;
+
+                    },
+                    error: function (err) {
+                        var e = err.d;
+                        console.log(e);
+
+                    }
+                });
+            }
+            return filepath;
+
+        }
+        /* File Upload Funtions End*/
 
 
 

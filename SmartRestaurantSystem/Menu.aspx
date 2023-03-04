@@ -24,95 +24,42 @@
                     <div class="text-white menu-list">
                         <div class=" flex justify-around md:mx-20   2xl:mx-64 my-10 border " id="CategoryMenu">
 
-                            <div class=" my-5 space-x-3 border">
+                            <div id="" class=" my-5 space-x-3 text-center border cursor-pointer">
                                 <div class="">
-                                    <div class=" flex items-center justify-center lg:h-96 lg:w-96 md:h-64  md:w-64 w-56 h-56 border-gray-500 rounded-full ">
-                                        <div class="bg-gray-400 rounded-full">
-                                            <img alt="Dish" src="Template/img/specials-3.png" />
+                                    <div class=" flex items-center justify-center  border-gray-500  ">
+                                        <div class="w-52 h-52 border overflow-hidden">
+                                            <img alt="Dish" class="" src="veg-icon.png" />
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="w-full">
-                                    <div class="font-bold  flex  justify-between ">
-                                        <a>Manchurian Soup</a>
+                                    <div class="font-bold text-2xl  flex  justify-center ">
+                                        <a>Veg</a>
                                     </div>
-                                    <div class="text-sm text-gray-400 font-semibold">
-                                        <span>Noodels, Spcies,Green chili paste</span>
-                                    </div>
+                                   
                                 </div>
                             </div>
 
-                            <div class=" my-5 space-x-3 border">
+                            <div class=" my-5 space-x-3 text-center border cursor-pointer">
                                 <div class="">
-                                    <div class=" flex items-center justify-center lg:h-96 lg:w-96 md:h-64  md:w-64 w-56 h-56 border-gray-500 rounded-full ">
-                                        <div class="bg-gray-400 rounded-full">
-                                            <img alt="Dish" src="Template/img/specials-3.png" />
+                                    <div class=" flex items-center justify-center  border-gray-500  ">
+                                        <div class="w-52 h-52 border overflow-hidden">
+                                            <img alt="Dish" class="" src="non-veg-icon.png" />
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="w-full">
-                                    <div class="font-bold  flex  justify-between ">
-                                        <a>Manchurian Soup</a>
+                                    <div class="font-bold text-2xl  flex  justify-center ">
+                                        <a>Non-Veg</a>
                                     </div>
-                                    <div class="text-sm text-gray-400 font-semibold">
-                                        <span>Noodels, Spcies,Green chili paste</span>
-                                    </div>
+                                   
                                 </div>
                             </div>
 
 
-                            <%--<div class="flex my-5 space-x-3">
-                            <div class="border-4 border-gray-500 rounded-full ">
-                                <img alt="Dish"  src="Template/img/specials-3.png" />
-                            </div>
-                            <div class="w-full">
-                                <div class="font-bold  flex  justify-between ">
-                                    <a>Manchurian Soup</a>
-                                </div>
-                                <div class="text-sm text-gray-400 font-semibold">
-                                    <span>Noodels, Spcies,Green chili paste</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex my-5 space-x-3">
-                            <div class="border-4 border-gray-500 rounded-full ">
-                                <img alt="Dish" height="100px" width="100px" src="Template/img/specials-3.png" />
-                            </div>
-                            <div class="w-full">
-                                <div class="font-bold  flex  justify-between ">
-                                    <a>Manchurian Soup</a>
-                                </div>
-                                <div class="text-sm text-gray-400 font-semibold">
-                                    <span>Noodels, Spcies,Green chili paste</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex my-5 space-x-3">
-                            <div class="border-4 border-gray-500 rounded-full ">
-                                <img alt="Dish" height="100px" width="100px" src="Template/img/specials-3.png" />
-                            </div>
-                            <div class="w-full">
-                                <div class="font-bold  flex  justify-between ">
-                                    <a>Manchurian Soup</a>
-                                </div>
-                                <div class="text-sm text-gray-400 font-semibold">
-                                    <span>Noodels, Spcies,Green chili paste</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex my-5 space-x-3">
-                            <div class="border-4 border-gray-500 rounded-full ">
-                                <img alt="Dish" height="100px" width="100px" src="Template/img/specials-3.png" />
-                            </div>
-                            <div class="w-full">
-                                <div class="font-bold  flex  justify-between ">
-                                    <a>Manchurian Soup</a>
-                                </div>
-                                <div class="text-sm text-gray-400 font-semibold">
-                                    <span>Noodels, Spcies,Green chili paste</span>
-                                </div>
-                            </div>
-                        </div>--%>
+                            
                         </div>
                     </div>
                     <!-- Menu List End-->
@@ -217,7 +164,7 @@
     </section>
     <script>
         $(function () {
-            //FillCategoryMenu();
+            FillCategoryMenu();
         })
 
         function FillCategoryMenu() {
@@ -227,7 +174,7 @@
                 data: "{CategoryID:0}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: OnSuccess,
+                success: OnCategoryMenuSuccess,
                 async: false,
                 error: function (err) {
                     console.log(err);
@@ -237,7 +184,7 @@
         }
 
 
-        function OnSuccess(response) {
+        function OnCategoryMenuSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
             var Details = xml.find("DataDetails");
@@ -247,21 +194,89 @@
             if (Details.length > 0) {
                 $.each(Details, function () {
 
-                    divTag += `<div class=" my-5 space-x-3">
-                            <div>
-                                <div class="border-4 w-28  border-gray-500 rounded-full ">
-                                    <img alt="Dish" height="100px" class="w-full" src="Template/img/specials-3.png" />
+                    divTag += `<div id="` + $(this).find("CategoryID").text() + `" class=" my-5 space-x-3 text-center border cursor-pointer">
+                                <div class="">
+                                    <div class=" flex items-center justify-center  border-gray-500  ">
+                                        <div class="w-52 h-52 border overflow-hidden">
+                                            <img alt="Dish" class="" src="Assets/Images/`+ $(this).find("CategoryPhoto").text() + `" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="w-full">
+                                    <div class="font-bold text-2xl  flex  justify-center ">
+                                        <a>`+ $(this).find("CategoryName").text() + `</a>
+                                    </div>
+
+                                </div>
+                            </div>`;
+                })
+            }
+            else {
+
+            }
+            $("#CategoryMenu").html(divTag)
+        }
+
+
+        function FillSubCategoryMenu(CategoryID) {
+            $.ajax({
+                url: "WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterGet",
+                method: "POST",
+                data: "{SubCategoryID:"+JSON.stringify(CategoryID)+"}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSubCategoryMenuSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+
+        function OnSubCategoryMenuSuccess(response) {
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+            var Details = xml.find("DataDetails");
+
+            var divTag = "";
+
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    divTag += `<div class="flex my-5 border space-x-3 menu-list">
+                                <div class="border-4 h-52 w-52 border-gray-500 rounded-full ">
+                                    <img alt="Dish" class="h-full w-full" src="Template/img/specials-3.png" />
+                                </div>
+                                <div class=" my-auto">
+                                    <div class="font-bold  flex  justify-between ">
+                                        <a>` + $(this).find("SubCategoryName").text() + `</a>
+                                    </div>
+                                    <div class="text-sm text-gray-400 font-semibold">
+                                        <!--<span>Noodels, Spcies,Green chili paste</span>-->
+                                    </div>
                                 </div>
                             </div>
-                            <div class="w-full">
-                                <div class="font-bold  flex  justify-between ">
-                                    <a>`+ $(this).find("CategoryName").text() + `</a>
+
+
+                            <div id="` + $(this).find("CategoryID").text() + `" class=" my-5 space-x-3 text-center border cursor-pointer">
+                                <div class="">
+                                    <div class=" flex items-center justify-center  border-gray-500  ">
+                                        <div class="w-52 h-52 border overflow-hidden">
+                                            <img alt="Dish" class="" src="Assets/Images/`+ $(this).find("CategoryPhoto").text() + `" />
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <div class="text-sm text-gray-400 font-semibold">
-                                    <span>Noodels, Spcies,Green chili paste</span>
+                                <div class="w-full">
+                                    <div class="font-bold text-2xl  flex  justify-center ">
+                                        <a>`+ $(this).find("CategoryName").text() + `</a>
+                                    </div>
+
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
                 })
             }
             else {
