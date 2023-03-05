@@ -2,12 +2,7 @@
   "version": "1.0",
   "defaultProvider": "cdnjs",
   "libraries": [
-    {
-      "library": "tailwindcss@2.2.19",
-      "destination": "Admin/Template/lib/tailwindcss"
-    },
-
-
+    
     {
       "library": "jquery@3.6.3",
       "destination": "lib/jquery/"
@@ -16,6 +11,15 @@
       "provider": "unpkg",
       "library": "tailwindcss@3.2.7",
       "destination": "lib/tailwindcss/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "lib/toastr.js/"
     }
-  ]
+  ,
+{
+  "library": "toastr.js@2.1.4",
+  "destination": "lib/toastr.js/"
+}
+]
 }

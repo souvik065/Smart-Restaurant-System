@@ -83,7 +83,8 @@ public class FileHandler : IHttpHandler, System.Web.SessionState.IRequiresSessio
                     context.Response.Write("MaterialPhoto/" + strFileName);
 
                 }
-            }else if (Imgtype == "CategoryPhoto")
+            }
+            else if (Imgtype == "CategoryPhoto")
             {
                 string strGuID = Guid.NewGuid().ToString();
                 HttpFileCollection files = context.Request.Files;
@@ -107,17 +108,41 @@ public class FileHandler : IHttpHandler, System.Web.SessionState.IRequiresSessio
 
                 }
             }
+            else if (Imgtype == "SubCategoryPhoto")
+            {
+                string strGuID = Guid.NewGuid().ToString();
+                HttpFileCollection files = context.Request.Files;
+                for (int i = 0; i < files.Count; i++)
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/SubCategoryPhoto/"));
+                    if (!fileInfo.Directory.Exists)
+                    {
+                        fileInfo.Directory.Create();
+                    }
+
+                    HttpPostedFile uploadFile = files[i];
+                    string filename = System.IO.Path.GetFileName(uploadFile.FileName);
+                    string strExt = System.IO.Path.GetExtension(filename);
+                    string strActualName = System.IO.Path.GetFileName(filename);
+                    string strFileName = DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString() + strGuID + strExt;
+                    string savefile1 = fileInfo.ToString() + "/" + strFileName;
+                    uploadFile.SaveAs(savefile1);
+                    context.Session["SubCategoryPhoto"] = "SubCategoryPhoto/" + strFileName;
+                    context.Response.Write("SubCategoryPhoto/" + strFileName);
+
+                }
+            }
         }
-        
+
     }
 
 
-public bool IsReusable
-{
-    get
+    public bool IsReusable
     {
-        return false;
+        get
+        {
+            return false;
+        }
     }
-}
 
 }

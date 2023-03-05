@@ -168,11 +168,11 @@
                     </div>
 
                     <div>
-                        <input id="btnCancel" class="border hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                        <input id="btnCancel" class="border hidden border-yellow-700 bg-transparent text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
                     </div>
 
                     <div>
-                        <input id="btnStep1Clear" onclick="ClearField()" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
+                        <input id="btnStep1Clear" onclick="ClearField()" class="border bg-transparent border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
                 </div>
                 <!--Action Buttons End-->
@@ -199,11 +199,11 @@
                     </div>
 
                     <div>
-                        <input id="btnCancel" class="border hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                        <input id="btnCancel" class="border bg-transparent hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
                     </div>
 
                     <div>
-                        <input id="btnStep2Clear" onclick="ClearField()" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
+                        <input id="btnStep2Clear" onclick="ClearField()" class="border bg-transparent border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
                 </div>
                 <!--Action Buttons End-->
@@ -221,7 +221,7 @@
                         <div class="text-center min-w-[15rem] max-w-[20rem] h-full rounded-lg overflow-hidden ">
                             <div><span id="imgDishPhotoWarning" class="formerror text-red-600  text-sm"></span></div>
 
-                            <label for="fuDishPhoto" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            <label for="fuDishPhoto" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer  hover:bg-bray-800 bg-gray-700 hover:bg-gray-100 border-gray-600 hover:border-gray-500 hover:bg-gray-600">
                                 <img id="imgDishPhoto" alt="" onchange="FormValTextBox(this.id)" src="#" style="display: none;" class="h-full w-full" />
                                 <div class="ImagePreviewLabel  flex flex-col items-center justify-center absolute pt-5 pb-6">
                                     <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentcolor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -250,7 +250,7 @@
                     </div>
 
                     <div>
-                        <input id="btnStep3Clear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
+                        <input id="btnStep3Clear" class="border bg-transparent border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
                 </div>
                 <!--Action Buttons End-->

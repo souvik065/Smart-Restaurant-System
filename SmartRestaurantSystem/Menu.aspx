@@ -12,62 +12,34 @@
                     <!-- Section Title -->
                     <div class="section-title my-16 space-y-5 w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10">
                         <h2 class="title font-semibold text-gray-400 ">M E N U</h2>
-                        <p class="font-playfair-display-700 text-5xl">Choose Your Category</p>
+                        <p id="title" class="font-playfair-display-700 text-5xl">Choose Your Category</p>
                     </div>
                     <!-- Section Title End-->
 
+                    <!-- Filters End-->
+                    <div class="flex filters 2xl:mx-52 border">
+                        <div>
+                            <ul class="flex text-xl font-playfair-display-600 space-x-10  ">
+                                <li class="cursor-pointer" onclick="FillCategoryMenu()">Category</li>
 
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Filters End-->
 
 
 
                     <!-- Category List -->
-                    <div class="text-white menu-list">
-                        <div class=" flex justify-around md:mx-20   2xl:mx-64 my-10 border " id="CategoryMenu">
-
-                            <div id="" class=" my-5 space-x-3 text-center border cursor-pointer">
-                                <div class="">
-                                    <div class=" flex items-center justify-center  border-gray-500  ">
-                                        <div class="w-52 h-52 border overflow-hidden">
-                                            <img alt="Dish" class="" src="veg-icon.png" />
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="w-full">
-                                    <div class="font-bold text-2xl  flex  justify-center ">
-                                        <a>Veg</a>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-
-                            <div class=" my-5 space-x-3 text-center border cursor-pointer">
-                                <div class="">
-                                    <div class=" flex items-center justify-center  border-gray-500  ">
-                                        <div class="w-52 h-52 border overflow-hidden">
-                                            <img alt="Dish" class="" src="non-veg-icon.png" />
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="w-full">
-                                    <div class="font-bold text-2xl  flex  justify-center ">
-                                        <a>Non-Veg</a>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-
-
-                            
+                    <div class="text-white menu-list  border">
+                        <div class=" flex justify-around 2xl:mx-52  my-10 border " id="CategoryMenu">
                         </div>
                     </div>
                     <!-- Menu List End-->
 
                     <!-- Sub-Category List Start-->
                     <div class="border">
-                        <div class="px-5 mx-10 2xl:mx-48 xl:mx-32 lg:mx-20  md:mx-5  grid md:grid-cols-2">
-                            
+                        <div class="px-5 mx-10 2xl:mx-48 xl:mx-32 lg:mx-20  md:mx-5  grid md:grid-cols-2 " id="SubCategoryMenu">
+
                             <div class="flex my-5 border space-x-3 menu-list">
                                 <div class="border-4 h-52 w-52 border-gray-500 rounded-full ">
                                     <img alt="Dish" class="h-full w-full" src="Template/img/specials-3.png" />
@@ -81,7 +53,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="flex my-5 border space-x-3 menu-list">
                                 <div class="border-4 h-52 w-52 border-gray-500 rounded-full ">
                                     <img alt="Dish" class="h-full w-full" src="Template/img/specials-3.png" />
@@ -141,6 +113,15 @@
                     </div>
                     <!-- Sub-Category List End-->
 
+
+                    <!-- Dishes List Start-->
+                    <div class="border">
+                        <div class="px-5 mx-10 2xl:mx-48 xl:mx-32 lg:mx-20  md:mx-5  grid md:grid-cols-2 " id="Dishes">
+                        </div>
+                    </div>
+                    <!-- Dishes List End-->
+
+
                 </div>
 
 
@@ -194,7 +175,8 @@
             if (Details.length > 0) {
                 $.each(Details, function () {
 
-                    divTag += `<div id="` + $(this).find("CategoryID").text() + `" class=" my-5 space-x-3 text-center border cursor-pointer">
+                    divTag += `
+                            <div id="` + $(this).find("CategoryID").text() + `"  onclick="ListAllSubCategoryByCategory(this.id)" class=" my-5  text-center border cursor-pointer">
                                 <div class="">
                                     <div class=" flex items-center justify-center  border-gray-500  ">
                                         <div class="w-52 h-52 border overflow-hidden">
@@ -203,11 +185,10 @@
 
                                     </div>
                                 </div>
-                                <div class="w-full">
-                                    <div class="font-bold text-2xl  flex  justify-center ">
-                                        <a>`+ $(this).find("CategoryName").text() + `</a>
+                                <div class="w-full ">
+                                    <div class="font-bold text-2xl  flex  justify-center text-center">
+                                        <p class="">`+ $(this).find("CategoryName").text() + `</p>
                                     </div>
-
                                 </div>
                             </div>`;
                 })
@@ -219,11 +200,12 @@
         }
 
 
-        function FillSubCategoryMenu(CategoryID) {
+        function ListAllSubCategoryByCategory(CategoryID) {
+            document.getElementById('SubCategoryMenu').scrollIntoView();
             $.ajax({
-                url: "WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterGet",
+                url: "WebServices/SubCategoryMasterWebService.asmx/ListAllSubCategoryByCategory",
                 method: "POST",
-                data: "{SubCategoryID:"+JSON.stringify(CategoryID)+"}",
+                data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: OnSubCategoryMenuSuccess,
@@ -252,37 +234,20 @@
                                 </div>
                                 <div class=" my-auto">
                                     <div class="font-bold  flex  justify-between ">
-                                        <a>` + $(this).find("SubCategoryName").text() + `</a>
+                                        <p>` + $(this).find("SubCategoryName").text() + `</p>
                                     </div>
                                     <div class="text-sm text-gray-400 font-semibold">
                                         <!--<span>Noodels, Spcies,Green chili paste</span>-->
                                     </div>
+                                   </div>
                                 </div>
-                            </div>
-
-
-                            <div id="` + $(this).find("CategoryID").text() + `" class=" my-5 space-x-3 text-center border cursor-pointer">
-                                <div class="">
-                                    <div class=" flex items-center justify-center  border-gray-500  ">
-                                        <div class="w-52 h-52 border overflow-hidden">
-                                            <img alt="Dish" class="" src="Assets/Images/`+ $(this).find("CategoryPhoto").text() + `" />
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="w-full">
-                                    <div class="font-bold text-2xl  flex  justify-center ">
-                                        <a>`+ $(this).find("CategoryName").text() + `</a>
-                                    </div>
-
-                                </div>
-                            </div>`;
+                           `;
                 })
             }
             else {
 
             }
-            $("#CategoryMenu").html(divTag)
+            $("#SubCategoryMenu").html(divTag)
         }
     </script>
 </asp:Content>

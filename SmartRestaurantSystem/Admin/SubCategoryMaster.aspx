@@ -23,12 +23,30 @@
                 <div class="font-poppins-400 text-xl w-full space-y-10 font-bold">
 
                     <!-- Fields -->
+                     <!--Image Preview-->
+                        <div class="md:flex md:justify-start  mx-5 justify-center">
+                            <div class="text-center min-w-[15rem] max-w-[20rem] h-full rounded-lg overflow-hidden ">
+                                <div><span id="imgCategoryPhotoWarning" class="formerror text-red-600  text-sm"></span></div>
+
+                                <label for="fuCategoryPhoto" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-bray-800 bg-gray-700 hover:bg-gray-100 border-gray-600 hover:border-gray-500 hover:bg-gray-600">
+                                    <img id="imgCategoryPhoto" alt="" onchange="FormValTextBox(this.id)" src="#" style="display: none;" class="h-full w-full" />
+                                    <div class="ImagePreviewLabel  flex flex-col items-center justify-center absolute pt-5 pb-6">
+                                        <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentcolor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 16a4 4 0 01-.88-7.903a5 5 0 1115.9 6l16 6a5 5 0 011 9.9m15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">click to upload</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">png or jpg  (max. 800x400px)</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <!--Image Preview End-->
+
                     <div class="grid gap-10 md:grid-cols-2 ">
                         <div class=" w-full ">
                             <input id="hdnSubCategoryID" type="hidden" />
                             <lable for="ddlCategory" class="my-auto w-1/3">Category Name</lable><span id="ddlCategoryWarning" class="formerror text-red-600 text-sm"></span>
 
-                            <select id="ddlCategory" onchange="FormValDropDown(this.id)" class="text-gray-400 bg-transparent text-gray-400 px-2 py-2 border w-full border-classic-dimyellow  text-center">
+                            <select id="ddlCategory" onchange="FormValDropDown(this.id)" class="text-gray-400 font-semibold bg-transparent text-gray-400 px-2 py-2 border w-full border-classic-dimyellow  text-center">
                                 <option>--Selesct Category--</option>
 
                             </select>
@@ -37,7 +55,7 @@
 
                             <lable for="txtSubCategoryName" class="my-auto">Sub-Category Name</lable><span id="txtSubCategoryNameWarning" class="formerror text-red-600  text-sm"></span>
 
-                            <input id="txtSubCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
+                            <input id="txtSubCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400 font-semibold border w-full border-classic-dimyellow  py-1 px-2" type="text" />
                         </div>
                     </div>
                     <!-- Fields End -->
@@ -48,7 +66,7 @@
                             <input id="btnSave" class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Save" />
                         </div>
                         <div>
-                            <input id="btnClear" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
+                            <input id="btnClear" class="border border-yellow-900 bg-transparent text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                         </div>
                     </div>
                     <!--Action Buttons End-->

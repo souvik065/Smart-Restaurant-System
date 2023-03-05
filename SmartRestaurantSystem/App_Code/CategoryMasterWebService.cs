@@ -78,6 +78,9 @@ public class CategoryMasterWebService : System.Web.Services.WebService
 
         }
         return msg;
+
+
+        
     }
 
     [WebMethod] //-- Executing Category GET/Read Function --// 

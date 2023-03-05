@@ -7,15 +7,20 @@
 
     <section class="sec1 w-full h-screen">
 
-        <div class="flex justify-center items-center text-white my-auto border h-full">
-            <div>
+        <div class="flex justify-center  items-center text-white my-auto  h-full home-title">
+            <div class="space-y-5">
                 <div>
-                    <h1 class="text-4xl font-poppins-400 font-bold">
-                        Welcome to <span>Restaurantly</span>
+                    <h1 class="text-5xl font-poppins-700 font-bold">
+                        Welcome to <span class="text-classic-yellow">Restaurantly</span>
                     </h1>
-                    <h2 class="font-poppins-400">Delivering greate fod for nore than 18 years</h2>
+                    <h2 class="font-playfair-display-600 text-xl">Delivering greate fod for nore than 18 years</h2>
                 </div>
-                <div></div>
+                <div>
+                    <a class="border-2 border-classic-yellow rounded-3xl px-5 py-2">OUR MENU</a>
+                    <a class="border-2 border-classic-yellow rounded-3xl px-5 py-2">OUR MENU</a>
+
+
+                </div>
             </div>
         </div>
 

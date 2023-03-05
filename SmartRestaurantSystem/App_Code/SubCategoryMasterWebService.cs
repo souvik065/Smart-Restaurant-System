@@ -78,6 +78,9 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
         return msg;
     }
 
+
+
+
     [WebMethod] //-- Executing SubCategory GET/Read Function --// 
     public string SubCategoryMasterGet(Int32 SubCategoryID)
     {
@@ -165,6 +168,19 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
         }
         return msg;
 
+    }
+
+
+    [WebMethod]
+    public string ListAllSubCategoryByCategory(Int32 CategoryID)
+    {
+        
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("ListAllSubCategoryByCategory", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@CategoryID", CategoryID).DbType = DbType.Int32;
+        return GetDataWithoutPaging(cmd).GetXml();
+       
     }
 
 

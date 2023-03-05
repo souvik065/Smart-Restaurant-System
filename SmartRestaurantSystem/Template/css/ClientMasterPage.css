@@ -1,0 +1,80 @@
+﻿body {
+    
+}
+
+
+.nav-bar{
+    transition:1s;
+}
+
+
+.side-nav-bar{
+    
+    
+}
+
+.section-title {
+    animation: transitionIn 1s;
+}
+
+.filters {
+    animation: transitionIn 1s;
+}
+
+
+.first-footer {
+    animation: transitionUp 2s;
+}
+
+.second-footer {
+    animation: transitionUp 2s;
+}
+
+.menu-list {
+    animation: transitionUp 2s;
+}
+
+@media (max-width:992px) {
+    .navigations{
+        display:none;
+    }
+
+    .table-booking{
+        display:none;
+    }
+
+    
+}
+
+@media (min-width:992px) {
+    .side-nav-bar {
+        transform: translateX(-100%);
+    }
+
+
+}
+
+
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: rotateX(-10deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotateX(0);
+    }
+}
+
+@keyframes transitionUp {
+    from {
+        opacity: 0;
+        transform: translateY(40%)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

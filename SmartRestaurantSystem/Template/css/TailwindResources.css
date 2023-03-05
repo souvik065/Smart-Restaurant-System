@@ -25,6 +25,11 @@
 /* Ring Colours */
 
 /* Google Fonts */
+.font-poppins-700 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700
+}
+
 .font-poppins-400 {
     font-family: 'Poppins', sans-serif;
     font-weight: 400

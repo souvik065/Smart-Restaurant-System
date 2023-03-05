@@ -16,15 +16,16 @@
     <link href="Template/lib/tailwindcss/tailwind.min.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/utilities.min.css" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/743a9d75bd.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://kit.fontawesome.com/743a9d75bd.css" crossorigin="anonymous">
+  
     <link href="Template/css/AdminMasterPage.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="Template/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="Template/css/TailwindResources.css" rel="stylesheet" />
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="Template/Js/AdminMasterPage.js"></script>
     <script src="Template/Js/MenuSubMenu.js"></script>
-
+    <script src="../preloader.js"></script>
+    <link href="../preloader.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -32,6 +33,15 @@
 <!--bg-classic-dark-brown-->
 
 <body class=" bg-stone-900 max-h-max  bg-opacity-90">
+
+    <!-- Pre Loader -->
+    <div class="preloader"  id="preloader" >
+        <div class="loader">
+                <img  id="img1"  src="../loader.svg" style="z-index:1000;"  />
+        </div>
+    </div>
+    <!-- End Preloader -->
+
     <%--<div class="preloader "></div>--%>
     <form id="form1" class="" runat="server">
         <div class="w-full h-full ">
