@@ -31,7 +31,7 @@
             <div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 ">
                 <div class="w-full">
                     <div class="font-poppins-400 text-xl w-full space-y-10 font-bold">
-                        
+
 
                         <!-- Fields -->
                         <!--Image Preview-->
@@ -199,7 +199,7 @@
 
                     url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterManage",
                     method: "POST",
-                    data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + ", CategoryPhoto:" + JSON.stringify(CategoryPhoto)+"}",
+                    data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + ", CategoryPhoto:" + JSON.stringify(CategoryPhoto) + "}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {

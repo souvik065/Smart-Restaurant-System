@@ -57,8 +57,22 @@
 
 
 
+
+/* Max-h-[] Start*/
+
+.max-h-\[20rem\] {
+    max-height: 20rem /* 320px */;
+}
+
+/* Max-h-[] End*/
+
+
 .h-\[9rem\] {
     height: 9rem /* 144px */;
+}
+
+.h-\[5rem\] {
+    height: 5rem /* 80px */;
 }
 
 .min-w-\[5rem\] {
@@ -80,4 +94,12 @@
 
 .top-\[4\.2rem\] {
     top: 4.2rem /* 67.2px */;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.max-h-max {
+    max-height: max-content;
 }

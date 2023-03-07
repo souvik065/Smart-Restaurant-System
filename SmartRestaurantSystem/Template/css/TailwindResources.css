@@ -24,6 +24,16 @@
 
 /* Ring Colours */
 
+
+/* Max-h-[] Start*/
+
+.max-h-\[20rem\] {
+    max-height: 20rem /* 320px */;
+}
+
+/* Max-h-[] End*/
+
+
 /* Google Fonts */
 .font-poppins-700 {
     font-family: 'Poppins', sans-serif;

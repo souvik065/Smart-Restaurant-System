@@ -167,9 +167,7 @@
                         <input id="btnStep1Next" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
 
-                    <div>
-                        <input id="btnCancel" class="border hidden border-yellow-700 bg-transparent text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
-                    </div>
+                    
 
                     <div>
                         <input id="btnStep1Clear" onclick="ClearField()" class="border bg-transparent border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
@@ -198,10 +196,7 @@
                         <input id="btnStep2Next" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
 
-                    <div>
-                        <input id="btnCancel" class="border bg-transparent hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
-                    </div>
-
+                    
                     <div>
                         <input id="btnStep2Clear" onclick="ClearField()" class="border bg-transparent border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
@@ -448,6 +443,8 @@
 
             if ($('#btnStep3Clear').click) {
 
+
+
             }
 
         }
@@ -475,12 +472,11 @@
         function Cancle() {
 
             $("#btnCancle").on('click', function () {
-                var categoryid = $("#hdnDishID");
+                var dishid = $("#hdnDishID");
 
-                if (categoryid.val() > 0) {
+                if (dishid.val() > 0) {
 
-                    $("[id=btnSave]").val("Save");
-                    $("[id=btnClear]").val("Clear");
+                    
 
                     ClearFields();
 
@@ -628,6 +624,8 @@
             currentStep = 0;
             showCurrentStep();
 
+            document.getElementById("btnCancel").classList.remove("hidden");
+
             $("[id*=txtDishName]").focus();
 
             $("[id=btnSubmit]").val("Update");
@@ -733,11 +731,7 @@
 
         }
 
-        function UpdateIngredients(DishID) {
-
-            //DeleteIngredients(DishID);
-            InsertIngredients(DishID);
-        }
+        
 
 
         function DeleteIngredients(DishID) {
@@ -755,13 +749,7 @@
                         console.log(result);
                     } else if (result.includes("Success")) {
                         msg = result;
-                        swal.fire({
-                            title: "Deleted",
-                            icon: "success",
-                            text: result,
-                            background: '#27272a',
-
-                        })
+                       
 
                     }
                 },
@@ -1036,7 +1024,7 @@
                                 <div class=" ">
                                     <input id="Checkbox`+ $(this).find("MaterialName").text() + `"  class="MaterialCheckbox" type="checkbox" name="Material" value="` + $(this).find("MaterialID").text() + `" />
                                     <label for="Checkbox`+ $(this).find("MaterialName").text() + `" class="cursor-pointer w-full h-full text-center ">
-                                        <div class="rounded h-[5rem] overflow-hidden">
+                                        <div class="rounded h-24 overflow-hidden">
                                             <img class="w-full max-h-max " src="../Assets/Images/`+ $(this).find("MaterialPhoto").text() + `" />
                                         </div>
                                         <div class="font-semibold text-gray-400 text-sm my-auto h-full">`+ $(this).find("MaterialName").text() + `</div>

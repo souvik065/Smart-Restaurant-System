@@ -9,8 +9,8 @@
         <div class=" ">
         <input id="CheckboxMikProducts"  type="checkbox" name="Material" value="Milk Porudcts" />
            <label for="CheckboxMikProducts" class="cursor-pointer w-full h-full  ">
-               <div class="rounded h-[5rem] overflow-hidden">
-                   <img class="w-full max-h-max " src="../Assets/Images/MaterialPhoto/280220233ad708e6-000c-4c86-8adb-79d889ba533a.png" />
+               <div class="rounded h-24 border  overflow-hidden">
+                   <img class="w-full  " src="../Assets/Images/MaterialPhoto/280220233ad708e6-000c-4c86-8adb-79d889ba533a.pn" />
                </div>
                <div class="font-semibold text-gray-400">Mik Products</div>
            </label>
@@ -19,8 +19,33 @@
 
 
     <div class="h-screen"></div>
-    <script>
+
+    <style>
+    h1 {
+        color: green;
+    }
+    </style>
+  
+     
+   
+
+ 
+
+    <center class="border">
+        <h1>GeeksforGeeks</h1>
+        <h3>Getting Client IP address</h3>
+    </center>
+
+   <script>
+
        
-    </script>
+      
+
+       $.getJSON('https://api.db-ip.com/v2/free/self', function (data) {
+           console.log(JSON.stringify(data, null, 2));
+       });
+
+        // "json" shows that data will be fetched in json format
+   </script>
 </asp:Content>
 

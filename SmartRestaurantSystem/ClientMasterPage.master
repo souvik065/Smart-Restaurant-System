@@ -18,6 +18,7 @@
     <link href="Template/lib/tailwindcss/tailwind-dark.min.css" rel="stylesheet" />
     <link href="lib/toastr.js/toastr.css" rel="stylesheet" />
     <script src="lib/toastr.js/toastr.min.js"></script>
+    <script src="Template/js/jquery.dataTables.min.js"></script>
     <script src="lib/sweetalert2@11.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -26,114 +27,125 @@
 
 <body class="bg-restaurantly-darkbrown">
     <form id="form1" runat="server">
-            <div class="topbar">
-            </div>
-            <!-- Nav-Bar -->
-            <nav class="nav-bar fixed bg-black bg-opacity-50 top-0  py-3 w-full flex justify-center items-center  text-white  ">
-                <div class="flex  justify-between md:space-x-5  w-full mx-5 lg:mx-64 px-10">
-                    <!-- Logo  -->
-                    <div>
-                        <h1>
-                            <span class="text-3xl"><a href="#">RESTAURANTLY</a></span>
-                        </h1>
-                    </div>
-                    <!-- Logo  End-->
+        <div class="topbar">
+        </div>
+        <!-- Nav-Bar -->
+        <nav class="nav-bar fixed bg-black bg-opacity-50 top-0 border py-3 w-full flex justify-center items-center  text-white  ">
+            <div class="flex  justify-between md:space-x-5 border w-full mx-5 lg:mx-64 px-10">
+                <!-- Logo  -->
+                <div>
+                    <h1>
+                        <span class="text-3xl"><a href="#">RESTAURANTLY</a></span>
+                    </h1>
+                </div>
+                <!-- Logo  End-->
 
-                    <!--Naviagtion Menus -->
-                    <div class="flex navigations my-auto space-x-10  ">
-                        <a href="Home.aspx" class="">
+                <!--Naviagtion Menus -->
+                <div class="flex navigations my-auto space-x-10  ">
+                    <a href="Home.aspx" class="">
+                        <div class="cursor-pointer">
+                            <span>Home</span>
+                        </div>
+                    </a>
+                    <a href="Menu.aspx" class="">
+                        <div class="cursor-pointer">
+                            <span>Menu</span>
+                        </div>
+                    </a>
+                    <a href="AboutUs.aspx" class="">
+                        <div class="cursor-pointer">
+                            <span>About</span>
+                        </div>
+                    </a>
+                    <a href="ContactUs.aspx" class="">
+                        <div class="cursor-pointer">
+                            <span>Contact Us</span>
+                        </div>
+                    </a>
+
+
+
+                </div>
+                <!--Naviagtion Menus End-->
+
+                <!-- Bokk A Table Button -->
+                <div class="table-booking flex my-auto  space-x-3">
+                    <div class=" rounded-2xl border-2 border-amber-500 text-sm ">
+                        <input type="button" class="bg-transparent px-5 py-1 cursor-pointer" value="BOOK A TABLE" />
+                    </div>
+                    <div class="my-auto">
+                        <span id="orders"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+</svg>
+                        </span>
+                        <div id="orders-div" class="hidden absolute top-16 bg-restaurantly-darkbrown h-10 w-auto border">
+                            <div>
+                                <a href="Orders.aspx" class="">View All ...</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Bokk A Table Button End-->
+
+                <!-- side-nav-bar-button -->
+                <div class="side-nav-bar-button my-auto cursor-pointer lg:hidden ">
+                    <span>
+                        <svg class="h-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </span>
+                </div>
+                <!-- Side-Nav-Bar-Button End-->
+
+            </div>
+        </nav>
+        <!-- Nav-Bar End-->
+
+        <!-- Side-Nav-Bar -->
+        <aside class="side-nav-bar text-white fixed bg-black opacity-80 w-64 top-16  transform -translate-x-full transition duration-200 ease-in-out">
+            <div>
+
+                <div class="py-2 my-5 text-center space-y-10 h-screen">
+                    <div>
+                        <a href="Home.aspx" class="text-center ">
                             <div class="cursor-pointer">
                                 <span>Home</span>
                             </div>
                         </a>
-                        <a href="Menu.aspx" class="">
-                            <div class="cursor-pointer">
-                                <span>Menu</span>
-                            </div>
-                        </a>
-                        <a href="AboutUs.aspx" class="">
+                    </div>
+                    <div>
+                        <a href="AboutUs.aspx" class="text-center ">
                             <div class="cursor-pointer">
                                 <span>About</span>
                             </div>
                         </a>
-                        <a href="ContactUs.aspx" class="">
+                    </div>
+                    <div>
+                        <a href="Menu.aspx" class="text-center ">
                             <div class="cursor-pointer">
-                                <span>Contact Us</span>
+                                <span>Menu</span>
                             </div>
                         </a>
-                       
-
-
                     </div>
-                    <!--Naviagtion Menus End-->
-
-                    <!-- Bokk A Table Button -->
-                    <div class="table-booking  my-auto  ">
-                        <div class=" rounded-2xl border-2 border-amber-500 text-sm ">
-                            <input type="button" class="bg-transparent px-5 py-1 cursor-pointer" value="BOOK A TABLE" />
-                        </div>
-
+                    <div>
+                        <a href="Specials.aspx" class="text-center ">
+                            <div class="cursor-pointer">
+                                <span>Specials</span>
+                            </div>
+                        </a>
                     </div>
-                    <!-- Bokk A Table Button End-->
-
-                    <!-- side-nav-bar-button -->
-                    <div class="side-nav-bar-button my-auto cursor-pointer lg:hidden ">
-                        <span>
-                            <svg class="h-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                        </span>
-                    </div>
-                    <!-- Side-Nav-Bar-Button End-->
-
-                </div>
-            </nav>
-            <!-- Nav-Bar End-->
-
-            <!-- Side-Nav-Bar -->
-            <aside class="side-nav-bar text-white fixed bg-black opacity-80 w-64  top-16  transform -translate-x-full transition duration-200 ease-in-out">
-                <div>
-
-                    <div class="py-2 my-5 text-center space-y-10 h-screen">
-                        <div>
-                            <a href="Home.aspx" class="text-center ">
-                                <div class="cursor-pointer">
-                                    <span>Home</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="AboutUs.aspx" class="text-center ">
-                                <div class="cursor-pointer">
-                                    <span>About</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="Menu.aspx" class="text-center ">
-                                <div class="cursor-pointer">
-                                    <span>Menu</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="Specials.aspx" class="text-center ">
-                                <div class="cursor-pointer">
-                                    <span>Specials</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="ContactUs.aspx" class="text-center ">
-                                <div class="cursor-pointer">
-                                    <span>Contact</span>
-                                </div>
-                            </a>
-                        </div>
+                    <div>
+                        <a href="ContactUs.aspx" class="text-center ">
+                            <div class="cursor-pointer">
+                                <span>Contact</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </aside>
-            <!-- Side-Nav-Bar End-->
+            </div>
+        </aside>
+        <!-- Side-Nav-Bar End-->
 
 
 
@@ -174,14 +186,16 @@
 
                     <!-- Usefull Link -->
                     <div>
-                        <div><h4 class="font-playfair-display-700 text-xl">Useful Links</h4></div>
+                        <div>
+                            <h4 class="font-playfair-display-700 text-xl">Useful Links</h4>
+                        </div>
                         <ul class="text-sm space-y-4 space-x-2 font-open-sans-400">
                             <li></li>
                             <li><a href="#"><span class="font-bold text-classic-yellow">></span> Home</a></li>
-                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> About</a></li>
-                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> Menu</a></li>
-                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> Special</a></li>
-                            <li><a href="#" ><span class="font-bold text-classic-yellow">></span> Contact Us</a></li>
+                            <li><a href="#"><span class="font-bold text-classic-yellow">></span> About</a></li>
+                            <li><a href="#"><span class="font-bold text-classic-yellow">></span> Menu</a></li>
+                            <li><a href="#"><span class="font-bold text-classic-yellow">></span> Special</a></li>
+                            <li><a href="#"><span class="font-bold text-classic-yellow">></span> Contact Us</a></li>
 
                         </ul>
                     </div>
@@ -189,12 +203,14 @@
 
                     <!-- Our Services -->
                     <div>
-                        <div><h4 class="font-playfair-display-700 text-xl">Our Services</h4></div>
+                        <div>
+                            <h4 class="font-playfair-display-700 text-xl">Our Services</h4>
+                        </div>
                         <ul class="text-sm font-semibold space-y-5 space-x-5 font-open-sans-600">
                             <li></li>
                             <li><a>Catering</a></li>
                             <li><a>Cloud Kitchen</a></li>
-                            
+
                         </ul>
                     </div>
                     <!-- Our Services End-->
@@ -204,7 +220,7 @@
                         <h4 class="font-playfair-display-700 text-xl">Our Newsletter</h4>
                         <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
                         <div class="rounded-full  border border-classic-dimyellow h-10 flex">
-                            <input type="text" class="bg-transparent rounded-full w-full px-3"/>
+                            <input type="text" class="bg-transparent rounded-full w-full px-3" />
                             <input type="button" class=" rounded-full px-5 cursor-pointer font-semibold bg-classic-yellow " value="Subscribe" />
                         </div>
                     </div>
@@ -237,6 +253,11 @@
         $('.side-nav-bar-button').on('click', function () {
             $('.side-nav-bar').toggleClass('-translate-x-full');
         });
+
+        $("#orders").on('click', function () {
+            $("#orders-div").toggleClass("hidden");
+
+        })
     </script>
 
 </body>

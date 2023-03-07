@@ -95,6 +95,16 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
 
+    [WebMethod] //-- Executing SubCategory GET/Read Function --// 
+    public string ListAllDishBySubCategory(Int32 SubCategoryID)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("ListAllDishBySubCategory", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@SubCategoryID", SubCategoryID).DbType = DbType.Int32;
+        return GetDataWithoutPaging(cmd).GetXml();
+    }
+
 
     public DataSet GetDataWithoutPaging(SqlCommand cmd)
     {

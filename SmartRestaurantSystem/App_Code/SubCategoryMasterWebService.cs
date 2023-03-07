@@ -25,7 +25,7 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string SubCategoryMasterManage(Int32 SubCategoryID,Int32 CategoryID,String SubCategoryName)
+    public string SubCategoryMasterManage(Int32 SubCategoryID,Int32 CategoryID,String SubCategoryName, String SubCategoryPhoto)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -39,6 +39,8 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@CategoryID", CategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@SubCategoryName", SubCategoryName).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@SubCategoryPhoto", SubCategoryPhoto).DbType = DbType.String;
+
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
@@ -56,6 +58,8 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
                 cmd.Parameters.AddWithValue("@SubCategoryID", SubCategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@CategoryID", CategoryID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@SubCategoryName", SubCategoryName).DbType = DbType.String;
+                cmd.Parameters.AddWithValue("@SubCategoryPhoto", SubCategoryPhoto).DbType = DbType.String;
+
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
@@ -131,7 +135,7 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string SubCategoryMasterDelete(Int32 SubCategoryID)
+    public string SubCategoryMasterDelete(Int32 SubCategoryID, String SubCategoryPhoto)
     {
         SqlConnection con = new SqlConnection(Global.StrCon);
         String msg = "";
@@ -148,6 +152,10 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
                 cmd.Dispose();
 
                 con.Close();
+
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + SubCategoryPhoto + ""));
+                if (fileInfo.Exists)
+                    fileInfo.Delete();
 
 
             }

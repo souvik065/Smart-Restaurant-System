@@ -18,7 +18,7 @@
     <link href="Template/lib/tailwindcss/utilities.min.css" rel="stylesheet" />
   
     <link href="Template/css/AdminMasterPage.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <%--<script src="https://cdn.tailwindcss.com"></script>--%>
     <link href="Template/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="Template/css/TailwindResources.css" rel="stylesheet" />
     <script src="../lib/jquery/jquery.min.js"></script>
