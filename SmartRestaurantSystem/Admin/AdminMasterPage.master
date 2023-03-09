@@ -187,6 +187,7 @@
                                         </div>
                                     </a>
                                 </li>
+                               
 
 
                             </ul>
@@ -273,6 +274,14 @@
                                     <a href="SupplierMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
                                         <div class="flex space-x-3">
                                             <i class="fa-solid fa-bowl-food"></i><span>Supplier Master</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="MeasureTypeMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3">
+                                            <i class="fa-solid fa-bowl-food"></i><span>Measure Type</span>
 
                                         </div>
                                     </a>

@@ -121,7 +121,7 @@
             <div data-step class="card step hidden w-full my-5 text-classic-yellow bg-classic-brown py-5 px-5 shadow-2xl space-y-10">
                 <div></div>
                 <h3 class="font-playfair-display-700 text-3xl text-gray-400 ">Dish Details</h3>
-                <!--Other Fields -->
+                <!-- Fields -->
                 <div class="grid gap-11 2xl:grid-cols-3  xl:grid-cols-2  ">
 
                     <!-- Category Name -->
@@ -143,7 +143,7 @@
 
                         <lable for="dllSubCategory" class="my-auto ">Sub-Category Name </lable>
                         <span id="ddlSubCategoryWarning" class="formerror text-red-600 text-sm"></span>
-                        <select id="ddlSubCategory" onchange="FormValDropDown(this.id)" class="  bg-transparent py-3 px-2 border w-full border-classic-dimyellow  text-center">
+                        <select id="ddlSubCategory" onchange="SubCategoryOnChange(this.id, this.value)" class="  bg-transparent py-3 px-2 border w-full border-classic-dimyellow  text-center">
                             <option>--Select--</option>
 
                         </select>
@@ -154,12 +154,29 @@
                     <div class=" w-full ">
                         <lable for="txtDishName" class="my-auto w-1/5">Dish Name </lable>
                         <span id="txtDishNameWarning" class="formerror text-red-600  text-sm"></span>
-                        <input id="txtDishName" onkeyup="FormValTextBox(this.id)" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
+                        <input id="txtDishName" onkeyup="FormValTextBox(this.id)" class="bg-transparent border w-full text-gray-400 font-bold border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
                     </div>
                     <!-- Dish Name End-->
 
                 </div>
-                <!--Other Fields End-->
+
+                <h3 class="font-playfair-display-700 text-3xl text-gray-400 ">Pricing & Additional Info</h3>
+                <div class="grid  sm:w-3/5 gap-5 " id="pricing">
+                    <div class="sm:flex lg:text-center my-auto w-full ">
+                        <lable for="txtRegular" class="my-auto w-1/5">Regular </lable>
+                        <div class=" ">
+                            <div>
+                                <span id="txtRegularNameWarning" class="formerror text-red-600  text-sm"></span>
+                                <div class="flex">
+                                    <input id="txtRegular" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400 font-bold border border-classic-dimyellow  w-full  w-1/2 py-1 px-1" placeholder="Regular: ₹199" type="text" />
+                                    <span class=" relative right-5">₹</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fields End-->
 
                 <!-- Action buttons -->
                 <div class="flex space-x-10">
@@ -167,7 +184,7 @@
                         <input id="btnStep1Next" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
 
-                    
+
 
                     <div>
                         <input id="btnStep1Clear" onclick="ClearField()" class="border bg-transparent border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
@@ -196,7 +213,7 @@
                         <input id="btnStep2Next" data-next class="bg-yellow-900 text-white py-3 px-10 hover:bg-yellow-700 cursor-pointer" type="button" value="Next" />
                     </div>
 
-                    
+
                     <div>
                         <input id="btnStep2Clear" onclick="ClearField()" class="border bg-transparent border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Clear" />
                     </div>
@@ -257,7 +274,7 @@
                 <div class="space-y-10 py-5">
                     <h1 class="text-5xl text-green-600">Success</h1>
 
-                    <input type="button" onclick="AddDish()" value="+ Add Dish" class="border border-yellow-900 text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" />
+                    <input type="button" onclick="AddDish()" value="+ Add Dish" class="border border-yellow-900 bg-transparent text-yellow-900 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" />
                 </div>
             </div>
 
@@ -312,6 +329,7 @@
         // Variables
         var ingredients = [];
         var ingredientsname = [];
+        var measuretype = [];
         var idishid = "";
         var test1 = "";
 
@@ -328,12 +346,17 @@
 
             console.log(ingredientsname);
 
-            
+
         })
 
         function CategoryOnChange(id, value) {
             FormValDropDown(id)
             ListAllSubCategory(value)
+        }
+
+        function SubCategoryOnChange(id, value) {
+            FormValDropDown(id)
+            ListAllMeasureTypeBySubCategory(value)
         }
 
 
@@ -387,7 +410,7 @@
                         } else if (!result.includes("error")) {
                             if (DishID > 0) {
                                 DeleteIngredients(DishID);
-                                InsertIngredients(DishID)
+                                InsertIngredients(DishID);
                                 swal.fire({
                                     icon: "success",
                                     text: result,
@@ -395,6 +418,8 @@
                                 })
                             } else {
                                 InsertIngredients(result);
+                                InsertPrice(result);
+
                                 swal.fire({
                                     icon: "success",
                                     text: "Dish Inserted Successfully",
@@ -420,84 +445,10 @@
 
         });
 
-       
-
-
-        /* Clear Functions Start */
-        function ClearField() {
-            if ($('#btnStep1Clear').click) {
-
-                $('#ddlCategory').val(0);
-                $('#ddlSubCategory').val(0);
-                $('#txtDishName').val("");
-
-            }
-
-            if ($('#btnStep2Clear').click) {
-                var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
-                checkboxes.map(box => {
-                    box.checked = false;
-                })
-                ingredients = [];
-            }
-
-            if ($('#btnStep3Clear').click) {
 
 
 
-            }
-
-        }
-
-        function ResetPage() {
-            var prelabel = document.querySelector(".ImagePreviewLabel");
-            prelabel.classList.remove("hidden");
-            $('#ddlCategory').val(0);
-            $('#ddlSubCategory').val(0);
-            $('#txtDishName').val("");
-            $('#hdnDishesID').val("");
-            $('#imgDishPhoto').removeAttr('src');
-            $('#imgDishPhoto').css('display', 'none');
-            ingredients = [];
-            $("[id=btnSubmit]").val("Submit");
-            $("[id=btnClear]").val("Clear");
-
-            var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
-            checkboxes.map(checkbox => {
-                checkbox.checked = false;
-            });
-
-        }
-
-        function Cancle() {
-
-            $("#btnCancle").on('click', function () {
-                var dishid = $("#hdnDishID");
-
-                if (dishid.val() > 0) {
-
-                    
-
-                    ClearFields();
-
-                    Swal.fire({
-                        title: 'Cancled',
-                        text: 'Record Updation Terminted',
-                        color: "white",
-                        background: '#27272a',
-                        icon: 'info'
-
-                    })
-
-                } else {
-                    ClearFields();
-                }
-
-            });
-
-        }
-
-        /* Clear Functions End*/
+        
 
 
         function FillDishDetails(DishID) {
@@ -516,7 +467,6 @@
 
             });
         }
-
 
         function OnSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
@@ -563,8 +513,6 @@
 
         }
 
-
-
         function EditDish(DishID) {
             $.ajax({
 
@@ -603,14 +551,13 @@
             var prelabel = document.querySelector(".ImagePreviewLabel");
             prelabel.classList.add("hidden");
 
+            /*-- Filling Ingredients Details of a Particular Dish --Start*/ 
             EditIngredients(Details.find("DishID").text())
-            debugger;
             var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
             checkboxes.map(checkbox => {
                 checkbox.checked = false;
             });
             checkboxes.map(checkbox => {
-                debugger;
 
                 let index = ingredients.indexOf(checkbox.value);
                 if (index === -1) {
@@ -619,7 +566,16 @@
                     checkbox.checked = true;
                 }
 
-            })
+            });
+            /*-- Filling Ingredients Details of a Particular Dish --End*/
+
+            /*-- Filling Price Details of a Particular Dish --Start*/
+            //ListAllMeasureTypeBySubCategory(Details.find("SubCategoryID").text());
+            //measuretype.map(measuretype => {
+
+            //});
+
+            /*-- Filling Price Details of a Particular Dish --End*/
 
             currentStep = 0;
             showCurrentStep();
@@ -631,7 +587,6 @@
             $("[id=btnSubmit]").val("Update");
             $("[id=btnClear]").val("Cancle");
         }
-
 
         function DeleteDish(DishID, DishPhoto) {
 
@@ -698,6 +653,83 @@
         }
 
 
+        /* Clear Functions Start */
+        function ClearField() {
+            if ($('#btnStep1Clear').click) {
+
+                $('#ddlCategory').val(0);
+                $('#ddlSubCategory').val(0);
+                $('#txtDishName').val("");
+
+            }
+
+            if ($('#btnStep2Clear').click) {
+                var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+                checkboxes.map(box => {
+                    box.checked = false;
+                })
+                ingredients = [];
+            }
+
+            if ($('#btnStep3Clear').click) {
+
+
+
+            }
+
+        }
+
+        function ResetPage() {
+            var prelabel = document.querySelector(".ImagePreviewLabel");
+            prelabel.classList.remove("hidden");
+            $('#ddlCategory').val(0);
+            $('#ddlSubCategory').val(0);
+            $('#txtDishName').val("");
+            $('#hdnDishesID').val("");
+            $('#imgDishPhoto').removeAttr('src');
+            $('#imgDishPhoto').css('display', 'none');
+            ingredients = [];
+            $("[id=btnSubmit]").val("Submit");
+            $("[id=btnClear]").val("Clear");
+
+            var checkboxes = [...document.querySelectorAll(".MaterialCheckbox")];
+            checkboxes.map(checkbox => {
+                checkbox.checked = false;
+            });
+
+        }
+
+        function Cancle() {
+
+            $("#btnCancle").on('click', function () {
+                var dishid = $("#hdnDishID");
+
+                if (dishid.val() > 0) {
+
+
+
+                    ClearFields();
+
+                    Swal.fire({
+                        title: 'Cancled',
+                        text: 'Record Updation Terminted',
+                        color: "white",
+                        background: '#27272a',
+                        icon: 'info'
+
+                    })
+
+                } else {
+                    ClearFields();
+                }
+
+            });
+
+        }
+
+        /* Clear Functions End*/
+
+
 
         /* Ingredients Master Methods Start*/
 
@@ -731,9 +763,6 @@
 
         }
 
-        
-
-
         function DeleteIngredients(DishID) {
             debugger;
             $.ajax({
@@ -749,7 +778,7 @@
                         console.log(result);
                     } else if (result.includes("Success")) {
                         msg = result;
-                       
+
 
                     }
                 },
@@ -800,7 +829,6 @@
             console.log("Ingredients Name: ", ingredientsname);
         }
 
-
         function EditIngredients(DishID) {
             $.ajax({
 
@@ -817,7 +845,6 @@
 
             });
         }
-
 
         function OnIngredientsMasterEditSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
@@ -839,11 +866,103 @@
             }
 
         }
-
-
-
-
         /* Ingredients Master Methods End*/
+
+
+        /* MeasureType Master Methods Start*/
+        function InsertPrice(DishID) {
+            debugger;
+            measuretype.map(measuretype => {
+
+                var Price = $("#" + measuretype + "").val().trim();
+
+                $.ajax({
+
+                    url: "../WebServices/PriceMasterWebService.asmx/PriceMasterInsert",
+                    method: "POST",
+                    data: "{DishID:" + JSON.stringify(DishID) + ",MeasureTypeID:" + JSON.stringify(measuretype) + ",Price:" + JSON.stringify(Price) + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var result = res.d;
+                        if (result.includes("error")) {
+                            console.log(result);
+                        } else if (!result.includes("error")) {
+
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+
+                });
+            });
+
+           
+
+
+
+        }
+
+
+        function ListAllMeasureTypeBySubCategory(SubCategoryID) {
+
+            $.ajax({
+
+                url: "../WebServices/MeasureTypeMasterWebService.asmx/ListAllMeasureTypeBySubCategory",
+                method: "POST",
+                data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnListAllMeasureTypeBySubCategorySuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+
+        }
+
+        function OnListAllMeasureTypeBySubCategorySuccess(response) {
+
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+
+
+            var divTag = "";
+            measuretype = [];
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    measuretype.push($(this).find("MeasureTypeID").text());
+
+                    divTag += `<div class="sm:flex lg:text-center my-auto w-full ">
+                               <lable for="`+ $(this).find("MeasureTypeID").text() + `" class="my-auto w-1/5">` + $(this).find("MeasureType").text() + `</lable>
+                               <div class=" ">
+                                    <div>
+                                        <span id="`+ $(this).find("MeasureTypeID").text() + `Warning" class="formerror text-red-600  text-sm"></span>
+                                        <div class="flex">
+                                        <input id="`+ $(this).find("MeasureTypeID").text() + `" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400 font-bold border border-classic-dimyellow  w-full  w-1/2 py-1 px-1" placeholder="₹199" type="text" />
+                                        <span class=" relative right-5">₹</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+`
+
+
+                })
+
+            }
+            $("#pricing").html(divTag);
+            console.log("MeasureType: ", measuretype);
+
+        }
+        /* MeasureType Master Methods End*/
+
 
 
         /* File Upload Funtions*/
@@ -894,7 +1013,6 @@
             }
 
         }
-        
 
         function SaveImage() {
 
@@ -1035,9 +1153,7 @@
                     MaterialCategoryID = $(this).find("MaterialCategoryID").text();
                 })
             }
-            else {
 
-            }
             $("#" + MaterialCategoryID).html(divTag);
         }
 
@@ -1056,7 +1172,6 @@
 
             });
         }
-
 
         function OnListAllMaterialCategorySuccess(response) {
             var xmlDoc = $.parseXML(response.d);
@@ -1172,10 +1287,10 @@
 
             return returnval;
         }
-
-
         /* Form Validation Functions End*/
 
+
+        /* MultiStep Form Script Start*/
         multiStepForm.addEventListener("click", e => {
 
             if (e.target.matches("[data-next]")) {
@@ -1229,6 +1344,7 @@
 
             showCurrentStep()
         });
+        /* MultiStep Form Script End*/
 
 
 
