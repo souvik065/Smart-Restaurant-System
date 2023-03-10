@@ -60,4 +60,135 @@ public class PriceMasterWebService : System.Web.Services.WebService
         return msg;
     }
 
+    [WebMethod]
+    public string PriceMasterUpdate(Int32 DishID, Int32 MeasureTypeID, String Price)
+    {
+        String msg = "";
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        try
+        {
+
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("PriceMasterUpdate", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
+            cmd.Parameters.AddWithValue("@MeasureTypeID", MeasureTypeID).DbType = DbType.Int32;
+            cmd.Parameters.AddWithValue("@Price", Price).DbType = DbType.String;
+
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+
+            msg = "Record Update Successfully";
+
+            con.Close();
+
+
+        }
+        catch (Exception Exe)
+        {
+            msg = "error" + Exe.Message;
+
+        }
+        finally
+        {
+
+        }
+        return msg;
+    }
+
+
+    [WebMethod]
+    public string PriceMasterDelete(Int32 DishID)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        String msg = "";
+        try
+        {
+            if (DishID > 0)
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("PriceMasterDelete", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                con.Close();
+
+
+
+
+            }
+
+        }
+        catch (Exception Exe)
+        {
+
+
+        }
+        finally
+        {
+
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+        }
+        return msg;
+
+    }
+
+
+    public DataSet GetDataWithoutPaging(SqlCommand cmd)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        DataSet ds = new DataSet();
+        try
+        {
+            con.Open();
+
+            using (SqlDataAdapter adp = new SqlDataAdapter())
+            {
+                cmd.Connection = con;
+                adp.SelectCommand = cmd;
+                adp.Fill(ds, "DataDetails");
+
+
+            }
+            con.Close();
+
+
+        }
+        catch (Exception Exe)
+        {
+
+
+        }
+        finally
+        {
+
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+        }
+        return ds;
+
+    }
+
+
+    [WebMethod]
+    public string ListAllPriceByMeasureTypeOfADish(Int32 DishID)
+    {
+
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("ListAllPriceByMeasureTypeOfADish", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
+        return GetDataWithoutPaging(cmd).GetXml();
+
+    }
+
 }

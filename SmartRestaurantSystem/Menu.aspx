@@ -52,6 +52,9 @@
                                     <div class="text-sm text-gray-400 font-semibold">
                                         <span>Noodels, Spcies,Green chili paste</span>
                                     </div>
+                                    <div class="">
+                                        
+                                    </div>
                                 </div>
                                 <div class="my-auto">
                                     <div>

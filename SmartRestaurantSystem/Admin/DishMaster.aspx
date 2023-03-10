@@ -258,7 +258,7 @@
                     </div>
 
                     <div>
-                        <input id="btnCancel" class="border hidden border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
+                        <input id="btnCancel" class="border hidden bg-transparent border-yellow-700 text-yellow-700 py-3 px-10 hover:bg-amber-600 hover:text-white cursor-pointer" type="button" value="Cancel" />
                     </div>
 
                     <div>
@@ -326,6 +326,8 @@
     <link href="Template/css/MultiStepForm.css" rel="stylesheet" />
     <script src="Template/Js/MultiStepForm.js"></script>
     <script>
+
+
         // Variables
         var ingredients = [];
         var ingredientsname = [];
@@ -411,6 +413,7 @@
                             if (DishID > 0) {
                                 DeleteIngredients(DishID);
                                 InsertIngredients(DishID);
+                                UpdatePrice(DishID);
                                 swal.fire({
                                     icon: "success",
                                     text: result,
@@ -570,10 +573,8 @@
             /*-- Filling Ingredients Details of a Particular Dish --End*/
 
             /*-- Filling Price Details of a Particular Dish --Start*/
-            //ListAllMeasureTypeBySubCategory(Details.find("SubCategoryID").text());
-            //measuretype.map(measuretype => {
-
-            //});
+            ListAllMeasureTypeBySubCategory(Details.find("SubCategoryID").text());
+            ListAllPriceByMeasureTypeOfADish(Details.find("DishID").text());
 
             /*-- Filling Price Details of a Particular Dish --End*/
 
@@ -616,6 +617,7 @@
                             if (result.includes("error")) {
                                 console.log(result);
                             } else if (result.includes("Success")) {
+                                DeletePrice(DishID);
                                 msg = result;
                                 swal.fire({
                                     title: "Deleted",
@@ -870,6 +872,66 @@
 
 
         /* MeasureType Master Methods Start*/
+        function ListAllMeasureTypeBySubCategory(SubCategoryID) {
+
+            $.ajax({
+
+                url: "../WebServices/MeasureTypeMasterWebService.asmx/ListAllMeasureTypeBySubCategory",
+                method: "POST",
+                data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnListAllMeasureTypeBySubCategorySuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+
+        }
+
+        function OnListAllMeasureTypeBySubCategorySuccess(response) {
+            debugger;
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+
+
+            var divTag = "";
+            measuretype = [];
+            if (Details.length > 0) {
+                $.each(Details, function () {
+                    debugger;
+
+                    measuretype.push($(this).find("MeasureTypeID").text());
+
+                    divTag += `<div class="sm:flex lg:text-center my-auto w-full ">
+                               <lable for="`+ $(this).find("MeasureTypeID").text() + `" class="my-auto w-1/5">` + $(this).find("MeasureType").text() + `</lable>
+                               <div class=" ">
+                                    <div>
+                                        <span id="`+ $(this).find("MeasureTypeID").text() + `Warning" class="formerror text-red-600  text-sm"></span>
+                                        <div class="flex">
+                                        <input id="`+ $(this).find("MeasureTypeID").text() + `" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400 font-bold border border-classic-dimyellow  w-full  w-1/2 py-1 px-1" placeholder="₹199" type="text" />
+                                        <span class=" relative right-5">₹</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>`;
+
+
+                })
+
+            }
+            $("#pricing").html(divTag);
+            console.log("MeasureType: ", measuretype);
+
+        }
+        /* MeasureType Master Methods End*/
+
+
+        /* Price Master Methods Start*/
         function InsertPrice(DishID) {
             debugger;
             measuretype.map(measuretype => {
@@ -898,23 +960,80 @@
                 });
             });
 
-           
+
 
 
 
         }
 
+        function UpdatePrice(DishID) {
+            debugger;
+            measuretype.map(measuretype => {
+                var Price = $("#" + measuretype + "").val().trim();
 
-        function ListAllMeasureTypeBySubCategory(SubCategoryID) {
+                $.ajax({
+
+                    url: "../WebServices/PriceMasterWebService.asmx/PriceMasterUpdate",
+                    method: "POST",
+                    data: "{DishID:" + JSON.stringify(DishID) + ",MeasureTypeID:" + JSON.stringify(measuretype) + ",Price:" + JSON.stringify(Price) + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var result = res.d;
+                        if (result.includes("error")) {
+                            console.log(result);
+                        } else if (!result.includes("error")) {
+
+                        }
+                    },
+                    async: false,
+                    error: function (err) {
+                        console.log(err);
+                    }
+
+                });
+
+            });
+        }
+
+        function DeletePrice(DishID) {
+            
+                $.ajax({
+
+                    url: "../WebServices/PriceMasterWebService.asmx/PriceMasterDelete",
+                    method: "POST",
+                    data: "{DishID:" + JSON.stringify(DishID) + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var result = res.d;
+                        if (result.includes("error")) {
+                            console.log(result);
+                        } else if (!result.includes("error")) {
+
+                        }
+                    },
+                    async: false,
+                    error: function (err) {
+                        console.log(err);
+                    }
+
+                });
+
+            
+        }
+
+
+        function ListAllPriceByMeasureTypeOfADish(DishID) {
 
             $.ajax({
 
-                url: "../WebServices/MeasureTypeMasterWebService.asmx/ListAllMeasureTypeBySubCategory",
+                url: "../WebServices/PriceMasterWebService.asmx/ListAllPriceByMeasureTypeOfADish",
                 method: "POST",
-                data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + "}",
+                data: "{DishID:" + JSON.stringify(DishID) + "}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: OnListAllMeasureTypeBySubCategorySuccess,
+                success: OnListAllPriceByMeasureTypeOfADishSuccess,
                 async: false,
                 error: function (err) {
                     console.log(err);
@@ -924,7 +1043,7 @@
 
         }
 
-        function OnListAllMeasureTypeBySubCategorySuccess(response) {
+        function OnListAllPriceByMeasureTypeOfADishSuccess(response) {
 
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
@@ -932,36 +1051,18 @@
             var Details = xml.find("DataDetails");
 
 
-            var divTag = "";
-            measuretype = [];
             if (Details.length > 0) {
                 $.each(Details, function () {
+                    debugger;
+                    $("#" + $(this).find("MeasureTypeID").text() + "").val($(this).find("Price").text());
 
-                    measuretype.push($(this).find("MeasureTypeID").text());
-
-                    divTag += `<div class="sm:flex lg:text-center my-auto w-full ">
-                               <lable for="`+ $(this).find("MeasureTypeID").text() + `" class="my-auto w-1/5">` + $(this).find("MeasureType").text() + `</lable>
-                               <div class=" ">
-                                    <div>
-                                        <span id="`+ $(this).find("MeasureTypeID").text() + `Warning" class="formerror text-red-600  text-sm"></span>
-                                        <div class="flex">
-                                        <input id="`+ $(this).find("MeasureTypeID").text() + `" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400 font-bold border border-classic-dimyellow  w-full  w-1/2 py-1 px-1" placeholder="₹199" type="text" />
-                                        <span class=" relative right-5">₹</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-`
-
-
-                })
+                });
 
             }
-            $("#pricing").html(divTag);
-            console.log("MeasureType: ", measuretype);
-
+            
         }
-        /* MeasureType Master Methods End*/
+
+        /* Price Master Methods End*/
 
 
 
