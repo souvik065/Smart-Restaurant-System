@@ -25,7 +25,7 @@ public class DishMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string DishMasterManage(Int32 DishID, Int32 CategoryID, Int32 SubCategoryID, String DishName, String DishPhoto)
+    public string DishMasterManage(Int32 DishID, Int32 CategoryID, Int32 SubCategoryID, String DishName, String DishPhoto, String OldPhotoPath)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -66,6 +66,13 @@ public class DishMasterWebService : System.Web.Services.WebService
                 cmd.Dispose();
 
                 msg = "Record Updated Successfully";
+
+                if (OldPhotoPath != "Null")
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + OldPhotoPath + ""));
+                    if (fileInfo.Exists)
+                        fileInfo.Delete();
+                }
 
                 con.Close();
 

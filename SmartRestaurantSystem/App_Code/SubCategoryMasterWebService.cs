@@ -25,7 +25,7 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string SubCategoryMasterManage(Int32 SubCategoryID,Int32 CategoryID,String SubCategoryName, String SubCategoryPhoto)
+    public string SubCategoryMasterManage(Int32 SubCategoryID,Int32 CategoryID,String SubCategoryName, String SubCategoryPhoto, String OldPhotoPath)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -64,6 +64,13 @@ public class SubCategoryMasterWebService : System.Web.Services.WebService
                 cmd.Dispose();
 
                 msg = "Record Updated Successfully";
+
+                if(OldPhotoPath != "Null")
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + OldPhotoPath + ""));
+                    if (fileInfo.Exists)
+                        fileInfo.Delete();
+                }
 
                 con.Close();
 

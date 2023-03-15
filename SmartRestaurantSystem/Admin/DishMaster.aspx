@@ -111,6 +111,8 @@
         <input id="hdnDishID" type="hidden" />
         <input id="fuDishPhoto" class="hidden py-3 px-3 rounded-full" type="file" />
         <input id="hdnPhotoPath" type="hidden" />
+        <input id="hdnOldPhotoPath" type="hidden" />
+
         <!-- Hidden Fields End-->
 
 
@@ -378,6 +380,8 @@
             var dishname = $('#txtDishName');
             var dishphoto = $('#fuDishPhoto');
             var hdnphotopath = $("#hdnPhotoPath");
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
+
 
 
             var Validate = FormValidation(categoryid, subcategoryid, dishname, dishphoto, hdnphotopath);
@@ -388,6 +392,8 @@
                 var SubCategoryID = subcategoryid.val();
                 var DishName = dishname.val().trim();
                 var DishPhoto = ""
+                var HdnOldPhotoPath = hdnoldphotopath.val() == "" ? "Null" : hdnoldphotopath.val();
+
                 if (hdnphotopath.val() != "") {
                     DishPhoto = hdnphotopath.val();
 
@@ -402,7 +408,7 @@
 
                     url: "../WebServices/DishMasterWebService.asmx/DishMasterManage",
                     method: "POST",
-                    data: "{DishID:" + JSON.stringify(DishID) + ", SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + ",DishName:" + JSON.stringify(DishName) + ",DishPhoto:" + JSON.stringify(DishPhoto) + "}",
+                    data: "{DishID:" + JSON.stringify(DishID) + ", SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + ",DishName:" + JSON.stringify(DishName) + ",DishPhoto:" + JSON.stringify(DishPhoto) + ", OldPhotoPath:"+JSON.stringify(HdnOldPhotoPath)+"}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
@@ -683,11 +689,14 @@
 
         function ResetPage() {
             var prelabel = document.querySelector(".ImagePreviewLabel");
+            var preview = document.getElementById("imgDishPhoto");
+            preview.src = "";
             prelabel.classList.remove("hidden");
             $('#ddlCategory').val(0);
             $('#ddlSubCategory').val(0);
             $('#txtDishName').val("");
-            $('#hdnDishesID').val("");
+            $('#hdnDishID').val("");
+            $('#fuDishPhoto').val("");
             $('#imgDishPhoto').removeAttr('src');
             $('#imgDishPhoto').css('display', 'none');
             ingredients = [];
@@ -738,6 +747,7 @@
         function InsertIngredients(DishID) {
 
             ingredients.map(ing => {
+
 
                 $.ajax({
 
@@ -933,31 +943,35 @@
 
         /* Price Master Methods Start*/
         function InsertPrice(DishID) {
-            debugger;
+
             measuretype.map(measuretype => {
 
                 var Price = $("#" + measuretype + "").val().trim();
+                if (Price != "") {
 
-                $.ajax({
+                    $.ajax({
 
-                    url: "../WebServices/PriceMasterWebService.asmx/PriceMasterInsert",
-                    method: "POST",
-                    data: "{DishID:" + JSON.stringify(DishID) + ",MeasureTypeID:" + JSON.stringify(measuretype) + ",Price:" + JSON.stringify(Price) + "}",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (res) {
-                        var result = res.d;
-                        if (result.includes("error")) {
-                            console.log(result);
-                        } else if (!result.includes("error")) {
+                        url: "../WebServices/PriceMasterWebService.asmx/PriceMasterInsert",
+                        method: "POST",
+                        data: "{DishID:" + JSON.stringify(DishID) + ",MeasureTypeID:" + JSON.stringify(measuretype) + ",Price:" + JSON.stringify(Price) + "}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (res) {
+                            var result = res.d;
+                            if (result.includes("error")) {
+                                console.log(result);
+                            } else if (!result.includes("error")) {
 
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err)
                         }
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
 
-                });
+                    });
+
+                }
+
             });
 
 
@@ -967,7 +981,6 @@
         }
 
         function UpdatePrice(DishID) {
-            debugger;
             measuretype.map(measuretype => {
                 var Price = $("#" + measuretype + "").val().trim();
 
@@ -1104,6 +1117,7 @@
                 preview.src = src;
                 preview.style.display = "block";
                 $('#imgDishPhotoWarning').text("")
+
 
 
 

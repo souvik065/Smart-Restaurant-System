@@ -21,6 +21,8 @@
         <input id="hdnSubCategoryID" type="hidden" />
         <input id="fuSubCategoryPhoto" class="hidden" type="file" />
         <input id="hdnPhotoPath" type="hidden" />
+        <input id="hdnOldPhotoPath" type="hidden" />
+
         <!-- Hidden Fields End-->
 
         <!-- Form Content -->
@@ -140,7 +142,14 @@
             $('#ddlCategory').val(0);
             $('#txtSubCategoryName').val("");
             $('#hdnSubCategoryID').val("");
-
+            $('#imgSubCategoryPhoto').removeAttr('src');
+            $('#imgSubCategoryPhoto').css('display', 'none');
+            $("#hdnPhotoPath").val("");
+            var preview = document.getElementById("imgSubCategoryPhoto");
+            var prelabel = document.querySelector(".ImagePreviewLabel");
+            prelabel.classList.remove("hidden");
+            preview.src = "";
+            preview.style.display = "block";
 
             $("[id=btnSave]").val("Save");
             $("[id=btnClear]").val("Clear");
@@ -158,6 +167,8 @@
             var subcategoryname = $('#txtSubCategoryName');
             var subcategoryphoto = $('#fuSubCategoryPhoto');
             var hdnphotopath = $("#hdnPhotoPath");
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
+
 
             var Validate = FormValidation(subcategoryname, categoryid, subcategoryphoto, hdnphotopath);
             if (Validate == true) {
@@ -166,6 +177,7 @@
                 var CategoryID = categoryid.val();
                 var SubCategoryName = subcategoryname.val().trim();
                 var SubCategoryPhoto = ""
+                var HdnOldPhotoPath = hdnoldphotopath.val() == "" ? "Null" : hdnoldphotopath.val();
                 if (hdnphotopath.val() != "") {
                     SubCategoryPhoto = hdnphotopath.val();
 
@@ -180,7 +192,7 @@
 
                     url: "../WebServices/SubCategoryMasterWebService.asmx/SubCategoryMasterManage",
                     method: "POST",
-                    data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + " ,SubCategoryName:" + JSON.stringify(SubCategoryName) + ", SubCategoryPhoto:" + JSON.stringify(SubCategoryPhoto)+"}",
+                    data: "{SubCategoryID:" + JSON.stringify(SubCategoryID) + ",CategoryID:" + JSON.stringify(CategoryID) + " ,SubCategoryName:" + JSON.stringify(SubCategoryName) + ", SubCategoryPhoto:" + JSON.stringify(SubCategoryPhoto) + ", OldPhotoPath:" + JSON.stringify(HdnOldPhotoPath)+"}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
@@ -316,7 +328,7 @@
             console.log(Details.find("SubCategoryID").text());
             $("[id=txtSubCategoryName]").val(Details.find("SubCategoryName").text());
             $("#ddlCategory").val(Details.find("CategoryID").text());
-            $("#hdnPhotoPath").val(Details.find("DishPhoto").text());
+            $("#hdnPhotoPath").val(Details.find("SubCategoryPhoto").text());
             $("#imgSubCategoryPhoto").attr("style", "display:block");
             $("#imgSubCategoryPhoto").prop("src", "../Assets/Images/" + Details.find("SubCategoryPhoto").text());
             var prelabel = document.querySelector(".ImagePreviewLabel");
@@ -446,8 +458,14 @@
         });
 
         function showFileSize(ext) {
-
+            debugger;
             var input, file;
+            var subcategoryid = $('#hdnSubCategoryID');
+            console.log(subcategoryid);
+            var hdnphotopath = $("#hdnPhotoPath");
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
+
+
             var fileUpload = $('#fuSubCategoryPhoto').get(0);
             console.log('File Upload Get: ', fileUpload)
 
@@ -465,13 +483,17 @@
                 preview.style.display = "block";
                 $('#imgSubCategoryPhotoWarning').text("")
 
-
+                if (subcategoryid.val() > 0) {
+                    hdnoldphotopath.val(hdnphotopath.val());
+                    hdnphotopath.val(SaveImage());
+                }
 
             } else {
                 swal.fire("Size Limit !", "Photo Size must be smaller than 500 kb.", "warning");
                 $("#fuSubCategoryPhoto").val('');
 
             }
+
 
         }
 
@@ -507,6 +529,7 @@
                     }
                 });
             }
+
             return filepath;
 
         }
@@ -527,7 +550,7 @@
                 $('#ddlCategoryWarning').text("*Please Select the Catgoey Name")
                 returnval = false;
             }
-
+            debugger;
             if (hdnphotopath.val() == '') {
                 if (subcategoryphoto.val() == '') {
                     $('#imgSubCategoryPhotoWarning').text("*Please Select the SubCategory Photo")

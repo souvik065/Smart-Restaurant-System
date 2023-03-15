@@ -191,4 +191,17 @@ public class PriceMasterWebService : System.Web.Services.WebService
 
     }
 
+
+    [WebMethod]
+    public string ListAllDishPrice(Int32 DishID)
+    {
+
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("ListAllDishPrice", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
+        return GetDataWithoutPaging(cmd).GetXml();
+
+    }
+
 }

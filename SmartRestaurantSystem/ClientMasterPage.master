@@ -9,10 +9,8 @@
     <link href="Template/lib/tailwindcss/components.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/tailwind.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
-    <link href="Template/css/ClientMasterPage.css" rel="stylesheet" />
     <link href="Template/css/TailwindResources.css" rel="stylesheet" />
     <script src="lib/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="Template/js/ClientMasterPage.js"></script>
     <link href="Template/lib/tailwindcss/tailwind-dark.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/tailwind-experimental.min.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/tailwind-dark.min.css" rel="stylesheet" />
@@ -20,6 +18,8 @@
     <script src="lib/toastr.js/toastr.min.js"></script>
     <script src="Template/js/jquery.dataTables.min.js"></script>
     <script src="lib/sweetalert2@11.js"></script>
+    <script src="Template/js/ClientMasterPage.js"></script>
+    <link href="Template/css/ClientMasterPage.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
@@ -41,7 +41,7 @@
                 <!-- Logo  End-->
 
                 <!--Naviagtion Menus -->
-                <div class="flex navigations my-auto space-x-10  ">
+                <div class="flex navigations my-auto space-x-10">
                     <a href="Home.aspx" class="">
                         <div class="cursor-pointer">
                             <span>Home</span>
@@ -258,6 +258,9 @@
             $("#orders-div").toggleClass("hidden");
 
         })
+
+
+
     </script>
 
 </body>

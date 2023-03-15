@@ -24,19 +24,19 @@ public class OrderMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string OrderMasterInsert( Int32 DishID, Int32 TableID)
+    public string OrderMasterInsert( Int32 DishID, Int32 TableID, Int32 MeasureTypeID)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
         try
         {
-            
                 con.Open();
 
                 SqlCommand cmd = new SqlCommand("OrderMasterInsert", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@DishID", DishID).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@TableID", TableID).DbType = DbType.Int32;
+                cmd.Parameters.AddWithValue("@MeasureTypeID", MeasureTypeID).DbType = DbType.Int32;
 
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
