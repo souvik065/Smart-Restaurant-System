@@ -30,8 +30,8 @@
         <div class="topbar">
         </div>
         <!-- Nav-Bar -->
-        <nav class="nav-bar fixed bg-black bg-opacity-50 top-0 border py-3 w-full flex justify-center items-center  text-white  ">
-            <div class="flex  justify-between md:space-x-5 border w-full mx-5 lg:mx-64 px-10">
+        <nav class="nav-bar fixed bg-black bg-opacity-50 top-0  py-3 w-full flex justify-center items-center  text-white  ">
+            <div class="flex  justify-between md:space-x-5  w-full mx-5 lg:mx-64 px-10">
                 <!-- Logo  -->
                 <div>
                     <h1>
@@ -80,7 +80,7 @@
                         </span>
                         <div id="orders-div" class="hidden absolute top-16 bg-restaurantly-darkbrown h-10 w-auto border">
                             <div>
-                                <a href="Orders.aspx" class="">View All ...</a>
+                                <a href="Cart.aspx" class="">View All ...</a>
                             </div>
                         </div>
                     </div>

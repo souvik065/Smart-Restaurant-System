@@ -349,11 +349,7 @@
         //    }
         //});
 
-
-        $(".dish").on("click", function () {
-            
-            $(this).children(".dish-price").slideToggle();
-        });
+       
 
         /* Ctageoy Methods Start*/ // Listing All the Categories
         function FillCategoryMenu() {
@@ -510,14 +506,36 @@
 
             $(".dish-price").slideToggle();
 
-
+            var dishdetails = [...document.querySelectorAll(".dish-details")];
             var dishes = [...document.querySelectorAll(".dish")];
 
-            for (var dish of dishes) {
+
+            for (var dish of dishdetails) {
                 dish.addEventListener("click", function (e) {
                     $("#"+this.id+"-Price-Div").slideToggle();
                 });
             }
+
+            for (var d of dishes) {
+                d.addEventListener("click", function (e) {
+                    if (e.target.matches("[data-add]")) {
+                        alert(e.target.id);
+
+                        let MeasureTypeID = document.querySelector("input[name='radiogroup" + e.target.id + "']:checked").value;
+
+                        CartMasterInsert(1, e.target.id, MeasureTypeID);
+
+                        $("#" + e.target.id + "-Price-Div").slideToggle();
+
+
+                    }
+                });
+            }
+
+
+
+
+
         }
 
         function OnDishMenuSuccess(response) {
@@ -532,16 +550,18 @@
 
 
 
-                    divTag += `<div class="dish flex cursor-pointer  space-x-3 menu-list  my-auto" id="` + $(this).find("DishID").text() +`">
+                    divTag += `<div class="dish flex cursor-pointer  space-x-3 menu-list  my-auto" >
                                 <div class="border-4 2xl:h-52 xl:h-44  sm:h-36 lg:w-1/3 h-28 border-gray-500 rounded-full  ">
                                     <img alt="Dish" class="h-full w-full" src="Template/img/specials-3.png" />
                                 </div>
                                 <div class=" my-auto  w-2/3 ">
-                                    <div class="font-bold  flex  justify-between ">
-                                        <a>`+ $(this).find("DishName").text() + `</a>
-                                    </div>
-                                    <div class="text-sm text-gray-400 font-semibold">
-                                        <span>Noodels, Spcies,Green chili paste</span>
+                                    <div class="dish-details" id="` + $(this).find("DishID").text() +`">
+                                        <div class="font-bold  flex  justify-between ">
+                                            <a>`+ $(this).find("DishName").text() + `</a>
+                                        </div>
+                                        <div class="text-sm text-gray-400 font-semibold">
+                                            <span>Noodels, Spcies,Green chili paste</span>
+                                        </div>
                                     </div>
                                     <div class="dish-price py-2  flex justify-between md:mx-5" id="`+ $(this).find("DishID").text() +`-Price-Div">
                                         <div class="space-y-2 w-1/2" id="`+ $(this).find("DishID").text() +`-Price">
@@ -550,7 +570,7 @@
                                         <div class="my-auto">
                                             <div class="my-auto">
                                                 <div>
-                                                    <input type="button" id="`+ $(this).find("DishID").text() + `" value="+ Add"  class="dish-add-btn text-white bg-classic-yellow px-3 py-2 cursor-pointer" />
+                                                    <input data-add type="button" id="`+ $(this).find("DishID").text() + `" value="+ Add"  class="dish-add-btn text-white bg-classic-yellow px-3 py-2 cursor-pointer" />
                                                 </div>
                                             </div>
                                         </div>
@@ -628,17 +648,17 @@
         /* Dish Methods End*/
 
         /* Order Methods Start*/
-        function OrderItem(DishID, DishName, TableID) {
+        function CartMasterInsert(TableID, DishID, MeasureTypeID) {
 
             //let radiobtns = document.querySelectorAll("input[name=ragdiogroup" + DishName + "]");
-            let selected = document.querySelector("input[name='radiogroup" + DishName + "']:checked").value;
-            console.log(selected);
+            //let selected = document.querySelector("input[name='radiogroup" + DishName + "']:checked").value;
+            //console.log(selected);
 
             $.ajax({
 
-                url: "../WebServices/OrderMasterWebService.asmx/OrderMasterInsert",
+                url: "../WebServices/CartMasterWebService.asmx/CartMasterInsert",
                 method: "POST",
-                data: "{DishID:" + JSON.stringify(DishID) + ", TableID:" + JSON.stringify(TableID) + ",MeasureTypeID:" + JSON.stringify(selected)+"}",
+                data: "{DishID:" + JSON.stringify(DishID) + ", TableID:" + JSON.stringify(TableID) + ",MeasureTypeID:" + JSON.stringify(MeasureTypeID)+"}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (res) {
