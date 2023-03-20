@@ -25,7 +25,7 @@ public class CategoryMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CategoryMasterManage(Int32 CategoryID, String CategoryName, String CategoryPhoto)
+    public string CategoryMasterManage(Int32 CategoryID, String CategoryName, String CategoryPhoto, String OldPhotoPath)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -62,6 +62,14 @@ public class CategoryMasterWebService : System.Web.Services.WebService
                 cmd.Dispose();
 
                 msg = "Record Updated Successfully";
+
+
+                if (OldPhotoPath != "Null")
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + OldPhotoPath + ""));
+                    if (fileInfo.Exists)
+                        fileInfo.Delete();
+                }
 
                 con.Close();
 

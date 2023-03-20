@@ -13,14 +13,7 @@
                     <div class="section-title my-16 space-y-5 w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10">
                         <h2 class="title font-semibold text-gray-400 ">O R D E R S</h2>
                         <p id="title" class="font-playfair-display-700 text-5xl"></p>
-                        <div>
-                            <input type="button" id="Minusbtn" value="-" class="bg-classic-yellow text-white font-bold w-5" />
-                            <input type="text" id="txtQty" class="bg-transparent w-7 text-center text-gray-400 font-bold" value="1" />
-                            <input type="button" id="Plusbtn" value="+" class="bg-classic-yellow text-white font-bold w-5" />
-
-
-
-                        </div>
+                       
                     </div>
                     <!-- Section Title End-->
 
@@ -95,7 +88,12 @@
             table = $("#tblOrders").DataTable({
                 responsive: true,
                 autoWidth: false,
-                "deferRender": true
+                "deferRender": true,
+                searching: false,
+                ordering: true,
+                paging: false,
+                info:false
+                
             })
             FillCartDetails(1);
 
@@ -105,6 +103,7 @@
         var TotalAmt = 0;
 
         function FillCartDetails(TableID) {
+            debugger;
             $.ajax({
 
                 url: "../WebServices/CartMasterWebService.asmx/CartMasterGet",
@@ -212,6 +211,7 @@
 
                         UpdateQty($(this).parent().attr('id'), qty.val());
 
+                        FillCartDetails(1);
                         
                     } else if (qty.val() == 1) {
                         var CartID = $(this).parent().attr('id');
@@ -241,7 +241,6 @@
                                         if (result.includes("error")) {
                                             console.log(result);
                                         } else if (result.includes("Success")) {
-                                            msg = result;
                                         }
                                     },
                                     error: function (err) {
@@ -249,13 +248,16 @@
                                     }
 
                                 });
+                                FillCartDetails(1);
+
 
                             } 
                         })
 
+                        FillCartDetails(1);
+
                     }
 
-                    FillCartDetails(1);
 
                 });
             }

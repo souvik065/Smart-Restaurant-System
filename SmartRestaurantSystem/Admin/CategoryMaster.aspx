@@ -27,6 +27,8 @@
             <input id="hdnCategoryID" type="hidden" />
             <input id="fuCategoryPhoto" class="hidden py-3 px-3 rounded-full" type="file" />
             <input id="hdnPhotoPath" type="hidden" />
+            <input id="hdnOldPhotoPath" type="hidden" />
+
             <!-- Hidden Fields End-->
             <div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 ">
                 <div class="w-full">
@@ -179,10 +181,13 @@
             var categoryid = $('#hdnCategoryID');
             var categoryphoto = $('#fuCategoryPhoto');
             var hdnphotopath = $("#hdnPhotoPath");
-
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
+ 
             var Validate = FormValidation(categoryname, categoryphoto, hdnphotopath);
             if (Validate == true) {
                 var CategoryID = categoryid.val() == "" ? 0 : categoryid.val();
+                var HdnOldPhotoPath = hdnoldphotopath.val() == "" ? "Null" : hdnoldphotopath.val();
+
                 var CategoryName = categoryname.val().trim();
                 var CategoryPhoto = ""
                 if (hdnphotopath.val() != "") {
@@ -191,7 +196,6 @@
                 } else {
                     if (categoryphoto.val() != "") {
                         CategoryPhoto = SaveImage();
-
                     }
                 }
 
@@ -199,7 +203,7 @@
 
                     url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterManage",
                     method: "POST",
-                    data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + ", CategoryPhoto:" + JSON.stringify(CategoryPhoto) + "}",
+                    data: "{CategoryID:" + JSON.stringify(CategoryID) + ", CategoryName:" + JSON.stringify(CategoryName) + ", CategoryPhoto:" + JSON.stringify(CategoryPhoto) + ", OldPhotoPath:"+JSON.stringify(HdnOldPhotoPath)+"}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
@@ -329,6 +333,9 @@
             var XmlDoc = $.parseXML(response.d);
             var xml = $(XmlDoc);
             var Details = xml.find("DataDetails");
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
+            var categoryid = $('#hdnCategoryID');
+            var hdnphotopath = $("#hdnPhotoPath");
 
             $("[id=hdnCategoryID]").val(Details.find("CategoryID").text());
             $("[id=txtCategoryName]").val(Details.find("CategoryName").text());
@@ -337,6 +344,11 @@
             $("#imgDishPhoto").prop("src", "../Assets/Images/" + Details.find("DishPhoto").text());
             var prelabel = document.querySelector(".ImagePreviewLabel");
             prelabel.classList.add("hidden");
+
+            if (categoryid.val() > 0) {
+                hdnoldphotopath.val(hdnphotopath.val());
+                hdnphotopath.val(SaveImage());
+            }
 
             $("[id=txtCategoryName]").focus();
 

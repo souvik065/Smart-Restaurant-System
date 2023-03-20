@@ -104,6 +104,48 @@ public class CartMasterWebService : System.Web.Services.WebService
 
     }
 
+
+
+    [WebMethod]
+    public string CartMasterDelete(Int32 CartID)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        String msg = "";
+        try
+        {
+            if (CartID > 0)
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("CartMasterDelete", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CartID", CartID).DbType = DbType.Int32;
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                con.Close();
+
+
+            }
+
+        }
+        catch (Exception Exe)
+        {
+
+
+        }
+        finally
+        {
+
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+        }
+        return msg;
+
+    }
+
     [WebMethod] //-- Executing Cart Master GET/Read Function --// 
     public string CartMasterGet(Int32 TableID)
     {
