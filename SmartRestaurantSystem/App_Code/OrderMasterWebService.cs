@@ -24,7 +24,7 @@ public class OrderMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string OrderMasterInsert( Int32 OrderNo, Int32 TableNo, Int32 BillAmt, String PaymentMode)
+    public string OrderMasterInsert( Int32 TableNo, Int32 BillAmt, String PaymentMode)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -34,15 +34,14 @@ public class OrderMasterWebService : System.Web.Services.WebService
 
                 SqlCommand cmd = new SqlCommand("OrderMasterInsert", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@OrderNo", OrderNo).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@TableNo", TableNo).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@BillAmt", BillAmt).DbType = DbType.Int32;
                 cmd.Parameters.AddWithValue("@PaymentMode", PaymentMode).DbType = DbType.String;
 
-                cmd.ExecuteNonQuery();
+                msg = cmd.ExecuteScalar().ToString();
                 cmd.Dispose();
 
-                msg = "Record Inserted Successfully";
+               
 
                 con.Close();
             

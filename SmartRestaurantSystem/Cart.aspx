@@ -17,6 +17,10 @@
                     </div>
                     <!-- Section Title End-->
 
+                    <!-- Hidden Fields Start-->
+                    <input id="hdnOrderID" type="hidden" />
+                    <!-- Hidden Fields End-->
+
 
                     <!-- Order Table Start-->
                     <div class="sm:flex sm:space-x-5 ">
@@ -69,7 +73,7 @@
 
                                     </div>
                                     <div>
-                                        <input type="button" value="Place Order" class="w-full  bg-classic-yellow text-white font-bold py-2" />
+                                        <input type="button" onclick="OrderItem(TableNo)" value="Place Order" class="w-full  bg-classic-yellow text-white font-bold py-2" />
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +107,7 @@
 
     <script>
         var TableNo = 1;
-        var NewOrderNo = 0;
+        
         $(function () {
             table = $("#tblOrders").DataTable({
                 responsive: true,
@@ -116,7 +120,8 @@
 
             })
             FillCartDetails(1);
-            GetOrderNo(TableNo);
+            
+
 
         })
 
@@ -307,41 +312,52 @@
             });
         }
 
+        function OrderItem(TabelNo) {
 
-        function OrderItem() {
+            var BillAmt = $("#totalamt").text().trim();
+            
+            var PaymentMode = document.querySelector("input[name='rbtnPaymentMode']:checked").value;
 
+            if (PaymentMode != "") {
+                $.ajax({
 
-            $.ajax({
-
-                url: "../WebServices/OrderMasterWebService.asmx/OrderMasterInsert",
-                method: "POST",
-                data: "{OrderNo:" + JSON.stringify(CartID) + ", TableNo:" + JSON.stringify(Qty) + ", BillAmt:"+JSON.stringify()+", PaymentMode:"+JSON.stringify()+"}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (res) {
-                    var result = res.d;
-                    if (result.includes("error")) {
-                        console.log(result);
-                    } else if (result.includes("Success")) {
-                        msg = result;
+                    url: "../WebServices/OrderMasterWebService.asmx/OrderMasterInsert",
+                    method: "POST",
+                    data: "{TableNo:" + JSON.stringify(TabelNo) + ", BillAmt:" + JSON.stringify(BillAmt) + ", PaymentMode:" + JSON.stringify(PaymentMode) + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var result = res.d;
+                        if (result.includes("error")) {
+                            console.log(result);
+                        } else if (!result.includes("error")) {
+                            msg = result;
+                            alert(msg);
+                            $("#hdnOrderID").val(msg);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
                     }
-                },
-                error: function (err) {
-                    console.log(err)
-                }
 
-            });
+                });
+            } else {
+                alert("Please Select Payment Mode");
+            }
+
+            InsertOrderDetails(TabelNo);
+            
         }
 
-        function GetOrderNo(TableNo) {
+        function InsertOrderDetails(TableNo) {
             $.ajax({
 
-                url: "../WebServices/OrderMasterWebService.asmx/GetLatestOrderNo",
+                url: "../WebServices/CartMasterWebService.asmx/CartMasterGet",
                 method: "POST",
-                data: "{TableNo:" + JSON.stringify(TableNo) + "}",
+                data: "{TableID:" + JSON.stringify(TableNo) + "}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: OnGetOrderNoSuccess,
+                success: OnInsertOrderDetailsSuccess,
                 async: false,
                 error: function (err) {
                     console.log(err);
@@ -351,21 +367,74 @@
 
         }
 
-        function OnGetOrderNoSuccess(response) {
+        function OnInsertOrderDetailsSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
 
             var Details = xml.find("DataDetails");
+            var OrderID = $("#hdnOrderID").val();
+            if (Details.length > 0) {
+                $.each(Details, function () {
 
-            NewOrderNo = parseInt(Details.find("OrderNo").text());
 
-            if (NewOrderNo > 1) {
-                NewOrderNo += 1;
+                    $.ajax({
+
+                        url: "../WebServices/OrderDetailMasterWebService.asmx/OrderDetailMasterInsert",
+                        method: "POST",
+                        data: "{OrderID:" + JSON.stringify(OrderID) + ", DishID:" + JSON.stringify($(this).find("DishID").text()) + ", Qty:" + JSON.stringify($(this).find("Qty").text()) + ", Rate:" + JSON.stringify($(this).find("Price").text()) + ", Total:" + JSON.stringify($(this).find("Total").text())+"}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (res) {
+                            var result = res.d;
+                            if (result.includes("error")) {
+                                console.log(result);
+                            } else if (!result.includes("error")) {
+                                msg = result;
+
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+
+                    });
+                    
+
+                })
             }
-
-            console.log("New OrderNo", NewOrderNo);
+            else {
+               
+            }
+            
 
             
+
+            CartMasterDeleteAll(TableNo);
+            
+        }
+
+
+        function CartMasterDeleteAll(TableNo) {
+            $.ajax({
+
+                url: "../WebServices/CartMasterWebService.asmx/CartMasterDeleteAll",
+                method: "POST",
+                data: "{TableNo:" + JSON.stringify(TableNo) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var result = res.d;
+                    if (result.includes("error")) {
+                        console.log(result);
+                    } else if (result.includes("Success")) {
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+            FillCartDetails(TableNo);
         }
 
     </script>
