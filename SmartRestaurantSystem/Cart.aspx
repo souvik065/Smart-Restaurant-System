@@ -13,7 +13,7 @@
                     <div class="section-title my-16 space-y-5 w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10">
                         <h2 class="title font-semibold text-gray-400 ">O R D E R S</h2>
                         <p id="title" class="font-playfair-display-700 text-5xl"></p>
-                       
+
                     </div>
                     <!-- Section Title End-->
 
@@ -31,8 +31,8 @@
                                             <th>Sr.No</th>
                                             <th>Item</th>
                                             <th>Name</th>
-                                            <th >Qty</th>
-                                            <th >Price</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
                                             <th>Total</th>
 
                                         </tr>
@@ -43,8 +43,8 @@
                                             <th>Sr.No</th>
                                             <th>Item</th>
                                             <th>Name</th>
-                                            <th >Qty</th>
-                                            <th >Price</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
                                             <th>Total</th>
 
                                         </tr>
@@ -55,6 +55,7 @@
                         <!-- Table End-->
 
 
+
                         <div class="sm:w-1/5 my-5  h-auto shadow-2xl text-classic-yellow font-poppins-400 bg-opacity-50 bg-restaurantly-darkbrown py-5 px-5">
                             <div class="w-full flex justify-center">
                                 <div class="">
@@ -63,7 +64,7 @@
                                             <h4 class="text-2xl">Total Item: <span id="totalitems"></span></h4>
                                         </div>
                                         <div>
-                                            <h4 class="text-2xl">Total Amount: <span id="totalamt"> </span> ₹</h4>
+                                            <h4 class="text-2xl">Total Amount: <span id="totalamt"></span>₹</h4>
                                         </div>
 
                                     </div>
@@ -75,15 +76,34 @@
                         </div>
 
 
+
                     </div>
                     <!-- Order Table End -->
 
+                </div>
+
+                <div class="w-2/6 my-5  border  shadow-2xl text-classic-yellow font-poppins-400  bg-opacity-50 bg-restaurantly-darkbrown py-5 px-5">
+                    <div class="w-full flex justify-center">
+                        <div>
+                            <div>
+                                <h4>Payment Mode</h4>
+                            </div>
+                            <div>
+                                <div>
+                                    <input type="radio" id="rbtnOnline" name="rbtnPaymentMode" value="Online"/><span>Online</span></div>
+                                <div>
+                                    <input type="radio" id="rbtnCash" name="rbtnPaymentMode" value="Cash"/><span>Cash</span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <script>
+        var TableNo = 1;
+        var NewOrderNo = 0;
         $(function () {
             table = $("#tblOrders").DataTable({
                 responsive: true,
@@ -92,18 +112,17 @@
                 searching: false,
                 ordering: true,
                 paging: false,
-                info:false
-                
+                info: false
+
             })
             FillCartDetails(1);
-
+            GetOrderNo(TableNo);
 
         })
 
         var TotalAmt = 0;
 
         function FillCartDetails(TableID) {
-            debugger;
             $.ajax({
 
                 url: "../WebServices/CartMasterWebService.asmx/CartMasterGet",
@@ -139,20 +158,20 @@
                     var total = "";
                     strImage = "<div class='flex justify-center h-16 w-16 md:h-28 md:w-28 sm:h-24 sm:w-24'><img class='rounded-full '  src='../Assets/Images/" + $(this).find("DishPhoto").text() + "'  ></div>";
                     qty = `<div class="Qty flex justify-center" id="` + $(this).find("DishID").text() + `">
-                            <div id="`+ $(this).find("CartID").text()+`">
+                            <div id="`+ $(this).find("CartID").text() + `">
                                 <input type="button" id="`+ $(this).find("CartID").text() + `" value="-"  class=" Minusbtn bg-classic-yellow text-white font-bold w-5" />
                             </div>
                             <div>
                             <input type="text" id="`+ $(this).find("CartID").text() + `Qty" class="bg-transparent w-7 text-center text-gray-400 font-bold" value="` + $(this).find("Qty").text() + `"/>
                             </div>
-                            <div id="`+ $(this).find("CartID").text() +`">
+                            <div id="`+ $(this).find("CartID").text() + `">
                             <input type="button" id="`+ $(this).find("CartID").text() + `" value="+" class="Plusbtn bg-classic-yellow text-white font-bold w-5" />
                             </div>
                           </div>
                         `;
 
-                    price = `` + $(this).find("Price").text() +` ₹`;
-                    total = `` + $(this).find("Total").text() +` ₹`;
+                    price = `` + $(this).find("Price").text() + ` ₹`;
+                    total = `` + $(this).find("Total").text() + ` ₹`;
                     //strEditDelete += " <input class='bg-yellow-900 mx-2 xl:py-3 xl:px-5 text-center text-white py-1 px-5 hover:bg-yellow-700 cursor-pointer' onclick='EditDish(" + $(this).find("DishID").text() + ")' type='button' value='Edit' />";
                     //strEditDelete += " <input class='bg-red-900 mx-2 xl:py-3 xl:px-5 text-center text-white py-1 px-3 hover:bg-red-600 cursor-pointer' onclick='DeleteDish(" + $(this).find("DishID").text() + ",\"" + $(this).find("DishPhoto").text() + "\")' type='button' value='Delete' />";
 
@@ -192,7 +211,7 @@
                     var num = parseInt(qty.val());
                     num += 1;
                     qty.val(num);
-                    
+
                     UpdateQty($(this).parent().attr('id'), qty.val());
 
                     FillCartDetails(1);
@@ -212,7 +231,7 @@
                         UpdateQty($(this).parent().attr('id'), qty.val());
 
                         FillCartDetails(1);
-                        
+
                     } else if (qty.val() == 1) {
                         var CartID = $(this).parent().attr('id');
                         swal.fire({
@@ -251,7 +270,7 @@
                                 FillCartDetails(1);
 
 
-                            } 
+                            }
                         })
 
                         FillCartDetails(1);
@@ -270,7 +289,7 @@
 
                 url: "../WebServices/CartMasterWebService.asmx/UpdateQty",
                 method: "POST",
-                data: "{CartID:" + JSON.stringify(CartID) + ", Qty:"+JSON.stringify(Qty)+"}",
+                data: "{CartID:" + JSON.stringify(CartID) + ", Qty:" + JSON.stringify(Qty) + "}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (res) {
@@ -287,6 +306,68 @@
 
             });
         }
+
+
+        function OrderItem() {
+
+
+            $.ajax({
+
+                url: "../WebServices/OrderMasterWebService.asmx/OrderMasterInsert",
+                method: "POST",
+                data: "{OrderNo:" + JSON.stringify(CartID) + ", TableNo:" + JSON.stringify(Qty) + ", BillAmt:"+JSON.stringify()+", PaymentMode:"+JSON.stringify()+"}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var result = res.d;
+                    if (result.includes("error")) {
+                        console.log(result);
+                    } else if (result.includes("Success")) {
+                        msg = result;
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+        }
+
+        function GetOrderNo(TableNo) {
+            $.ajax({
+
+                url: "../WebServices/OrderMasterWebService.asmx/GetLatestOrderNo",
+                method: "POST",
+                data: "{TableNo:" + JSON.stringify(TableNo) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnGetOrderNoSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+
+        }
+
+        function OnGetOrderNoSuccess(response) {
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+
+            NewOrderNo = parseInt(Details.find("OrderNo").text());
+
+            if (NewOrderNo > 1) {
+                NewOrderNo += 1;
+            }
+
+            console.log("New OrderNo", NewOrderNo);
+
+            
+        }
+
     </script>
 </asp:Content>
 
