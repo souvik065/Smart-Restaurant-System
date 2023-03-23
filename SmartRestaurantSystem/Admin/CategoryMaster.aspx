@@ -58,7 +58,7 @@
                             <div>
                                 <lable for="" class="my-auto">Category Name</lable><span id="categorynameval" class="formerror text-red-600  text-sm"></span>
                             </div>
-                            <input id="txtCategoryName" class="bg-transparent text-gray-400 font-semibold border md:w-1/2 border-classic-dimyellow mr-5 w-4/5 py-1 px-2" type="text" />
+                            <input id="txtCategoryName" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400 font-semibold border md:w-1/2 border-classic-dimyellow mr-5 w-4/5 py-1 px-2" type="text" />
 
 
                         </div>

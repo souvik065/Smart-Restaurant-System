@@ -1,8 +1,6 @@
 ﻿
 
 const btn = document.querySelector('.mobile-menu-button');
-const sidebar = document.querySelector('.side-navbar');
-const contentdiv = document.querySelector('.content-container');
 const footer = document.querySelector('footer');
 
 const submenu = document.querySelector('.submenu');
@@ -43,7 +41,6 @@ $(function () {
 
 
 
-const widthSize = window.matchMedia("(max-width:1024px)");
 
 
 /*navbarbtn(widthSize);*/

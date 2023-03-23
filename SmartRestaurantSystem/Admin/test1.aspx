@@ -17,6 +17,20 @@
         </div>
     </div>
 
+    <div class="my-5">
+        <label for="Online" class=" bg-classic-yellow text-blacks font-bold py-1 px-2">
+            <input type="radio" name="pay" id="Online"/>
+            Online
+        </label>
+    </div>
+
+    <div>
+        <input type="radio" name="pay" id="Cash"/>
+        <label for="Cash">
+            Cash
+        </label>
+    </div>
+
 
     <div class="h-screen"></div>
 

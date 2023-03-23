@@ -34,6 +34,11 @@
     animation: transitionUp 2s;
 }
 
+.shadow-white {
+    --tw-shadow-color: #fff;
+    --tw-shadow: var(--tw-shadow-colored);
+}
+
 @media (max-width:992px) {
     .navigations{
         display:none;
