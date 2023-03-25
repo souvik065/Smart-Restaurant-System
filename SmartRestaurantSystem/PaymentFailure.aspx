@@ -1,12 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientMasterPage.master" AutoEventWireup="true" CodeFile="PaymentFailure.aspx.cs" Inherits="PaymentFailure" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <form id="form1" runat="server">
-        <div class="container-fluid">
+        <div class="container-fluid text-white">
             <div class="card" style="text-align: center;">
-                <div class="card-body row text-center justify-content-center">
+                <div class="card-body flex text-center justify-center  ">
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <img src="images/failure.png" style="width: 100%;" />
                         <h2>Payment Failed.</h2>

@@ -26,7 +26,7 @@
 </head>
 
 <body class="bg-restaurantly-darkbrown">
-    <form id="form1" runat="server">
+   
         <div class="topbar">
         </div>
         <!-- Nav-Bar -->
@@ -248,7 +248,7 @@
             </div>
         </footer>
         <!-- Footer End -->
-    </form>
+   
     <script>
         $('.side-nav-bar-button').on('click', function () {
             $('.side-nav-bar').toggleClass('-translate-x-full');

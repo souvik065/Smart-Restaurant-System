@@ -9,9 +9,9 @@ public partial class PaymentSuccess : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["RegistrationID"] == null)
-        {
-            Response.Redirect("Login.aspx");
-        }
+        //if (Session["RegistrationID"] == null)
+        //{
+        //    Response.Redirect("Login.aspx");
+        //}
     }
 }

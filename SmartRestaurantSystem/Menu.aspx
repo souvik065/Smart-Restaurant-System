@@ -519,7 +519,7 @@
             for (var d of dishes) {
                 d.addEventListener("click", function (e) {
                     if (e.target.matches("[data-add]")) {
-                        alert(e.target.id);
+                        
 
                         let MeasureTypeID = document.querySelector("input[name='radiogroup" + e.target.id + "']:checked").value;
 

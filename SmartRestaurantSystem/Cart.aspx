@@ -166,16 +166,22 @@
         </div>
     </section>
 
-    <section>
-
-        <input type="hidden" id="razorpay_payment_id" name="razorpay_payment_id" />
+    <form id="formPaymentSuccess" action="charge.aspx" runat="server" >
+         <input type="hidden" id="razorpay_payment_id" name="razorpay_payment_id" />
         <input type="hidden" id="razorpay_order_id" name="razorpay_order_id" />
         <input type="hidden" id="razorpay_signature" name="razorpay_signature" />
 
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    </form>
+
+    <section>
+
+       
     </section>
 
     <script>
+
+
 
         function ClearData() {
             $("#txtCustomerContact").val("");
@@ -447,7 +453,7 @@
                         console.log(result["Msg"]);
                     }
                     else if (result["Msg"].includes("Cart Empty")) {
-                        swal({ title: "", text: "Your Cart Is Empty !!", type: "warning" }, function () { window.location = "Menu.aspx"; });
+                        swal.fire({ title: "", text: "Your Cart Is Empty !!", type: "warning" }, function () { window.location = "Menu.aspx"; });
 
                     }
                     else {
@@ -476,6 +482,7 @@
             }
 
             // Boolean whether to show image inside a white frame. (default: true)
+            debugger;
             options.theme.image_padding = false;
             options.handler = function (response) {
                 var paymentID = response.razorpay_payment_id;
@@ -501,36 +508,10 @@
                 }
 
 
-
-                //if (PaymentMode != null) {
-                //    $.ajax({
-
-                //        url: "../WebServices/OrderMasterWebService.asmx/OrderMasterInsert",
-                //        method: "POST",
-                //        data: "{TableNo:" + JSON.stringify(TabelNo) + ", BillAmt:" + JSON.stringify(BillAmt) + ", PaymentMode:" + JSON.stringify(PaymentMode) + "}",
-                //        contentType: "application/json; charset=utf-8",
-                //        dataType: "json",
-                //        success: function (res) {
-                //            var result = res.d;
-                //            if (result.includes("error")) {
-                //                console.log(result);
-                //            } else if (!result.includes("error")) {
-                //                msg = result;
-                //                $("#hdnOrderID").val(msg);
-                //                alert(msg);
-                //            }
-                //        },
-                //        error: function (err) {
-                //            console.log(err)
-                //        }
-
-                //    });
-                //}
-
                 $.ajax({
                     url: "../WebServices/OrderMasterWebService.asmx/OrderMasterInsert",
                     method: "POST",
-                    data: "{TableNo:" + JSON.stringify(TabelNo) + ", BillAmt:" + JSON.stringify(BillAmt) + ", PaymentMode:" + JSON.stringify(PaymentMode) + "}",
+                    data: "{TableNo:" + JSON.stringify(TableNo) + ", BillAmt:" + JSON.stringify(BillAmt) + ", PaymentMode:" + JSON.stringify(PaymentMode) + ",rzpPaymentID: " + JSON.stringify(paymentID) + ", rzpOrderID: " + JSON.stringify(rzporderID) + ", rzpSignature: " + JSON.stringify(sign) + "}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
@@ -541,48 +522,35 @@
                             swal("", "Your Cart Is Empty !!", "warning");
                         }
                         else {
-                            var OrderID = result;
-                            $.ajax({
-                                type: "post",
-                                url: 'Webservices/ClientOrderWebService.asmx/PaymentSuccess',
-                                data: '{OrderID:' + JSON.stringify(OrderID) + ',rzpPaymentID: ' + JSON.stringify(paymentID) + ', rzpOrderID: ' + JSON.stringify(rzporderID) + ', rzpSignature: ' + JSON.stringify(sign) + '}',
-                                contentType: "application/json;charset=utf-8",
-                                dataType: "json",
-                                success: function (response) {
-                                    var result = response.d;
-                                    console.log(result);
-                                    if (result.includes("error"))
-                                        console.log(result);
-                                    else {
-                                        $('body').addClass("disable");
-                                        swal({
-                                            title: "Processing Order...",
-                                            text: 'Please Do Not Close This Page. Otherwise your order may not be Placed !!',
-                                            type: "warning",
-                                            showConfirmButton: false
-                                        })
-                                        SaveGeneralBill();
-                                        SendInvoiceEmail();
-                                        SendClientSMS();
-                                        SendAdminSMS();
-                                        $('body').removeClass("disable");
-                                        $("#form1").submit();
-                                    }
-                                },
-                                error: function (err) {
-                                    console.log(err);
-                                }
-                            });
+                            $('body').addClass("disable");
+                            swal.fire({
+                                title: "Processing Order...",
+                                text: 'Please Do Not Close This Page. Otherwise your order may not be Placed !!',
+                                type: "warning",
+                                showConfirmButton: false
+                            })
+                            //SaveGeneralBill();
+                            //SendInvoiceEmail();
+                            //SendClientSMS();
+                            //SendAdminSMS();
+                            $('body').removeClass("disable");
+                            
+                            
                         }
                     },
                     error: function (err) {
                         console.log(err);
                     }
                 });
+                InsertOrderDetails(TableNo);
+
+                CartMasterDeleteAll(TableNo);
+
+                $("#formPaymentSuccess").submit();
 
             };
             options.modal = {
-                ondismiss: function () {
+                ondismiss: function (e) {
                     window.location.href = "PaymentFailure.aspx";
                 },
                 // Boolean indicating whether pressing escape key 
@@ -655,7 +623,6 @@
             
 
                 var PaymentMode = document.querySelector("input[name='rbtnPaymentMode']:checked");
-                debugger;
                 if (PaymentMode != null) {
                     PaymentMode = document.querySelector("input[name='rbtnPaymentMode']:checked").value;
                 } else {
@@ -679,7 +646,7 @@
 
                         url: "../WebServices/OrderMasterWebService.asmx/OrderMasterInsert",
                         method: "POST",
-                        data: "{TableNo:" + JSON.stringify(TabelNo) + ", BillAmt:" + JSON.stringify(BillAmt) + ", PaymentMode:" + JSON.stringify(PaymentMode) + "}",
+                        data: "{TableNo:" + JSON.stringify(TabelNo) + ", BillAmt:" + JSON.stringify(BillAmt) + ", PaymentMode:" + JSON.stringify(PaymentMode) + ",rzpPaymentID:'', rzpOrderID:'', rzpSignature:''}",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (res) {
@@ -740,7 +707,7 @@
 
                         url: "../WebServices/OrderDetailMasterWebService.asmx/OrderDetailMasterInsert",
                         method: "POST",
-                        data: "{OrderID:" + JSON.stringify(OrderID) + ", DishID:" + JSON.stringify($(this).find("DishID").text()) + ", Qty:" + JSON.stringify($(this).find("Qty").text()) + ", Rate:" + JSON.stringify($(this).find("Price").text()) + ", Total:" + JSON.stringify($(this).find("Total").text()) + "}",
+                        data: "{OrderID:" + JSON.stringify(OrderID) + ", DishID:" + JSON.stringify($(this).find("DishID").text()) + ",MeasureTypeID:" + JSON.stringify($(this).find("MeasureTypeID").text())+", Qty:" + JSON.stringify($(this).find("Qty").text()) + ", Rate:" + JSON.stringify($(this).find("Price").text()) + ", Total:" + JSON.stringify($(this).find("Total").text()) + "}",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (res) {
