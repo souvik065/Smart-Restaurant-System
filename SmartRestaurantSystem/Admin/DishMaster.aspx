@@ -696,6 +696,10 @@
             $('#ddlSubCategory').val(0);
             $('#txtDishName').val("");
             $('#hdnDishID').val("");
+            $('#hdnPhotoPath').val("");
+            $('#hdnOldPhotoPath').val("");
+
+
             $('#fuDishPhoto').val("");
             $('#imgDishPhoto').removeAttr('src');
             $('#imgDishPhoto').css('display', 'none');
@@ -776,7 +780,7 @@
         }
 
         function DeleteIngredients(DishID) {
-            debugger;
+            
             $.ajax({
 
                 url: "../WebServices/IngredientsMasterWebService.asmx/IngredientsMasterDelete",
@@ -902,7 +906,7 @@
         }
 
         function OnListAllMeasureTypeBySubCategorySuccess(response) {
-            debugger;
+           
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
 
@@ -913,7 +917,7 @@
             measuretype = [];
             if (Details.length > 0) {
                 $.each(Details, function () {
-                    debugger;
+                  
 
                     measuretype.push($(this).find("MeasureTypeID").text());
 
@@ -1066,7 +1070,7 @@
 
             if (Details.length > 0) {
                 $.each(Details, function () {
-                    debugger;
+                  
                     $("#" + $(this).find("MeasureTypeID").text() + "").val($(this).find("Price").text());
 
                 });
@@ -1103,7 +1107,12 @@
             var input, file;
             var fileUpload = $('#fuDishPhoto').get(0);
             console.log('File Upload Get: ', fileUpload)
+            var input, file;
+            var dishid = $('#hdnDishID');
+            var hdnphotopath = $("#hdnPhotoPath");
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
 
+            
             input = document.getElementById('fuDishPhoto');
             file = fileUpload.files[0];
 
@@ -1118,7 +1127,10 @@
                 preview.style.display = "block";
                 $('#imgDishPhotoWarning').text("")
 
-
+                if (dishid.val() > 0) {
+                    hdnoldphotopath.val(hdnphotopath.val());
+                    hdnphotopath.val(SaveImage());
+                }
 
 
             } else {

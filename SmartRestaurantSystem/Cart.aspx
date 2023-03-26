@@ -183,6 +183,8 @@
 
 
 
+
+
         function ClearData() {
             $("#txtCustomerContact").val("");
             $("#txtCustomerName").val("");
@@ -522,6 +524,7 @@
                             swal("", "Your Cart Is Empty !!", "warning");
                         }
                         else {
+                            $("#hdnOrderID").val(result);
                             $('body').addClass("disable");
                             swal.fire({
                                 title: "Processing Order...",
@@ -544,13 +547,12 @@
                 });
                 InsertOrderDetails(TableNo);
 
-                CartMasterDeleteAll(TableNo);
 
-                $("#formPaymentSuccess").submit();
+                
 
             };
             options.modal = {
-                ondismiss: function (e) {
+                ondismiss: function () {
                     window.location.href = "PaymentFailure.aspx";
                 },
                 // Boolean indicating whether pressing escape key 
@@ -574,7 +576,7 @@
                 console.log(response.error.metadata.payment_id);
             });
             rzp.open();
-            e.preventDefault();
+            //e.preventDefault();
 
         }
 
@@ -656,7 +658,7 @@
                             } else if (!result.includes("error")) {
                                 msg = result;
                                 $("#hdnOrderID").val(msg);
-                                alert(msg);
+                                
                             }
                         },
                         error: function (err) {
@@ -699,9 +701,9 @@
 
             var Details = xml.find("DataDetails");
             var OrderID = $("#hdnOrderID").val();
+            
             if (Details.length > 0) {
                 $.each(Details, function () {
-
 
                     $.ajax({
 
@@ -714,6 +716,7 @@
                             var result = res.d;
                             if (result.includes("error")) {
                                 console.log(result);
+                                
                             } else if (!result.includes("error")) {
                                 msg = result;
 
@@ -727,13 +730,16 @@
 
 
                 })
+
+
+
             }
             else {
 
             }
+           
 
-
-
+            $("#formPaymentSuccess").submit();
 
             CartMasterDeleteAll(TableNo);
 

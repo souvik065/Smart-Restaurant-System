@@ -10,9 +10,9 @@
 
                 <div class="menu">
                     <!-- Section Title -->
-                    <div class="section-title my-16 space-y-5 w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10">
+                    <div class="section-title my-16 space-y-5 w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64  mx-10">
                         <h2 class="title font-semibold text-gray-400 ">M E N U</h2>
-                        <p id="title" class="font-playfair-display-700 text-5xl">Choose Your Category</p>
+                        <p id="menu-title" class="font-playfair-display-700 text-5xl">Choose Your Category</p>
                     </div>
                     <!-- Section Title End-->
 
@@ -33,9 +33,11 @@
 
                     <!-- Category List -->
                     <div data-category class="text-white category-menu-list  ">
-                        <div class="CategoryMenu flex justify-around 2xl:mx-52  my-10  " id="CategoryMenu">
+                        <div class="CategoryMenu flex justify-center 2xl:mx-52  my-10" >
 
-                            
+                            <div id="CategoryMenu" class="flex ">
+
+                            </div>
 
                         </div>
                     </div>
@@ -281,8 +283,8 @@
 
 
                     <!-- Dishes List Start-->
-                    <div data-dish class="flex justify-center items-center dish-menu-list">
-                        <div class="px-5 mx-10 w-full 2xl:mx-48  lg:mx-20  md:mx-5  grid md:grid-cols-2 " id="DishMenu">
+                    <div data-dish class="flex justify-center items-center  dish-menu-list my-5">
+                        <div class="px-5 mx-10 w-full 2xl:mx-48  lg:mx-20  md:mx-5  grid gap-5 md:grid-cols-2 " id="DishMenu">
                             <input id="Radio1"  type="radio" />
                         </div>
                     </div>
@@ -386,17 +388,17 @@
                 $.each(Details, function () {
 
                     divTag += `
-                            <div id="` + $(this).find("CategoryID").text() + `"   class="category my-5  text-center  cursor-pointer">
+                            <div id="` + $(this).find("CategoryID").text() + `"   class="category my-5 mx-10 text-center  cursor-pointer">
                                 <div class="">
                                     <div class=" flex items-center justify-center  border-gray-500  ">
-                                        <div class="w-52 h-52  overflow-hidden">
+                                        <div class="w-14 h-14 overflow-hidden">
                                             <img alt="Dish" class="" src="Assets/Images/`+ $(this).find("CategoryPhoto").text() + `" />
                                         </div>
 
                                     </div>
                                 </div>
                                 <div class="w-full ">
-                                    <div class="font-bold text-2xl  flex  justify-center text-center">
+                                    <div class="font-semibold text-xl  flex  justify-center text-center">
                                         <p class="">`+ $(this).find("CategoryName").text() + `</p>
                                     </div>
                                 </div>
@@ -439,8 +441,10 @@
 
             });
 
-            document.querySelector(".category-menu-list").classList.add("hidden");
+            //document.querySelector(".category-menu-list").classList.add("hidden");
             document.querySelector(".subcategory-menu-list").classList.remove("hidden");
+            document.querySelector(".dish-menu-list").classList.add("hidden");
+
         }
 
         function OnSubCategoryMenuSuccess(response) {
@@ -453,18 +457,18 @@
             if (Details.length > 0) {
                 $.each(Details, function () {
 
-                    divTag += `<div id="` + $(this).find("SubCategoryID").text() + `"  class="subcategory flex my-5 cursor-pointer space-x-3 menu-list">
-                                <div class="border-4 h-52 w-52 border-gray-500 rounded-full ">
-                                    <img alt="Dish" class="h-full w-full" src="Template/img/specials-3.png" />
-                                </div>
-                                <div class=" my-auto">
-                                    <div class="font-bold  flex  justify-between ">
-                                        <p>` + $(this).find("SubCategoryName").text() + `</p>
+                    divTag += `<div id="` + $(this).find("SubCategoryID").text() + `"  class="subcategory flex justify-center  my-5 cursor-pointer space-x-3 menu-list">
+                                  <div class="text-center space-y-3">
+                                    <div class="border-4 2xl:h-48 2xl:w-48 xl:h-44 xl:w-44 sm:h-36 sm:w-36  lg:w-1/3 h-28 w-28 border-gray-500 rounded-full  overflow-hidden">
+                                        <img alt="Dish" class="h-full w-full" src="Assets/Images/`+ $(this).find("SubCategoryPhoto").text() + `" />
                                     </div>
-                                    <div class="text-sm text-gray-400 font-semibold">
-                                        <!--<span>Noodels, Spcies,Green chili paste</span>-->
+                                    <div class="text-center my-auto ">
+                                        <div class="font-bold text-center flex justify-center text-2xl">
+                                            <p>` + $(this).find("SubCategoryName").text() + `</p>
+                                        </div>
+                                    
                                     </div>
-                                   </div>
+                                  </div>
                                 </div>
                            `;
                 })
@@ -545,14 +549,17 @@
 
             var divTag = "";
 
+            $("#DishMenu").html("<div><p>Empty</p></div>");
+
+
             if (Details.length > 0) {
                 $.each(Details, function () {
 
 
 
                     divTag += `<div class="dish flex cursor-pointer  space-x-3 menu-list  my-auto" >
-                                <div class="border-4 2xl:h-52 xl:h-44  sm:h-36 lg:w-1/3 h-28 border-gray-500 rounded-full  ">
-                                    <img alt="Dish" class="h-full w-full" src="Template/img/specials-3.png" />
+                                <div class="border-4 2xl:h-48 2xl:w-48 xl:h-44 xl:w-44 sm:h-36 sm:w-36  lg:w-1/3 h-28 w-28 border-gray-500 rounded-full  overflow-hidden">
+                                    <img alt="Dish" class="h-full w-full" src="Assets/Images/`+ $(this).find("DishPhoto").text()+`" />
                                 </div>
                                 <div class=" my-auto  w-2/3 ">
                                     <div class="dish-details" id="` + $(this).find("DishID").text() +`">
@@ -579,6 +586,7 @@
                                 </div>
 
                             </div>`;
+                   
 
                     $("#DishMenu").html(divTag);
 

@@ -10,7 +10,7 @@
         <input id="CheckboxMikProducts"  type="checkbox" name="Material" value="Milk Porudcts" />
            <label for="CheckboxMikProducts" class="cursor-pointer w-full h-full  ">
                <div class="rounded h-24 border  overflow-hidden">
-                   <img class="w-full  " src="../Assets/Images/MaterialPhoto/280220233ad708e6-000c-4c86-8adb-79d889ba533a.pn" />
+                   <img class="w-full" src="../Assets/Images/MaterialPhoto/280220233ad708e6-000c-4c86-8adb-79d889ba533a.pn" />
                </div>
                <div class="font-semibold text-gray-400">Mik Products</div>
            </label>

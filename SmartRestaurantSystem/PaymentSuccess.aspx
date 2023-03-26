@@ -5,25 +5,23 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <form id="form1" runat="server">
-        <section class="inner-section invoice-part">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
+        <section class="inner-section invoice-part py-14 flex justify-center">
+            <div class="text-white ">
+                <div class="row space-y-5s">
+                    <div class="col-lg-12 text-3xl font-bold">
                         <br />
                         <div class="alert-info">
                             <h3>Thank you! We have recieved your order.</h3>
                         </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 font-semibold text-2xl">
                         <div class="account-card">
                             <div class="account-title">
                                 <h4>order recieved</h4>
                             </div>
                             <div class="account-content">
                                 <div class="invoice-recieved" id="orderDetails">
-                                    <%--<h6>order number <span>1665</span></h6>
-                                    <h6>order date <span>february 02, 2021</span></h6>
-                                    <h6>total amount <span>$24,176.00</span></h6>--%>
+                                   
                                 </div>
                                 <br />
                                 <div id="deliveryMessage" style="text-align:center">

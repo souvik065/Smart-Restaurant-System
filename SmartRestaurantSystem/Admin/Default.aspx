@@ -10,7 +10,7 @@
     <link href="Template/lib/tailwindcss/tailwind-dark.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/tailwind.css" rel="stylesheet" />
     <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
-
+    <script src="../lib/jquery/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="Template/css/DefaultPage.css" rel="stylesheet" />
@@ -115,6 +115,56 @@
 
 
         }
+
+
+       
+
+            $("#btnLogin").on("click", function () {
+            debugger;
+            var username = $("#txtUserName");
+            var password = $("#txtPassword");
+
+            if (username.val() == "")
+            {
+                alert("Please Enter the UserName");
+            username.focus();
+            return
+            } else if (password.val() == "") {
+                alert("Please Enter the Password");
+            password.focus();
+            return
+            } else {
+
+                var UserName = username.val().trim();
+            var Password = password.val().trim();
+
+            }
+
+            $.ajax({
+
+            url: "../WebServices/AdminLoginWebService.asmx/AdminCheckLogin",
+            method: "POST",
+            data: "{UserName:" + JSON.stringify(UserName) + ", Password:" + JSON.stringify(Password) + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                    var result = response.d;
+            if (result.includes("Invalid")) {
+                alert("Invalid UserName or Password")
+            } else {
+
+                window.location.href = "CategoryMaster.aspx";
+                    }
+
+                },
+            error: function (err) {
+                console.log(err);
+                }
+
+            });
+
+        });
+   
     </script>
 
 </body>
