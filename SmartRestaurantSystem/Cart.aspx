@@ -111,7 +111,6 @@
                     <!-- Section Title End-->
 
                     <!-- Hidden Fields Start-->
-                    <input id="hdnOrderID" type="hidden" />
                     <!-- Hidden Fields End-->
 
 
@@ -170,6 +169,8 @@
          <input type="hidden" id="razorpay_payment_id" name="razorpay_payment_id" />
         <input type="hidden" id="razorpay_order_id" name="razorpay_order_id" />
         <input type="hidden" id="razorpay_signature" name="razorpay_signature" />
+        <input id="hdnOrderID" type="hidden" name="OrderID" />
+
 
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     </form>
@@ -739,7 +740,7 @@
             }
            
 
-            $("#formPaymentSuccess").submit();
+            //$("#formPaymentSuccess").submit();
 
             CartMasterDeleteAll(TableNo);
 

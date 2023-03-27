@@ -16,8 +16,8 @@
                     <h2 class="font-playfair-display-600 text-xl">Delivering greate fod for nore than 18 years</h2>
                 </div>
                 <div>
-                    <a class="border-2 border-classic-yellow rounded-3xl px-5 py-2">OUR MENU</a>
-                    <a class="border-2 border-classic-yellow rounded-3xl px-5 py-2">OUR MENU</a>
+                    <a href="Menu.aspx" class="border-2 border-classic-yellow rounded-3xl px-5 py-2">OUR MENU</a>
+                    <%--<a class="border-2 border-classic-yellow rounded-3xl px-5 py-2">OUR MENU</a>--%>
 
 
                 </div>

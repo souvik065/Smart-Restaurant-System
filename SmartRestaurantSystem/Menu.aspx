@@ -676,7 +676,7 @@
                     } else if (result.includes("Success")) {
                         swal.fire({
                             icon: "success",
-                            text: result,
+                            text: "Item Added to Cart Successfully",
                             background: '#27272a',
                         })
                     }

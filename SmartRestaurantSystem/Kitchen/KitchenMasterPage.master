@@ -139,7 +139,7 @@
                         </div>
 
 
-                        <!--Masters Menu List-->
+                        <%--<!--Masters Menu List-->
                         <div class="menu w-full" onclick="">
                             <div class="flex border-t border-b border-classic-dimyellow w-full hover:bg-stone-900 hover:text-amber-500  py-3 px-10 space-x-7 font-bold cursor-pointer">
                                 <i>
@@ -157,7 +157,7 @@
                             </div>
 
                             <ul class="submenu text-xl mt-2 font-bold w-full mx-auto">
-                                <li>
+                               <%-- <li>
                                     <a href="CategoryMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
                                         <div class="flex space-x-3 ">
                                             <i class="fa-solid fa-tag"></i><span>Category Master</span>
@@ -165,41 +165,15 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="SubCategoryMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
-                                        <div class="flex space-x-3">
-                                            <i class="fa-solid fa-tags"></i><span>SubCategory Master</span>
-
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="TableMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
-                                        <div class="flex space-x-3">
-                                            <i class="fa-solid fa-tablet-screen-button"></i><span>Table Master</span>
-
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="DishMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
-                                        <div class="flex space-x-3">
-                                            <i class="fa-solid fa-bowl-food"></i><span>Dishes</span>
-
-                                        </div>
-                                    </a>
-                                </li>
-                               
-
 
                             </ul>
 
 
 
                         </div>
-                        <!--Masters Menu List End-->
+                        <!--Masters Menu List End-->--%>
 
-                        <!--Staff Menu List-->
+                      <%--  <!--Staff Menu List-->
                         <div class="menu w-full" onclick="">
                             <div class="flex border-t border-b border-classic-dimyellow w-full hover:bg-stone-900 hover:text-amber-500  py-3 px-10 space-x-7 font-bold cursor-pointer">
                                 <i>
@@ -290,7 +264,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <!--Inventory Menu List End-->
+                        <!--Inventory Menu List End-->--%>
 
 
 
