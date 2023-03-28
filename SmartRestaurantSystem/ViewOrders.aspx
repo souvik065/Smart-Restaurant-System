@@ -1,9 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientMasterPage.master" AutoEventWireup="true" CodeFile="Cart.aspx.cs" Inherits="Cart" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientMasterPage.master" AutoEventWireup="true" CodeFile="ViewOrders.aspx.cs" Inherits="ViewOrders" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <section class="" id="CustomerDetails" hidden>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+     <%--<section class="" id="CustomerDetails" hidden>
         <div class=" absolute  w-full h-screen bg-black bg-opacity-50  flex  justify-center">
             <div class="md:w-2/5  w-full  mx-14 h-auto my-auto shadow-2xl shadow-white text-classic-yellow font-poppins-400  bg-opacity-50 bg-restaurantly-darkbrown py-5 px-5">
                 <div id="closeButton" onclick="closeblock()" class=" flex  justify-end text-white font-bold right-0">
@@ -95,7 +96,7 @@
             </div>
         </div>
 
-    </section>
+    </section>--%>
 
     <section class="h-full bg-restaurantly-brown text-white overflow-x-hidden px-5">
         <div class="flex  justify-center py-16">
@@ -104,7 +105,7 @@
                 <div class="">
                     <!-- Section Title -->
                     <div class="section-title my-16 space-y-5 w-full justify-start w-full md:mx-20 lg: xl:mx-32 2xl:mx-64 my-10">
-                        <h2 class="title font-semibold text-3xl text-gray-400 ">C A R T</h2>
+                        <h2 class="title font-semibold text-3xl text-gray-400 ">O R D E R S</h2>
                         <p id="title" class="font-playfair-display-700 text-5xl"></p>
 
                     </div>
@@ -165,20 +166,12 @@
         </div>
     </section>
 
-    <form id="formPaymentSuccess" action="charge.aspx" runat="server" >
-         <input type="hidden" id="razorpay_payment_id" name="razorpay_payment_id" />
-        <input type="hidden" id="razorpay_order_id" name="razorpay_order_id" />
-        <input type="hidden" id="razorpay_signature" name="razorpay_signature" />
-        <input id="hdnOrderID" type="hidden" name="OrderID" />
-
-
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    </form>
-
+   
     <section>
 
        
     </section>
+
 
     <script>
 
@@ -186,11 +179,7 @@
 
 
 
-        function ClearData() {
-            $("#txtCustomerContact").val("");
-            $("#txtCustomerName").val("");
-            $("#txtCustomerEmail").val("");
-        }
+       
         var TableNo = 1;
 
         $(function () {
@@ -198,19 +187,22 @@
             FillCartDetails(1);
 
         })
-        $("#placeorder").on("click", function () {
 
-            $("#CustomerDetails").show();
-        })
-        function closeblock() {
-            $("#CustomerDetails").hide();
-        }
+        //$("#placeorder").on("click", function () {
+
+        //    $("#CustomerDetails").show();
+        //})
+        //function closeblock() {
+        //    $("#CustomerDetails").hide();
+        //}
+
+
         var TotalAmt = 0;
 
-        function FillCartDetails(TableID) {
+        function FillOrders(TableID) {
             $.ajax({
 
-                url: "../WebServices/CartMasterWebService.asmx/CartMasterGet",
+                url: "../WebServices/OrderDetailMasterWebService.asmx/CartMasterGet",
                 method: "POST",
                 data: "{TableID:" + JSON.stringify(TableID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -658,7 +650,6 @@
                                 console.log(result);
                             } else if (!result.includes("error")) {
                                 msg = result;
-                                '<%= Session["OrderID"]%>' = result;
                                 $("#hdnOrderID").val(msg);
                                 
                             }

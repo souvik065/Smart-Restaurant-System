@@ -123,22 +123,42 @@
         }
 
         function OrderStatusUpdate(OrderDetailID) {
-            $.ajax({
 
-                url: "../WebServices/OrderDetailMasterWebService.asmx/OrderDetailStatusUpdate",
-                method: "POST",
-                data: "{OrderDetailID:" + JSON.stringify(OrderDetailID)+"}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: OnSuccess,
-                async: false,
-                error: function (err) {
-                    console.log(err);
+            swal.fire({
+                icon: "warning",
+                text: "Are you sure.",
+                background: '#27272a',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var msg = "";
+                    $.ajax({
+
+                        url: "../WebServices/OrderDetailMasterWebService.asmx/OrderDetailStatusUpdate",
+                        method: "POST",
+                        data: "{OrderDetailID:" + JSON.stringify(OrderDetailID) + "}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: OnSuccess,
+                        async: false,
+                        error: function (err) {
+                            console.log(err);
+                        }
+
+                    });
+                    DisplayOrders();
+
+
+                } 
+
                 }
+            );
+            
 
-            });
-
-            DisplayOrders();
 
         }
 
