@@ -1,0 +1,30 @@
+﻿body {
+}
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    background-color: #1a1814;
+    overflow: hidden;
+    pointer-events: none;
+    
+    transition: all 5s;
+
+}
+.loader{
+    width:100rem;
+    height:100rem;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    margin: -100px 0 0 -100px;
+}
+.img1{
+    width:25rem;
+    position:absolute;
+    left:0;
+    top:0;
+}

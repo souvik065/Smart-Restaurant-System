@@ -1,0 +1,365 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="KitchenMasterPage.master.cs" Inherits="Admin_AdminMasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="Template/lib/tailwindcss/base.min.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/base.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/components.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/components.min.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind-dark.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind-dark.min.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind-experimental.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind-experimental.min.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/tailwind.min.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/utilities.css" rel="stylesheet" />
+    <link href="Template/lib/tailwindcss/utilities.min.css" rel="stylesheet" />
+  
+    <link href="Template/css/AdminMasterPage.css" rel="stylesheet" />
+    <%--<script src="https://cdn.tailwindcss.com"></script>--%>
+    <link href="Template/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="Template/css/TailwindResources.css" rel="stylesheet" />
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="Template/Js/KitchenMasterPage.js"></script>
+    <script src="Template/Js/MenuSubMenu.js"></script>
+    <script src="../preloader.js"></script>
+    <link href="../preloader.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<!--bg-classic-dark-brown-->
+
+<body class=" bg-stone-900 max-h-max  bg-opacity-90">
+
+    <!-- Pre Loader -->
+    <div class="preloader"  id="preloader" >
+        <div class="loader">
+                <img  id="img1"  src="../loader.svg" style="z-index:1000;"  />
+        </div>
+    </div>
+    <!-- End Preloader -->
+
+    <%--<div class="preloader "></div>--%>
+    <form id="form1" class="" runat="server">
+        <div class="w-full h-full ">
+            <!--Top Nav Bar-->
+            <nav class="flex shadow-md border-b border-yellow-900  w-full  fixed bg-black text-white bg-opacity-80 py-3">
+                <!--Logo-->
+                <div class=" px-5 mx-5 text-2xl ">
+                    <a>
+                        <%--<image src="" alt="RESTAURANTLY"></image>--%>
+                        <h1 class="font-poppins text-3xl">RESTAURANTLY</h1>
+                    </a>
+                </div>
+                <!--Logo End-->
+                <div class="flex  w-full">
+                    <!--Mobile Menu Button-->
+                    <div class="mobile-menu-button hover:text-amber-500 cursor-pointer  py-2 px-2">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                        </span>
+                    </div>
+                    <!--Mobile Menu Button End-->
+
+
+                    <div class="flex py-2  w-full justify-between mx-10 ">
+                        <!--Search Bar-->
+                        <div class="">
+                            <div class="flex invisible sm:visible">
+                                <div class=" mx-1">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                        </svg>
+                                    </span>
+
+                                </div>
+                                <input type="text" class="search-input outline-none bg-black bg-opacity-25"  placeholder="Search" />
+                            </div>
+                        </div>
+                        <!--Search Bar End-->
+
+                        <!--Other Navigators-->
+                        <div class="flex   text-black">
+
+                            <div class="flex space-x-2">
+                                <div>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Other Navigators End-->
+                    </div>
+                </div>
+            </nav>
+            <!--Top Nav Bar End-->
+
+            <!--Side Nav Bar & Content-->
+            <div class="flex h-full w-full ">
+                <!--Aside Nav Bar bg-stone-800-->
+                <nav class="side-navbar  overflow-y-auto bg-classic-dark-brown border-r border-yellow-900 w-72 text-slate-400 bg-opacity-80 h-screen top-[4.2rem]  transform -translate-x-full  transition duration-200 ease-in-out fixed lg:translate-x-0">
+                    <div class="py-10 font-poppins-400 space-y-5 font-poppins w-full overflow-y-auto">
+                        <div class="space-y-5 w-full">
+
+                            <div class="flex">
+                                <a href="#" class="flex w-full space-x-5 hover:bg-stone-900 hover:text-amber-500  py-3 px-3 font-bold cursor-pointer">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                                        </svg>
+                                    </i>
+                                    <span class="text-xl">Dashboard</span>
+                                </a>
+                            </div>
+                            <div class="h-[1px] bg-classic-dimyellow"></div>
+                        </div>
+
+
+                        <%--<!--Masters Menu List-->
+                        <div class="menu w-full" onclick="">
+                            <div class="flex border-t border-b border-classic-dimyellow w-full hover:bg-stone-900 hover:text-amber-500  py-3 px-10 space-x-7 font-bold cursor-pointer">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                                    </svg>
+                                </i>
+                                <span class="text-xl">Masters</span>
+                                <span class="arrow rotate-180 duration-200">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                        </svg></i>
+                                </span>
+                            </div>
+
+                            <ul class="submenu text-xl mt-2 font-bold w-full mx-auto">
+                               <%-- <li>
+                                    <a href="CategoryMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3 ">
+                                            <i class="fa-solid fa-tag"></i><span>Category Master</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                        </div>
+                        <!--Masters Menu List End-->--%>
+
+                      <%--  <!--Staff Menu List-->
+                        <div class="menu w-full" onclick="">
+                            <div class="flex border-t border-b border-classic-dimyellow w-full hover:bg-stone-900 hover:text-amber-500  py-3 px-10 space-x-7 font-bold cursor-pointer">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                                    </svg>
+                                </i>
+                                <span class="text-xl">Staff</span>
+                                <span class="arrow rotate-180 duration-200">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                        </svg></i>
+                                </span>
+                            </div>
+
+                            <ul class="submenu text-xl mt-2 font-bold w-full mx-auto">
+                                <li>
+                                    <a href="StaffType.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3 ">
+                                            <i class="fa-solid fa-tag"></i><span>Staff Type</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="StaffDetails.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3 ">
+                                            <i class="fa-solid fa-tag"></i><span>Staff Details</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Staff Menu List End-->
+
+                        <!--Inventory Menu List-->
+                        <div class="menu w-full" onclick="">
+                            <div class="flex border-t border-b border-classic-dimyellow w-full hover:bg-stone-900 hover:text-amber-500  py-3 px-10 space-x-7 font-bold cursor-pointer">
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                                    </svg>
+                                </i>
+                                <span class="text-xl">Inventory</span>
+                                <span class="arrow rotate-180 duration-200">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                        </svg></i>
+                                </span>
+                            </div>
+
+                            <ul class="submenu text-xl mt-2 font-bold w-full mx-auto">
+                                <li>
+                                    <a href="MaterialCategoryMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3">
+                                            <i class="fa-solid fa-bowl-food"></i><span>Material Category Master</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="MaterialMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3">
+                                            <i class="fa-solid fa-bowl-food"></i><span>Material Master</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="SupplierMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3">
+                                            <i class="fa-solid fa-bowl-food"></i><span>Supplier Master</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="MeasureTypeMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3">
+                                            <i class="fa-solid fa-bowl-food"></i><span>Measure Type</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Inventory Menu List End-->--%>
+
+
+
+                    </div>
+                </nav>
+                <!--Aside Nav Bar End-->
+
+
+                <!--Content-->
+                <div class="content-container  w-full h-full  duration-200 lg:ml-72 ">
+                    <div class=" p-5 text-white my-16 max-h-max w-full">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+
+
+
+                    </div>
+                    <!-- Footer -->
+                    <footer class="text-white  h-36 bg-black  border-t  border-yellow-900  w-full">
+                        <div class="flex justify-center items-center text-center">
+                            <div>
+                                <div class="py-10 space-y-3">
+                                    <div>
+                                        <p>&#169; Copywrite <b>Restaurantly</b>. All Rights Reserved</p>
+                                    </div>
+                                    <div class="text-sm">
+                                        <p>Designed by <span class="text-classic-yellow">Souvik bhattacharya</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </footer>
+                    <!-- Footer End -->
+
+                </div>
+
+                <!--Content End-->
+
+
+
+            </div>
+        <!--Side Nav Bar & Content-->
+
+        </div>
+
+
+
+
+
+    </form>
+    <script>
+        $('.menu').on('click', function () {
+            debugger;
+            $(this).children('.submenu').slideToggle();
+
+        });
+
+        var loader = document.getElementById("preloader");
+        //window.addEventListener("load", function () {
+        //    loader.style.display = "none";
+        //});
+        const sidebar = document.querySelector('.side-navbar');
+        const contentdiv = document.querySelector('.content-container');
+
+        const navbarbtn = (widthSize) => {
+            const btn = document.querySelector(".mobile-menu-button");
+
+            if (widthSize.matches) {
+
+                btn.addEventListener('click', () => {
+                    sidebar.classList.toggle('-translate-x-full');
+
+                });
+
+            } else if (!widthSize.matches) {
+                const btn = document.querySelector('.mobile-menu-button');
+
+                btn.addEventListener('click', () => {
+                    sidebar.classList.toggle('lg:translate-x-0');
+                    contentdiv.classList.toggle('lg:ml-72')
+
+                })
+
+            }
+        }
+
+        const widthSize = window.matchMedia("(max-width:1024px)");
+
+
+        navbarbtn(widthSize);
+        widthSize.addEventListener("change", navbarbtn);
+    </script>
+    
+    <script src="Template/Js/sweetalert2@11.js"></script>
+    <script src="Template/Js/jquery.dataTables.min.js"></script>
+</body>
+</html>

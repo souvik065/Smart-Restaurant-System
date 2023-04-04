@@ -1,0 +1,95 @@
+﻿
+body {
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@400;500;600;700&family=Poppins:ital,wght@0,400;1,100;1,200;1,300&display=swap');
+
+
+.hero-bg-img {
+    background-image: url('../../img/hero-bg.jpg');
+    filter:blur(2px);
+    
+    
+
+}
+
+
+
+/* Google Fonts */
+.font-poppins-400 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400
+}
+
+.font-poppins-100 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100
+}
+
+.font-poppins-200 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200
+}
+
+.font-open-sans-400 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+.font-open-sans-600 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+.font-playfair-display-400 {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+}
+
+.font-playfair-display-500 {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+}
+
+.font-playfair-display-600 {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+}
+
+.font-playfair-display-700 {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+}
+
+
+/* Text Colors */
+.text-classic-yellow {
+    color: #cda45e;
+}
+
+
+/* Background Colors */
+.bg-classic-dark-brown {
+    background-color: #0c0b09;
+}
+
+.bg-classic-brown {
+    background-color: #1a1814;
+}
+
+/* Border Color*/
+.border-classic-brown {
+    border-color: #1a1814;
+}
+
+.border-classic-dark-brown {
+    border-color: #0c0b09;
+}
+
+.border-classic-yellow {
+    border-color: #cda45e;
+}
+
+.border-classic-dimyellow {
+    border-color: #625b4b;
+}

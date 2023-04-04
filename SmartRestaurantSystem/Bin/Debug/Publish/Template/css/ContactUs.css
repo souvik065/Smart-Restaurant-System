@@ -1,0 +1,44 @@
+﻿body {
+}
+
+
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: rotateX(-10deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotateX(0);
+    }
+}
+
+@keyframes transitionUp {
+    from {
+        opacity: 0;
+        transform: translateY(40%)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.scetion-title {
+    animation: transitionUp 2s;
+}
+
+
+.contactus-form {
+    animation: transitionUp 2s;
+}
+
+.map {
+    animation: transitionUp 2s;
+}
+
+
+
