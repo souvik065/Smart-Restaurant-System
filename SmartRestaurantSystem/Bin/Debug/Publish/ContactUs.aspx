@@ -23,7 +23,7 @@
 
                 <!-- ContactUs Form -->
                 <div class="contactus-form flex justify-center items-center  h-auto">
-                    <div class="grid md:grid-cols-2 space-y-5 sm:mx-10">
+                    <div class="grid md:grid-cols-2 space-y-5 sm:mx-10  w-1/2">
                         <div class="text-white">
                             <div class="py-5 space-y-5 ">
                                 <div class="flex space-x-2">
@@ -86,7 +86,7 @@
 
                             </div>
                         </div>
-                        <div>
+                        <div class="">
                             <div class=" space-y-10  ">
                                 <div class="flex space-x-5">
                                     <div class="w-1/2">

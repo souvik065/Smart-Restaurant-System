@@ -24,6 +24,7 @@
                                 <span>/</span>
                                 <div class="cursor-pointer" onclick="ListAllSubCategoryMenu()">SubCategory</div>
 
+
                             </div>
                         </div>
                     </div>
@@ -44,10 +45,10 @@
                     <!-- Menu List End-->
 
                     <!-- Sub-Category List Start-->
-                    <div data-subcategory class=" subcategory-menu-list">
-                        <div class="px-5 md:mx-10 2xl:mx-48 xl:mx-32 lg:mx-20  md:mx-5  grid md:grid-cols-2 " id="SubCategoryMenu">
+                    <div data-subcategory class=" subcategory-menu-list ">
+                        <div class="px-5 md:mx-10 2xl:mx-48 xl:mx-32 lg:mx-20  md:mx-5 flex overflow-x-scroll lg:space-x-52 space-x-14  " id="SubCategoryMenu">
 
-                            <div class=" flex cursor-pointer  space-x-3 menu-list  my-auto">
+                           <%-- <div class=" flex cursor-pointer  space-x-3 menu-list  my-auto">
                                 <div class="border-4 2xl:h-52 xl:h-44  sm:h-36 lg:w-1/3 h-28 border-gray-500 rounded-full  ">
                                     <img alt="Dish" class="h-full w-full" src="Template/img/specials-3.png" />
                                 </div>
@@ -274,7 +275,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div>--%>
 
                            
                         </div>
@@ -328,7 +329,12 @@
 
 
 
+        var SubCategoryDiv = document.getElementById("SubCategoryMenu");
+        SubCategoryDiv.addEventListener("wheel", function (e) {
 
+
+
+        });
 
 
         $(function () {
@@ -513,9 +519,11 @@
             var dishes = [...document.querySelectorAll(".dish")];
 
 
-            for (var dish of dishdetails) {
+            
+
+            for (var dish of dishes) {
                 dish.addEventListener("click", function (e) {
-                    $("#"+this.id+"-Price-Div").slideToggle();
+                    $("#" + this.id + "-Price-Div").slideToggle();
                 });
             }
 
@@ -526,7 +534,7 @@
 
                         let MeasureTypeID = document.querySelector("input[name='radiogroup" + e.target.id + "']:checked").value;
 
-                        CartMasterInsert(localStorage.getItem("TableID"), e.target.id, MeasureTypeID);
+                        CartMasterInsert(e.target.id, MeasureTypeID);
 
                         $("#" + e.target.id + "-Price-Div").slideToggle();
 
@@ -546,18 +554,29 @@
             var divTag = "";
 
             $("#DishMenu").html("<div><p>Empty</p></div>");
-
-
+            var qty = "";
+            qty = `<div class="Qty flex justify-center" id="` + $(this).find("DishID").text() + `">
+                            <div id="`+ $(this).find("DishID").text() + `">
+                                <input type="button" id="`+ $(this).find("DishID").text() + `" value="-"  class=" Minusbtn bg-classic-yellow text-white font-bold w-5" />
+                            </div>
+                            <div>
+                            <input type="text" id="`+ $(this).find("DishID").text() + `Qty" class="bg-transparent w-7 text-center text-gray-400 font-bold" value="` + $(this).find("Qty").text() + `"/>
+                            </div>
+                            <div id="`+ $(this).find("DishID").text() + `">
+                            <input type="button" id="`+ $(this).find("DishID").text() + `" value="+" class="Plusbtn bg-classic-yellow text-white font-bold w-5" />
+                            </div>
+                          </div>
+                        `;
             if (Details.length > 0) {
                 $.each(Details, function () {
 
 
 
-                    divTag += `<div class="dish flex cursor-pointer  space-x-3 menu-list  my-auto" >
+                    divTag += `<div id="` + $(this).find("DishID").text() +`" class="dish flex cursor-pointer  space-x-3 menu-list  my-auto"  >
                                 <div class="border-4 2xl:h-48 2xl:w-48 xl:h-44 xl:w-44 sm:h-36 sm:w-36  lg:w-1/3 h-28 w-28 border-gray-500 rounded-full  overflow-hidden">
                                     <img alt="Dish" class="h-full w-full" src="Assets/Images/`+ $(this).find("DishPhoto").text()+`" />
                                 </div>
-                                <div class=" my-auto  w-2/3 ">
+                                <div class=" my-auto  w-2/3 space-y-5">
                                     <div class="dish-details" id="` + $(this).find("DishID").text() +`">
                                         <div class="font-bold  flex  justify-between ">
                                             <a>`+ $(this).find("DishName").text() + `</a>
@@ -567,9 +586,10 @@
                                         </div>
                                     </div>
                                     <div class="dish-price py-2  flex justify-between md:mx-5" id="`+ $(this).find("DishID").text() +`-Price-Div">
-                                        <div class="space-y-2 w-1/2" id="`+ $(this).find("DishID").text() +`-Price">
+                                        <div class="space-y-2 w-autos " id="`+ $(this).find("DishID").text() +`-Price">
                                             
                                         </div>
+                                        
                                         <div class="my-auto">
                                             <div class="my-auto">
                                                 <div>
@@ -593,12 +613,91 @@
             else {
 
             }
+
+            var plusbtns = [...document.querySelectorAll(".Plusbtn")];
+            var minusbtns = [...document.querySelectorAll(".Minusbtn")];
+
+            for (var plus of plusbtns) {
+                plus.addEventListener("click", function (e) {
+                    var qty = $("#" + e.target.id + "Qty");
+                    var num = parseInt(qty.val());
+                    num += 1;
+                    qty.val(num);
+
+                    UpdateQty($(this).parent().attr('id'), qty.val());
+
+                    FillCartDetails(1);
+
+                });
+            }
+
+            for (var minus of minusbtns) {
+                minus.addEventListener("click", function (e) {
+                    var qty = $("#" + e.target.id + "Qty");
+
+                    if (qty.val() > 1) {
+                        var num = parseInt(qty.val());
+                        num = num - 1;
+                        qty.val(num);
+
+                        UpdateQty($(this).parent().attr('id'), qty.val());
+
+                        FillCartDetails(1);
+
+                    } else if (qty.val() == 1) {
+                        var CartID = $(this).parent().attr('id');
+                        swal.fire({
+                            icon: "warning",
+                            text: "Are you sure you want to remove this Item from Cart.",
+                            background: '#27272a',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'No, cancel!',
+                            reverseButtons: true
+
+
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var msg = "";
+                                $.ajax({
+
+                                    url: "../WebServices/CartMasterWebService.asmx/CartMasterDelete",
+                                    method: "POST",
+                                    data: "{CartID:" + JSON.stringify(CartID) + "}",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (res) {
+                                        var result = res.d;
+                                        if (result.includes("error")) {
+                                            console.log(result);
+                                        } else if (result.includes("Success")) {
+                                        }
+                                    },
+                                    error: function (err) {
+                                        console.log(err)
+                                    }
+
+                                });
+                                FillCartDetails(1);
+
+
+                            }
+                        })
+
+                        FillCartDetails(1);
+
+                    }
+
+
+                });
+            }
             
             
         }
 
         function ListAllDishPrice(DishID) {
-            debugger;
+            
             $.ajax({
 
                 url: "../WebServices/PriceMasterWebService.asmx/ListAllDishPrice",
@@ -624,15 +723,18 @@
             if (Details.length > 0) {
                 $.each(Details, function () {
 
-                    divTag += `<div class="flex justify-around font-semibold">
-                                    <div class="flex">
-                                        <input type="radio"  name="radiogroup`+ $(this).find("DishID").text() + `" value="` + $(this).find("MeasureTypeID").text()+`" />
-                                         
-                                        <h3 class="">`+ $(this).find("MeasureType").text() +`</h3>
+                    divTag += `<div class="flex justify-around font-semibold space-x-3  w-auto">
+                                    <label for="rbtn`+ $(this).find("MeasureTypeID").text() + $(this).find("DishID").text() +`" class="flex w-full  justify-around font-semibold space-x-3">
+                                    <div class="flex space-x-3">
+                                        <input type="radio" id="rbtn`+ $(this).find("MeasureTypeID").text() + $(this).find("DishID").text()+`"  name="radiogroup`+ $(this).find("DishID").text() + `" value="` + $(this).find("MeasureTypeID").text()+`" />
+                                       
+                                            <h3 class=""> `+ $(this).find("MeasureType").text() +`</h3>
                                     </div>
-                                    <div>
-                                        <span>`+ $(this).find("Price").text() +`</span>
+                                    <div class="text-gray-400 font-bold">
+                                        <span>`+ $(this).find("Price").text() +`</span><span> ₹</span>
                                     </div>
+                                    </label>
+
                               </div>`;
 
                     var pricediv = $("#" + $(this).find("DishID").text() + "-Price").html(divTag);
@@ -670,6 +772,9 @@
                     if (result.includes("error")) {
                         console.log(result);
                     } else if (result.includes("Success")) {
+
+                        UpdateCartDetail();
+
                         swal.fire({
                             icon: "success",
                             text: "Item Added to Cart Successfully",
@@ -682,6 +787,7 @@
                 }
 
             });
+
 
             
         }
@@ -736,7 +842,59 @@
 
         
 
-        
+        function UpdateCartDetail() {
+            $.ajax({
+
+                url: "WebServices/CartMasterWebService.asmx/CartMasterGet",
+                method: "POST",
+                data: "{TableID:" + JSON.stringify(localStorage.getItem("TableID")) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnUpdateCartDetailSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+
+        function OnUpdateCartDetailSuccess(response) {
+            
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+            var TotalAmt = 0;
+            var TotalItems = 0;
+
+            if (Details.length > 0) {
+                $("#lblCartCount").html(Details.length);
+                $("#lblCartTotalItem").html(Details.length);
+
+
+            }
+
+
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    TotalAmt += parseInt($(this).find("Total").text());
+
+                })
+
+                $("#lblCartTotalAmount").html(TotalAmt);
+
+            }
+            else {
+
+            }
+
+
+
+
+        }
 
         
 

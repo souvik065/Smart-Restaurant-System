@@ -53,7 +53,6 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
                                         </svg>
-
                                     </span>
                                 </div>
                                 <input id="txtPassword" class="bg-transparent outline-none font-semibold border-b border-classic-dimyellow py-2 px-2" type="password" placeholder="Password" /><span onclick="toggle()" id="eye" class="absolute right-0 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -64,6 +63,22 @@
 
                             </div>
                             <!-- Password End-->
+
+                            <!-- User Type -->
+                            <div class="space-x-5 flex ">
+                                <div class="font-bold text-gray-400 my-auto">
+                                    <label>Role</label>
+                                </div>
+                                <div class=" w-full">
+                                    <select id="ddlUserType" class="bg-transparent outline-none font-semibold border-b border-classic-dimyellow py-2 px-2 w-full" placeholder="UserType">
+                                        <option class="text-gray-400 font-semibold" value="0">-Select Role-</option>
+                                        <option value="true">Admin</option>
+                                        <option value="false">Staff</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- User Type -->
 
 
                             <!-- Remember Me Start-->
@@ -123,6 +138,7 @@
             debugger;
             var username = $("#txtUserName");
             var password = $("#txtPassword");
+            var stafftypeid = $("#txt")
 
             if (username.val() == "")
             {
@@ -142,9 +158,9 @@
 
             $.ajax({
 
-            url: "../WebServices/AdminLoginWebService.asmx/AdminCheckLogin",
+            url: "../WebServices/AdminLoginWebService.asmx/CheckLogin",
             method: "POST",
-            data: "{UserName:" + JSON.stringify(UserName) + ", Password:" + JSON.stringify(Password) + "}",
+            data: "{UserName:" + JSON.stringify(UserName) + ", Password:" + JSON.stringify(Password) + ", StaffTypeID:"++"}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {

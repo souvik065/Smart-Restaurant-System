@@ -66,6 +66,45 @@ public class OrderMasterWebService : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string UpdatePaymentStatus(Int32 TableID, Boolean PaymentStatus)
+    {
+        String msg = "";
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        try
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("UpdatePaymentStatus", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@TableID", TableID).DbType = DbType.Int32;
+            cmd.Parameters.AddWithValue("@PaymentStatus", PaymentStatus).DbType = DbType.Boolean;
+
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            msg = "Payemnt Successfully";
+
+
+            con.Close();
+
+
+
+        }
+        catch (Exception Exe)
+        {
+            msg = "error" + Exe.Message;
+
+        }
+        finally
+        {
+
+        }
+        return msg;
+
+
+    }
+
+
 
     [WebMethod] //-- Executing SubCategory GET/Read Function --// 
     public string OrderMasterGet(Int32 TableID)

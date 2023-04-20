@@ -25,7 +25,7 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string StaffDetailMasterManage(Int32 StaffID, Int32 StaffTypeID, String StaffName, String MobileNo, String Address, String StaffPhoto)
+    public string StaffDetailMasterManage(Int32 StaffID, Int32 StaffTypeID, String StaffName, String MobileNo, String Address, String StaffPhoto, String OldPhotoPath)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -69,6 +69,13 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
                 cmd.Dispose();
 
                 msg = "Record Updated Successfully";
+
+                if (OldPhotoPath != "Null")
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + OldPhotoPath + ""));
+                    if (fileInfo.Exists)
+                        fileInfo.Delete();
+                }
 
                 con.Close();
 

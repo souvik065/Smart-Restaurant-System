@@ -33,7 +33,7 @@ public class RazorPayWebService : System.Web.Services.WebService
 
         try
         {
-            SqlCommand cmd = new SqlCommand("CartDetailTotal", conn);
+            SqlCommand cmd = new SqlCommand("OrderMasterTotal", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableID", TableID).DbType = DbType.Int32;
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
@@ -50,7 +50,7 @@ public class RazorPayWebService : System.Web.Services.WebService
                 HttpContext.Current.Session["Total"] = ds.Tables[0].Rows[0]["Total"];
 
                 Dictionary<string, object> options = new Dictionary<string, object>();
-                options.Add("amount", Convert.ToInt64(Convert.ToInt64(Total) * 100)); // amount in the smallest currency unit
+                options.Add("amount", Convert.ToDouble(Convert.ToDouble(Total) * 100)); // amount in the smallest currency unit
                 options.Add("receipt", guid);
                 options.Add("currency", "INR");
                 Order order = client.Order.Create(options);

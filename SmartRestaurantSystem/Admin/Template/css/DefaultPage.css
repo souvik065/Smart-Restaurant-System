@@ -7,10 +7,10 @@ body {
 
 .hero-bg-img {
     background-image: url('../../img/hero-bg.jpg');
-    filter:blur(2px);
-    
-    
-
+    filter: blur(2px);
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
 }
 
 

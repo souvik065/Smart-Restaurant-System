@@ -70,14 +70,14 @@
             <!--Naviagtion Menus End-->
 
             <!-- Bokk A Table Button -->
-            <div class="table-booking flex my-auto  space-x-3">
+            <div class="table-booking flex my-auto  space-x-3 ">
                 <%-- <div class=" rounded-2xl border-2 border-amber-500 text-sm ">
                         <input type="button" class="bg-transparent px-5 py-1 cursor-pointer" value="BOOK A TABLE" />
                     </div>--%>
                 <div class="my-auto">
                     <a href="Cart.aspx">
                         <div class="wrapper">
-                            <span class='badge badge-warning' id='lblCartCount'>5</span>
+                            <span class='badge badge-warning' id='lblCartCount'></span>
                         </div>
                         <span id="cart">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -86,9 +86,19 @@
                         </span>
                     </a>
 
-                    <div id="cart-div" class=" absolute hidden top-16  bg-restaurantly-darkbrown h-10 w-auto border">
+                    <div id="cart-div" class=" absolute hidden top-16  bg-restaurantly-darkbrown h-auto py-3 px-3 w-auto ">
                         <div>
-                            <a href="Cart.aspx" class="">View All ...</a>
+                            <div>
+                                <div>
+                                    <span class="font-bold text-classic-yellow">Total Items </span><span class="text-gray-400 font-bold" id='lblCartTotalItem'>0</span>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-classic-yellow">Total Amount </span><span class="text-gray-400 font-bold" id='lblCartTotalAmount'>0</span><span class="text-gray-400 font-bold"> ₹</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-classic-dimyellow text-gray-400 font-bold">
+                                <a href="Cart.aspx" class="">View All ...</a>
+                            </div>
                         </div>
                     </div>
 
@@ -105,24 +115,26 @@
 
                     <div id="orders-div" class=" absolute hidden top-16  bg-restaurantly-darkbrown h-10 w-auto border">
                         <div>
-                            <a href="Cart.aspx" class="">View All ...</a>
+                            <a href="ViewOrders.aspx" class="">View All ...</a>
                         </div>
                     </div>
 
                 </div>
 
+                <!-- side-nav-bar-button -->
+                <div class="side-nav-bar-button my-auto cursor-pointer lg:hidden ">
+                    <span>
+                        <svg class="h-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </span>
+                </div>
+                <!-- Side-Nav-Bar-Button End-->
+
             </div>
             <!-- Bokk A Table Button End-->
 
-            <!-- side-nav-bar-button -->
-            <div class="side-nav-bar-button my-auto cursor-pointer lg:hidden ">
-                <span>
-                    <svg class="h-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </span>
-            </div>
-            <!-- Side-Nav-Bar-Button End-->
+
 
         </div>
     </nav>
@@ -277,15 +289,14 @@
 
     <script>
 
-      
-
-        $(function () {
+        $(document).ready(function () {
 
             localStorage.setItem("DeviceIP", '<%= Session["DeviceIP"] %>');
             GetTableID();
-            
+            UpdateCartDetail();
 
         });
+
 
         $('.side-nav-bar-button').on('click', function () {
             $('.side-nav-bar').toggleClass('-translate-x-full');
@@ -305,7 +316,6 @@
         })
 
 
-       
 
         function GetTableID() {
 
@@ -331,8 +341,8 @@
             var xml = $(xmlDoc);
 
             var Details = xml.find("DataDetails");
-            
 
+            localStorage.setItem("TableID", null);
 
             if (Details.length > 0) {
                 $.each(Details, function () {
@@ -347,11 +357,135 @@
 
             }
 
+            if (localStorage.getItem("TableID") == null) {
+
+
+                swal.fire({
+                    icon: "alert",
+                    title: "This device is not register on our System.",
+                    text: "You cannot order Item Without Registration. Please Contact Admin to Register this Device.",
+                    background: '#27272a',
+                    showCancelButton: true,
+                    confirmButtonText: 'Register This Device',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+
+
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        // window.location.replace("http://192.168.1./Admin/Default.aspx");
+
+                        var msg = "";
+                        $.ajax({
+
+                            url: "../WebServices/CategoryMasterWebService.asmx/CategoryMasterDelete",
+                            method: "POST",
+                            data: "{CategoryID:" + JSON.stringify(CategoryID) + "}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (res) {
+                                var result = res.d;
+                                if (result.includes("error")) {
+                                    console.log(result);
+                                } else if (result.includes("Success")) {
+                                    msg = result;
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err)
+                            }
+
+                        });
+                        FillCategoryDetails(0);
+                        ClearFields();
+
+                        swal.fire({
+                            title: "Deleted",
+                            icon: "success",
+                            text: msg,
+                            background: '#27272a',
+
+                        })
+
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        swal.fire({
+                            title: "Cancelled",
+                            text: "Your Record is Safe :)",
+                            icon: "info",
+                            background: '#27272a',
+
+                        })
+
+                    }
+                })
+
+            }
 
         }
 
 
-      
+        function UpdateCartDetail() {
+            $.ajax({
+
+                url: "WebServices/CartMasterWebService.asmx/CartMasterGet",
+                method: "POST",
+                data: "{TableID:" + JSON.stringify(localStorage.getItem("TableID")) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnUpdateCartDetailSuccess,
+                async: false,
+                error: function (err) {
+                    console.log(err);
+                }
+
+            });
+        }
+
+
+        function OnUpdateCartDetailSuccess(response) {
+            debugger;
+            var xmlDoc = $.parseXML(response.d);
+            var xml = $(xmlDoc);
+
+            var Details = xml.find("DataDetails");
+            var TotalAmt = 0;
+            var TotalItems = 0;
+            $("#lblCartTotalAmount").html("");
+            $("#lblCartCount").html("");
+            $("#lblCartTotalItem").html("");
+
+
+            if (Details.length > 0) {
+                $("#lblCartCount").html(Details.length);
+                $("#lblCartTotalItem").html(Details.length);
+
+
+            }
+
+
+            if (Details.length > 0) {
+                $.each(Details, function () {
+
+                    TotalAmt += parseInt($(this).find("Total").text());
+
+                })
+
+                $("#lblCartTotalAmount").html(TotalAmt);
+
+            }
+            else {
+
+            }
+
+
+
+
+        }
+        
+
+
 
 
     </script>

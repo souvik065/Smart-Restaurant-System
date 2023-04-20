@@ -115,6 +115,18 @@ public class OrderDetailMasterWebService : System.Web.Services.WebService {
     }
 
 
+    [WebMethod]
+    public string ViewOrderStatus(Int32 TableID)
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("ViewOrderStatus", con);
+        cmd.Parameters.AddWithValue("@TableID", TableID).DbType = DbType.Int32;
+
+        cmd.CommandType = CommandType.StoredProcedure;
+        return GetDataWithoutPaging(cmd).GetXml();
+    }
+
+
 
     public DataSet GetDataWithoutPaging(SqlCommand cmd)
     {

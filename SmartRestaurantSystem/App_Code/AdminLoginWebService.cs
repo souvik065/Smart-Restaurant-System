@@ -24,7 +24,7 @@ public class AdminLoginWebService : System.Web.Services.WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string AdminCheckLogin(String UserName, String Password)
+    public string CheckLogin(String UserName, String Password, Int32 StaffTypID)
     {
 
 
@@ -36,6 +36,8 @@ public class AdminLoginWebService : System.Web.Services.WebService
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@UserName", UserName).DbType = DbType.String;
             cmd.Parameters.AddWithValue("@Password", Password).DbType = DbType.String;
+            cmd.Parameters.AddWithValue("@StaffTypID", StaffTypID).DbType = DbType.Int32;
+
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             adp.Fill(ds);
@@ -44,6 +46,8 @@ public class AdminLoginWebService : System.Web.Services.WebService
             if (ds.Tables[0].Rows.Count > 0)
             {
                 HttpContext.Current.Session["UserID"] = ds.Tables[0].Rows[0]["UserID"].ToString();
+                HttpContext.Current.Session["StaffType"] = ds.Tables[0].Rows[0]["StaffType"].ToString();
+
                 msg = "Valid";
 
             }
