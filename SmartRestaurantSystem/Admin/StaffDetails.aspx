@@ -266,6 +266,7 @@
                             })
 
                             FillStaffDetails(0);
+                            ClearFields();
 
                         }
                     },
@@ -274,8 +275,6 @@
                     }
 
                 });
-                FillStaffDetails(0);
-                ClearFields();
             }
 
 
@@ -326,7 +325,6 @@
 
 
         function OnSuccess(response) {
-            debugger;
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
 
@@ -447,14 +445,16 @@
                                 })
 
                             }
+
+                            FillStaffDetails(0);
+                            ClearFields();
                         },
                         error: function (err) {
                             console.log(err)
                         }
 
                     });
-                    FillStaffDetails(0);
-                    ClearFields();
+                    
 
 
 

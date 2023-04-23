@@ -237,4 +237,55 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
         return List;
     }
 
+
+    [WebMethod] //-- Executing GET/Read Function of Category List --// 
+    public List<ListItem> ListAllStaffByStaffType(Int32 StaffTypeID)
+    {
+
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        List<ListItem> List = new List<ListItem>();
+        try
+        {
+            SqlCommand cmd = new SqlCommand("ListAllStaffByStaffType", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StaffTypeID", StaffTypeID).DbType = DbType.Int32;
+
+            con.Open();
+            using (SqlDataReader sdr = cmd.ExecuteReader())
+            {
+                while (sdr.Read())
+                {
+                    List.Add(new ListItem
+                    {
+
+                        Value = sdr["StaffID"].ToString(),
+                        Text = sdr["StaffName"].ToString()
+
+                    });
+
+                }
+
+            }
+
+            con.Close();
+
+        }
+        catch (Exception Exe)
+        {
+
+
+        }
+        finally
+        {
+            if (con.State == ConnectionState.Open)
+            {
+
+                con.Close();
+            }
+
+
+        }
+        return List;
+    }
+
 }

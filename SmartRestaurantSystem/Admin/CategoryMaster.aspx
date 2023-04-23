@@ -214,6 +214,9 @@
                                 text: result,
                                 background: '#27272a',
                             })
+
+                            FillCategoryDetails(0);
+                            ClearFields();
                         }
                     },
                     error: function (err) {
@@ -221,8 +224,7 @@
                     }
 
                 });
-                FillCategoryDetails(0);
-                ClearFields();
+                
             }
 
 

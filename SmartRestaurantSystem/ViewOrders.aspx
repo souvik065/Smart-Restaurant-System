@@ -99,6 +99,13 @@
 
     </section>
 
+    <!-- Hidden Fields Start-->
+    <input id="hdnPaymentMode" type="hidden" />
+    <input id="hdnPaymentStatus" type="hidden" />
+    <!-- Hidden Fields End-->
+
+    
+
     <!-- Table Start-->
     <section class="h-full bg-restaurantly-brown text-white overflow-x-hidden px-5">
         <div class="flex  justify-center py-16">
@@ -201,7 +208,6 @@
 
         setInterval(function () {
             var table = $("#tblViewOrderDetails").DataTable
-
             ViewOrderStatus();
 
         }, 5000);
@@ -221,6 +227,8 @@
                 }
             });
         }
+
+
 
         function OnSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
@@ -259,7 +267,6 @@
             $("#totalitems").html(Details.length);
             $("#totalamt").html(TotalAmt);
 
-
         }
 
 
@@ -271,7 +278,6 @@
         });
 
         function MakePayment() {
-
 
             var customername = $("#txtCustomerName");
             var mobileno = $("#txtMobileNo");
@@ -300,19 +306,13 @@
 
                         startpayment();
                     } else if (PaymentMode == "Cash") {
-                        UpdatePaymentStatus(true);
+                        $('#hdnPayemntStatus').val(false);
+                        $('#hdnPaymentMode').val("Cash");
+                        UpdatePaymentStatus();
                         ViewOrderStatus();
                     }
-
-
-
                     
                     closeblock()
-
-
-                    
-
-
 
                     swal.fire({
                         icon: "success",
@@ -532,7 +532,10 @@
         }
 
 
-        function UpdatePaymentStatus(PaymentStatus){
+        function UpdatePaymentStatus(){
+
+            var PaymentStatus = $('#hdnPayemntStatus');
+            var PaymentMode = $('#hdnPaymentMode');
 
             $.ajax({
 
@@ -591,7 +594,6 @@
             if (Details.length > 0) {
                 $("#lblCartCount").html(Details.length);
                 $("#lblCartTotalItem").html(Details.length);
-
 
             }
 
