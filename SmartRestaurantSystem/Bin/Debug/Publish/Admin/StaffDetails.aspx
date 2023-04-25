@@ -18,9 +18,18 @@
         <!-- Header End-->
 
 
+        <!-- Hidden Fields Start-->
+        <input id="hdnStaffID" type="hidden" />
+        <input id="hdnPhotoPath" type="hidden" />
+        <input id="hdnOldPhotoPath" type="hidden" />
+
+        <!-- Hidden Fields End-->
+
+
+
         <div class="w-full my-5 shadow-2xl text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5">
             <div class="w-full">
-                <div class="font-poppins-400 text-xl w-full space-y-12 px-5 py-5 font-bold">
+                <div class="font-poppins-400 text-xl w-full space-y-12 px-5 py-5 font-bold" >
 
                     <!-- Fields -->
 
@@ -42,14 +51,16 @@
                     </div>
                     <!--Image Preview End-->
 
+
+
+
                     <!--Other Fields -->
-                    <div class="grid gap-11 md:grid-cols-2  ">
+                    <div class="grid gap-11 lg:grid-cols-3 md:grid-cols-2  ">
                         <!-- Staff Type -->
-                        <div class="flex space-x-5 w-full ">
-                            <input id="hdnStaffID" type="hidden" />
-                            <lable for="ddlStaffType" class="my-auto">Staff Type</lable>
+                        <div class="w-full ">
+                            <lable for="ddlStaffType" class="my-auto">Staff Type</lable><span id="ddlStaffTypeWarning" class="formerror text-red-600 text-sm"></span>
                             <div class="w-full">
-                                <div><span id="ddlStaffTypeWarning" class="formerror text-red-600 text-sm"></span></div>
+
 
                                 <select id="ddlStaffType" onchange="FormValDropDown(this.id)" class="mx-auto  bg-transparent py-3 px-2 border w-full border-classic-dimyellow w-1/2 text-center">
                                     <option>--Selesct Staff Type--</option>
@@ -59,33 +70,35 @@
                         </div>
                         <!-- Staff Type End-->
 
-                          <!-- Staff Name-->
-                        <div class="flex space-x-5 w-full ">
+                        <!-- Staff Name-->
+                        <div class=" w-full ">
                             <lable for="txtStaffName" class="my-auto w-1/5">Staff Name </lable>
+                            <span id="txtStaffNameWarning" class="formerror text-red-600  text-sm"></span>
                             <div class="w-full">
-                                <div><span id="txtStaffNameWarning" class="formerror text-red-600  text-sm"></span></div>
                                 <input id="txtStaffName" onkeyup="FormValTextBox(this.id)" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
                             </div>
                         </div>
                         <!-- Staff Name End-->
-                       
+
 
                         <!-- Mobile No-->
-                        <div class="flex space-x-5 w-full ">
+                        <div class="  w-full ">
                             <lable for="txtMobileNo" class="my-auto w-1/5">Mobile No </lable>
+                            <span id="txtMobileNoWarning" class="formerror text-red-600  text-sm"></span>
                             <div class="w-full">
-                                <div><span id="txtMobileNoWarning" class="formerror text-red-600  text-sm"></span></div>
+
                                 <input id="txtMobileNo" onkeyup="FormValTextBox(this.id)" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
                             </div>
                         </div>
                         <!-- Mobile No End-->
 
                         <!-- Address  -->
-                        <div class="flex space-x-5 w-full ">
+                        <div class=" w-full ">
                             <lable for="txtAddress" class="my-auto w-1/5">Address </lable>
+                            <span id="txtAddressWarning" class="formerror text-red-600  text-sm"></span>
                             <div class="w-full">
-                                <div><span id="txtAddressWarning" class="formerror text-red-600  text-sm"></span></div>
-                                <input id="txtAddress" onkeyup="FormValTextBox(this.id)" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" type="text" />
+
+                                <textarea id="txtAddress" class="bg-transparent border w-full border-classic-dimyellow w-1/2 py-1 px-1" onkeyup="FormValTextBox(this.id)" cols="20" rows="2"></textarea>
                             </div>
                         </div>
                         <!-- Address End-->
@@ -107,7 +120,6 @@
                                                         file:bg-yellow-800"
                             type="file" />
                     </div>
-                    <input id="hdnPhotoPath" type="hidden" />
 
 
                     <!-- Fields End-->
@@ -149,12 +161,12 @@
 
                     <tfoot>
                         <tr>
-                           <th>Sr.No</th>
-                           <th>Staff Name</th>
-                           <th>Staff Type</th>
-                           <th>Mobile No</th>
-                           <th>Address</th>
-                           <th>Staff Photo</th>
+                            <th>Sr.No</th>
+                            <th>Staff Name</th>
+                            <th>Staff Type</th>
+                            <th>Mobile No</th>
+                            <th>Address</th>
+                            <th>Staff Photo</th>
 
 
                             <th class="justify-around">Actions</th>
@@ -169,8 +181,6 @@
     <section class="h-[500px]"></section>
 
     <script>
-        // const { swal } = require("./Template/Js/sweetalert2@11");
-
 
         $(function () {
             table = $("#tblStaff").DataTable({
@@ -182,7 +192,7 @@
             ListAllStaffType();
         })
 
-       
+
 
 
         function ClearFields() {
@@ -205,7 +215,6 @@
 
 
         $("#btnSave").on('click', function () {
-            debugger;
 
             var stafftypeid = $('#ddlStaffType');
             var staffid = $('#hdnStaffID');
@@ -215,6 +224,7 @@
 
             var staffphoto = $('#fuStaffPhoto');
             var hdnphototpath = $("#hdnPhotoPath");
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
 
 
             var Validate = FormValidation(stafftypeid, staffname, mobileno, address, staffphoto, hdnphototpath);
@@ -225,7 +235,7 @@
                 var StaffName = staffname.val().trim();
                 var MobileNo = mobileno.val().trim();
                 var Address = address.val().trim();
-
+                var HdnOldPhotoPath = hdnoldphotopath.val() == "" ? "Null" : hdnoldphotopath.val();
                 var StaffPhoto = ""
                 if (hdnphototpath.val() != "") {
                     StaffPhoto = hdnphototpath.val();
@@ -239,9 +249,9 @@
 
                 $.ajax({
 
-                    url: "WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterManage",
+                    url: "../WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterManage",
                     method: "POST",
-                    data: "{StaffID:" + JSON.stringify(StaffID) + ", StaffTypeID:" + JSON.stringify(StaffTypeID) + ",StaffName:" + JSON.stringify(StaffName) + " ,MobileNo:" + JSON.stringify(MobileNo) + ",Address:" + JSON.stringify(Address) + ",StaffPhoto:" + JSON.stringify(StaffPhoto) + "}",
+                    data: "{StaffID:" + JSON.stringify(StaffID) + ", StaffTypeID:" + JSON.stringify(StaffTypeID) + ",StaffName:" + JSON.stringify(StaffName) + " ,MobileNo:" + JSON.stringify(MobileNo) + ",Address:" + JSON.stringify(Address) + ",StaffPhoto:" + JSON.stringify(StaffPhoto) + ", OldPhotoPath:" + JSON.stringify(HdnOldPhotoPath) + "}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
@@ -254,6 +264,10 @@
                                 text: result,
                                 background: '#27272a',
                             })
+
+                            FillStaffDetails(0);
+                            ClearFields();
+
                         }
                     },
                     error: function (err) {
@@ -261,8 +275,6 @@
                     }
 
                 });
-                FillStaffDetails(0);
-                ClearFields();
             }
 
 
@@ -297,7 +309,7 @@
         function FillStaffDetails(StaffID) {
             $.ajax({
 
-                url: "WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterGet",
+                url: "../WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterGet",
                 method: "POST",
                 data: "{StaffID:" + JSON.stringify(StaffID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -313,7 +325,6 @@
 
 
         function OnSuccess(response) {
-            debugger;
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
 
@@ -356,7 +367,7 @@
         function EditStaff(StaffID) {
             $.ajax({
 
-                url: "WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterGet",
+                url: "../WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterGet",
                 method: "POST",
                 data: "{StaffID:" + JSON.stringify(StaffID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -368,7 +379,6 @@
                 }
 
             });
-            FillStaffDetails(0);
 
         }
 
@@ -415,7 +425,7 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterDelete",
+                        url: "../WebServices/StaffDetailMasterWebService.asmx/StaffDetailMasterDelete",
                         method: "POST",
                         data: "{StaffID:" + JSON.stringify(StaffID) + ", StaffPhoto:" + JSON.stringify(StaffPhoto) + "}",
                         contentType: "application/json; charset=utf-8",
@@ -435,14 +445,16 @@
                                 })
 
                             }
+
+                            FillStaffDetails(0);
+                            ClearFields();
                         },
                         error: function (err) {
                             console.log(err)
                         }
 
                     });
-                    FillStaffDetails(0);
-                    ClearFields();
+                    
 
 
 
@@ -488,6 +500,10 @@
             var fileUpload = $('#fuStaffPhoto').get(0);
             console.log('File Upload Get: ', fileUpload)
 
+            var staffid = $('#hdnStaffID');
+            var hdnphotopath = $("#hdnPhotoPath");
+            var hdnoldphotopath = $("#hdnOldPhotoPath");
+
             input = document.getElementById('fuStaffPhoto');
             file = fileUpload.files[0];
 
@@ -502,6 +518,10 @@
                 preview.style.display = "block";
                 $('#imgStaffPhotoWarning').text("")
 
+                if (staffid.val() > 0) {
+                    hdnoldphotopath.val(hdnphotopath.val());
+                    hdnphotopath.val(SaveImage());
+                }
 
 
             } else {
@@ -551,14 +571,14 @@
 
 
         /* DropDown Filling Functions*/
-        
-        
+
+
 
         function ListAllStaffType() {
 
             $.ajax({
 
-                url: "WebServices/StaffTypeMasterWebService.asmx/ListAllStaffType",
+                url: "../WebServices/StaffTypeMasterWebService.asmx/ListAllStaffType",
                 method: "POST",
                 data: "{}",
                 contentType: "application/json; charset=utf-8",

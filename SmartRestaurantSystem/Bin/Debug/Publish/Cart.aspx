@@ -414,6 +414,7 @@
                                 $("#hdnOrderID").val(result);
                                 InsertOrderDetails();
                                 UpdateCartDetail();
+                                FillCartDetails();
                             }
                         },
                         error: function (err) {

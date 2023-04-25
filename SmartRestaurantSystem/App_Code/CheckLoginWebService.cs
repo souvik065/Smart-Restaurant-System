@@ -24,11 +24,13 @@ public class CheckLoginWebService : System.Web.Services.WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string CheckLogin(String UserName, String Password, Int32 StaffTypeID)
+    public Dictionary<string, object> CheckLogin(String UserName, String Password, Int32 StaffTypeID)
     {
 
 
         string msg = "";
+        Dictionary<string, object> UserInfo = new Dictionary<string, object>();
+
         SqlConnection con = new SqlConnection(Global.StrCon);
         try
         {
@@ -46,14 +48,20 @@ public class CheckLoginWebService : System.Web.Services.WebService
             if (ds.Tables[0].Rows.Count > 0)
             {
                 HttpContext.Current.Session["UserID"] = ds.Tables[0].Rows[0]["UserID"].ToString();
+                string userid = ds.Tables[0].Rows[0]["UserID"].ToString();
                 HttpContext.Current.Session["StaffType"] = ds.Tables[0].Rows[0]["StaffType"].ToString();
+                var stafftype = ds.Tables[0].Rows[0]["StaffType"].ToString();
 
                 msg = "Valid";
+                UserInfo.Add("Msg", "Valid");
+                UserInfo.Add("UserID", ds.Tables[0].Rows[0]["UserID"].ToString());
+                UserInfo.Add("StaffType", ds.Tables[0].Rows[0]["StaffType"].ToString());
+
 
             }
             else
             {
-
+                UserInfo.Add("Msg", "Invalid");
                 msg = "Invalid";
             }
 
@@ -65,7 +73,7 @@ public class CheckLoginWebService : System.Web.Services.WebService
             msg = "error" + Exe.Message;
 
         }
-        return msg;
+        return UserInfo;
 
 
 

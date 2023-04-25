@@ -83,7 +83,8 @@
 
                             <!-- Remember Me Start-->
                             <div>
-                                <input type="checkbox" onclick="setCookie()" /> <span class="font-semibold"> Remember Me</span>
+                                <input type="checkbox" id="rbtnRememberMe" />
+                                <span class="font-semibold">Remember Me</span>
                             </div>
                             <!-- Remember Me End-->
 
@@ -115,7 +116,7 @@
                 state = false;
             } else {
                 document.getElementById("txtPassword").setAttribute("type", "text");
-                document.getElementById("eye").style.color =  "#5887ef";
+                document.getElementById("eye").style.color = "#5887ef";
 
                 state = true;
             }
@@ -132,54 +133,144 @@
         }
 
 
-       
+        $(function () {
+            ListAllStaffType();
+            Logout();
+        });
 
-            $("#btnLogin").on("click", function () {
-            debugger;
+
+
+
+        $("#btnLogin").on("click", function () {
+
             var username = $("#txtUserName");
             var password = $("#txtPassword");
+            var stafftypeid = $("#ddlUserType");
 
-            if (username.val() == "")
-            {
+            if (username.val() == "") {
                 alert("Please Enter the UserName");
-            username.focus();
-            return
+                username.focus();
+                return
             } else if (password.val() == "") {
                 alert("Please Enter the Password");
-            password.focus();
-            return
+                password.focus();
+                return
+            } else if (stafftypeid.val() == 0) {
+                alert("Please Select User Role");
+                stafftypeid.focus();
+
             } else {
 
                 var UserName = username.val().trim();
-            var Password = password.val().trim();
+                var Password = password.val().trim();
+                var StaffTypeID = stafftypeid.val();
 
             }
 
             $.ajax({
 
-            url: "../WebServices/AdminLoginWebService.asmx/AdminCheckLogin",
-            method: "POST",
-            data: "{UserName:" + JSON.stringify(UserName) + ", Password:" + JSON.stringify(Password) + "}",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
+                url: "../WebServices/CheckLoginWebService.asmx/CheckLogin",
+                method: "POST",
+                data: "{UserName:" + JSON.stringify(UserName) + ", Password:" + JSON.stringify(Password) + ", StaffTypeID:" + JSON.stringify(StaffTypeID) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
                     var result = response.d;
-            if (result.includes("Invalid")) {
-                alert("Invalid UserName or Password")
-            } else {
+                    if (result.includes("Invalid")) {
+                        alert("Invalid UserName or Password")
+                    } else if (!result.includes("Invalid")) {
+                        
+                        var StaffType = '<%=Session["StaffType"]%>';
 
-                window.location.href = "CategoryMaster.aspx";
+                        if (StaffType == 'Admin') {
+                            window.location.href = "CategoryMaster.aspx";
+
+                        } else if (StaffType == 'Kitchen Staff') {
+                            window.location.href = "../Kitchen/Dashboard.aspx";
+
+                        } else if (StaffType == 'Billing Staff') {
+                            window.location.href = "../Billing/Dashboard.aspx";
+
+                        }
+                        
+
                     }
 
                 },
-            error: function (err) {
-                console.log(err);
+                error: function (err) {
+                    console.log(err);
                 }
 
             });
 
         });
-   
+
+
+        function Redirect() {
+
+            debugger;
+            var StaffType = '<%=Session["StaffType"]%>';
+
+            if (StaffType == 'Admin') {
+                window.location.href = "CategoryMaster.aspx";
+
+            } else if (StaffType == 'Kitchen Staff') {
+                window.location.href = "../Kitchen/Dashboard.aspx";
+
+            }
+        }
+
+
+        var RememberMe = $('#rbtnRemeberMe');
+
+
+
+        function Logout() {
+
+
+            $.ajax({
+                url: "../WebServices/CheckLoginWebService.asmx/Logout",
+                method: "POST",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var msg = res.d;
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+
+        function ListAllStaffType() {
+
+            $.ajax({
+
+                url: "../WebServices/StaffTypeMasterWebService.asmx/ListAllStaffType",
+                method: "POST",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    var ddlcatgeory = $("#ddlUserType");
+                    ddlcatgeory.empty();
+                    //ddlcatgeory.append($("<option></option>").val('0').text('-- Select Category --'));
+                    $.each(res.d, function () {
+                        ddlcatgeory.append($("<option></option>").val(this['Value']).text(this['Text']));
+                    })
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+
+
+        }
+
     </script>
 
 </body>

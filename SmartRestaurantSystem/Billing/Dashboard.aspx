@@ -21,14 +21,13 @@
                 <thead>
                     <tr>
                         <th>Sr.No</th>
+                        <th>OrderDate</th>
                         <th>TableNo</th>
-                        <th>OrderNo</th>
-                        <th>Dish Name</th>
-                        <th>Measure Type</th>
-                        <th>Qty</th>
-                        <th>Category</th>
-                        <th>Sub Category</th>
-                        <th>Status</th>
+                        <th>OrderID</th>
+                        <th>Total</th>
+                      
+                        <th>Action</th>
+                       
                         
                     </tr>
                 </thead>
@@ -36,15 +35,13 @@
                 <tfoot>
                     <tr>
                         <th>Sr.No</th>
+                        <th>OrderDate</th>
                         <th>TableNo</th>
-                        <th>OrderNo</th>
-                        <th>Dish Name</th>
-                        <th>Measure Type</th>
-                        <th>Qty</th>
-                        <th>Category</th>
-                        <th>Sub Category</th>
-                        <th>Status</th>
-                       
+                        <th>OrderID</th>
+                        <th>Total</th>
+
+                        <th>Action</th>
+
                     </tr>
                 </tfoot>
             </table>
@@ -64,22 +61,22 @@
                 ordering: false,
                 info: false,
             })
-            DisplayOrders()
+            ListAllCashPayments();
         })
 
 
         setInterval(function () {
             var table = $("#tblOrders").DataTable
 
-            DisplayOrders();
+            ListAllCashPayments();
 
         }, 5000);
 
-        // Displaying Orders
-        function DisplayOrders() {
+        // ListAllCashPayments Orders
+        function ListAllCashPayments() {
             $.ajax({
 
-                url: "../WebServices/OrderDetailMasterWebService.asmx/DisplayOrders",
+                url: "../WebServices/OrderMasterWebService.asmx/ListAllCashPayments",
                 method: "POST",
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
@@ -92,6 +89,7 @@
 
             });
         }
+
         function OnSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
@@ -107,19 +105,15 @@
                     //strEditDelete += " <input class=\"bg-yellow-900 mx-2 text-center text-white py-3 px-5 hover:bg-yellow-700 cursor-pointer\" onclick=\"EditCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Edit\" />";
                     //strEditDelete += " <input class=\"bg-red-900 text-center text-white py-3 px-5 hover:bg-red-600 cursor-pointer\" onclick=\"DeleteCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Delete\" />";
                     var btnStatus = "";
-                    btnStatus = ` <input type="button" onclick="OrderStatusUpdate(` + $(this).find("OrderDetailID").text() + `)" value="` + $(this).find("Status").text() +`" class="bg-yellow-900 text-white hover:bg-yellow-700 cursor-pointer font-semibold py-1 px-6"/>`;
+                    btnStatus = ` <input type="button" onclick="UpdateCashPaymentStatus(` + $(this).find("TableID").text()+`,true,` + $(this).find("OrderID").text() + `)" value="Confirm" class="bg-yellow-900 text-white hover:bg-yellow-700 cursor-pointer font-semibold py-1 px-6"/>`;
 
                     table.row.add([
                         $(this).find("RowNumber").text(),
+                        $(this).find("OrderDate").text(),
                         $(this).find("TableNo").text(),
-                        $(this).find("OrderNo").text(),
-                        $(this).find("DishName").text(),
-                        $(this).find("MeasureType").text(),
-                        $(this).find("Qty").text(),
-                        $(this).find("CategoryName").text(),
-                        $(this).find("SubCategoryName").text(),
+                        $(this).find("OrderID").text(),
+                        $(this).find("Total").text(),
                         btnStatus
-
 
                     ]).draw(false);
                 })
@@ -130,45 +124,69 @@
 
         }
 
-        function OrderStatusUpdate(OrderDetailID) {
 
+
+
+        function UpdateCashPaymentStatus(TableID, PaymentStatus, OrderID) {
+
+            //var PaymentStatus = $('#hdnPayemntStatus');
+            //var PaymentMode = $('#hdnPaymentMode');
             swal.fire({
-                icon: "warning",
-                text: "Are you sure.",
+                icon: "Info",
+                title: "Are you sure.",
+                text: "You want to Update the Payment Status",
                 background: '#27272a',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: 'Yes',
                 cancelButtonText: 'No, cancel!',
                 reverseButtons: true
 
+
+
             }).then((result) => {
                 if (result.isConfirmed) {
-                    var msg = "";
+                    
+                    
                     $.ajax({
 
-                        url: "../WebServices/OrderDetailMasterWebService.asmx/OrderDetailStatusUpdate",
+                        url: "../WebServices/OrderMasterWebService.asmx/UpdateCashPaymentStatus",
                         method: "POST",
-                        data: "{OrderDetailID:" + JSON.stringify(OrderDetailID) + "}",
+                        data: "{TableID:" + JSON.stringify(TableID) + ", PaymentStatus:" + JSON.stringify(PaymentStatus) + ", OrderID:" + JSON.stringify(OrderID) + "}",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
-                        success: OnSuccess,
+                        success: function (res) {
+                            var result = res.d;
+                            if (result.includes("error")) {
+                                console.log(result);
+                            } else if (result.includes("Success")) {
+                                ListAllCashPayments();
+
+                               
+
+                            }
+                        },
+
                         async: false,
                         error: function (err) {
                             console.log(err);
                         }
 
                     });
-                    DisplayOrders();
 
+                  
 
-                } 
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                   
 
                 }
-            );
-            
-
-
+            })
+           
         }
+
+        
+
+
+       
 
     </script>
 </asp:Content>

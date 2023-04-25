@@ -53,11 +53,11 @@
                         <span>Menu</span>
                     </div>
                 </a>
-                <a href="AboutUs.aspx" class="">
+                <%--<a href="AboutUs.aspx" class="">
                     <div class="cursor-pointer">
                         <span>About</span>
                     </div>
-                </a>
+                </a>--%>
                 <a href="ContactUs.aspx" class="">
                     <div class="cursor-pointer">
                         <span>Contact Us</span>
@@ -229,11 +229,11 @@
                     </div>
                     <ul class="text-sm space-y-4 space-x-2 font-open-sans-400">
                         <li></li>
-                        <li><a href="#"><span class="font-bold text-classic-yellow">></span> Home</a></li>
-                        <li><a href="#"><span class="font-bold text-classic-yellow">></span> About</a></li>
-                        <li><a href="#"><span class="font-bold text-classic-yellow">></span> Menu</a></li>
-                        <li><a href="#"><span class="font-bold text-classic-yellow">></span> Special</a></li>
-                        <li><a href="#"><span class="font-bold text-classic-yellow">></span> Contact Us</a></li>
+                        <li><a href="Home.aspx"><span class="font-bold text-classic-yellow">></span> Home</a></li>
+                        <%--<li><a href="AboutUs.aspx"><span class="font-bold text-classic-yellow">></span> About</a></li>--%>
+                        <li><a href="Menu.aspx"><span class="font-bold text-classic-yellow">></span> Menu</a></li>
+                        <%--<li><a href=""><span class="font-bold text-classic-yellow">></span> Special</a></li>--%>
+                        <li><a href="ContactUs.aspx"><span class="font-bold text-classic-yellow">></span> Contact Us</a></li>
 
                     </ul>
                 </div>

@@ -30,7 +30,7 @@ public class RazorPayWebService : System.Web.Services.WebService
     {
         Dictionary<string, object> customerInfo = new Dictionary<string, object>();
         SqlConnection conn = new SqlConnection(Global.StrCon);
-
+        
         try
         {
             SqlCommand cmd = new SqlCommand("OrderMasterTotal", conn);

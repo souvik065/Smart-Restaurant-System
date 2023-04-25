@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMasterPage.master" AutoEventWireup="true" CodeFile="StaffType.aspx.cs" Inherits="Admin_StaffType" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-         <section class="h-full">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <section class="h-full">
         <div class="w-full my-5 text-classic-yellow font-playfair-display-500 bg-classic-brown py-5 px-5 shadow-2xl space-y-3">
             <div class="">
                 <div>
@@ -14,6 +14,11 @@
                 <div><span class="capitalize">Master > Staff Type</span></div>
             </div>
         </div>
+
+        <!-- Hidden Fields Start -->
+        <input id="hdnStaffTypeID" type="hidden" />
+        <!-- Hidden Fields End -->
+
 
         <div>
             <div class="flex hidden py-3 text-classic-yellow font-poppins-400 font-bold px-3 shadow-2xl bg-classic-brown w-full">
@@ -26,13 +31,11 @@
                         <!-- Fields -->
                         <!-- Table No -->
 
-                        <div class="flex space-x-5 w-full text-center">
-                            <div class="w-1/6">
-                                <input id="hdnStaffTypeID" type="hidden" />
-                                <lable for="" class="my-auto">Staff Type </lable>
-                            </div>
-                            <div class=" w-1/5">
-                                <div><span id="txtStaffTypeWarning" class="formerror text-red-600  text-sm"></span></div>
+                        <div class="  w-full">
+
+                            <lable for="" class="my-auto">Staff Type </lable>
+                            <span id="txtStaffTypeWarning" class="formerror text-red-600  text-sm"></span>
+                            <div class="w-1/2">
                                 <input id="txtStaffType" onkeyup="FormValTextBox(this.id)" class="bg-transparent text-gray-400  border w-full border-classic-dimyellow  py-1 px-2" type="text" />
                             </div>
                         </div>
@@ -132,7 +135,7 @@
 
                 $.ajax({
 
-                    url: "WebServices/StaffTypeMasterWebService.asmx/StaffTypeMasterManage",
+                    url: "../WebServices/StaffTypeMasterWebService.asmx/StaffTypeMasterManage",
                     method: "POST",
                     data: "{StaffTypeID:" + JSON.stringify(StaffTypeID) + ", StaffType:" + JSON.stringify(StaffType) + "}",
                     contentType: "application/json; charset=utf-8",
@@ -147,6 +150,10 @@
                                 text: result,
                                 background: '#27272a',
                             })
+
+
+                            FillStaffTypeDetails(0);
+                            ClearFields();
                         }
                     },
                     error: function (err) {
@@ -154,8 +161,7 @@
                     }
 
                 });
-                FillStaffTypeDetails(0);
-                ClearFields();
+                
             }
 
 
@@ -190,7 +196,7 @@
         function FillStaffTypeDetails(StaffTypeID) {
             $.ajax({
 
-                url: "WebServices/StaffTypeMasterWebService.asmx/StafftypeMasterGet",
+                url: "../WebServices/StaffTypeMasterWebService.asmx/StafftypeMasterGet",
                 method: "POST",
                 data: "{StaffTypeID:" + JSON.stringify(StaffTypeID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -242,7 +248,7 @@
         function EditStaffType(StaffTypeID) {
             $.ajax({
 
-                url: "WebServices/StaffTypeMasterWebService.asmx/StaffTypeMasterGet",
+                url: "../WebServices/StaffTypeMasterWebService.asmx/StaffTypeMasterGet",
                 method: "POST",
                 data: "{StaffTypeID:" + JSON.stringify(StaffTypeID) + "}",
                 contentType: "application/json; charset=utf-8",
@@ -254,7 +260,7 @@
                 }
 
             });
-            FillStaffTypeDetails(0);
+            
 
         }
 
@@ -293,7 +299,7 @@
                     var msg = "";
                     $.ajax({
 
-                        url: "WebServices/StaffTypeMasterWebService.asmx/StaffTypeMasterDelete",
+                        url: "../WebServices/StaffTypeMasterWebService.asmx/StaffTypeMasterDelete",
                         method: "POST",
                         data: "{StaffTypeID:" + JSON.stringify(StaffTypeID) + "}",
                         contentType: "application/json; charset=utf-8",
@@ -304,15 +310,18 @@
                                 console.log(result);
                             } else if (result.includes("Success")) {
                                 msg = result;
+                                
                             }
+                            FillStaffTypeDetails(0);
+
                         },
                         error: function (err) {
                             console.log(err)
                         }
 
                     });
-                    FillStaffTypeDetails(0);
-                    ClearFields();
+                    
+                    
 
                     swal.fire({
                         title: "Deleted",

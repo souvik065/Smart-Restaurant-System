@@ -156,6 +156,14 @@
 
                             <ul class="submenu text-xl mt-2 font-bold w-full mx-auto">
                                 <li>
+                                    <a href="CreateUser.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
+                                        <div class="flex space-x-3 ">
+                                            <i class="fa-solid fa-tag"></i><span>Create Users</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="CategoryMaster.aspx" class="flex hover:text-amber-500  justify-around py-3 cursor-pointer hover:bg-stone-900 w-full ">
                                         <div class="flex space-x-3 ">
                                             <i class="fa-solid fa-tag"></i><span>Category Master</span>

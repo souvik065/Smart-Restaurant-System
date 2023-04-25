@@ -107,7 +107,7 @@
                     //strEditDelete += " <input class=\"bg-yellow-900 mx-2 text-center text-white py-3 px-5 hover:bg-yellow-700 cursor-pointer\" onclick=\"EditCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Edit\" />";
                     //strEditDelete += " <input class=\"bg-red-900 text-center text-white py-3 px-5 hover:bg-red-600 cursor-pointer\" onclick=\"DeleteCategory(" + $(this).find("CategoryID").text() + ")\" type='button' value=\"Delete\" />";
                     var btnStatus = "";
-                    btnStatus = ` <input type="button" onclick="OrderStatusUpdate(` + $(this).find("OrderDetailID").text() + `)" value="` + $(this).find("Status").text() +`" class="bg-yellow-900 text-white hover:bg-yellow-700 cursor-pointer font-semibold py-1 px-6"/>`;
+                    btnStatus = ` <input type="button" onclick="OrderStatusUpdate(` + $(this).find("OrderDetailID").text() + `,'` + $(this).find("Status").text()+`')" value="` + $(this).find("Status").text() +`" class="bg-yellow-900 text-white hover:bg-yellow-700 cursor-pointer font-semibold py-1 px-6"/>`;
 
                     table.row.add([
                         $(this).find("RowNumber").text(),
@@ -130,14 +130,27 @@
 
         }
 
-        function OrderStatusUpdate(OrderDetailID) {
+        function OrderStatusUpdate(OrderDetailID, Status) {
+
+            var msg = "In Queue";
+
+            if (Status == "In Queue") {
+                msg = "Proceed to Preparing";
+
+            } else if (Status == "Preparing") {
+
+                msg = "Proceed to Ready";
+
+            } else if (Status == "Ready") {
+                msg = "Proceed to Delivered";
+            }
 
             swal.fire({
                 icon: "warning",
                 text: "Are you sure.",
                 background: '#27272a',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: msg,
                 cancelButtonText: 'No, cancel!',
                 reverseButtons: true
 

@@ -25,7 +25,7 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string StaffDetailMasterManage(Int32 StaffID, Int32 StaffTypeID, String StaffName, String MobileNo, String Address, String StaffPhoto)
+    public string StaffDetailMasterManage(Int32 StaffID, Int32 StaffTypeID, String StaffName, String MobileNo, String Address, String StaffPhoto, String OldPhotoPath)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -69,6 +69,13 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
                 cmd.Dispose();
 
                 msg = "Record Updated Successfully";
+
+                if (OldPhotoPath != "Null")
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(HttpContext.Current.Server.MapPath("~/Assets/Images/" + OldPhotoPath + ""));
+                    if (fileInfo.Exists)
+                        fileInfo.Delete();
+                }
 
                 con.Close();
 
@@ -192,6 +199,57 @@ public class StaffDetailMasterWebService : System.Web.Services.WebService
         {
             SqlCommand cmd = new SqlCommand("ListAllStaff", con);
             cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            using (SqlDataReader sdr = cmd.ExecuteReader())
+            {
+                while (sdr.Read())
+                {
+                    List.Add(new ListItem
+                    {
+
+                        Value = sdr["StaffID"].ToString(),
+                        Text = sdr["StaffName"].ToString()
+
+                    });
+
+                }
+
+            }
+
+            con.Close();
+
+        }
+        catch (Exception Exe)
+        {
+
+
+        }
+        finally
+        {
+            if (con.State == ConnectionState.Open)
+            {
+
+                con.Close();
+            }
+
+
+        }
+        return List;
+    }
+
+
+    [WebMethod] //-- Executing GET/Read Function of Category List --// 
+    public List<ListItem> ListAllStaffByStaffType(Int32 StaffTypeID)
+    {
+
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        List<ListItem> List = new List<ListItem>();
+        try
+        {
+            SqlCommand cmd = new SqlCommand("ListAllStaffByStaffType", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@StaffTypeID", StaffTypeID).DbType = DbType.Int32;
+
             con.Open();
             using (SqlDataReader sdr = cmd.ExecuteReader())
             {

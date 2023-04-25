@@ -329,7 +329,6 @@
 
 
         function OnEditSuccess(response) {
-            debugger;
             var XmlDoc = $.parseXML(response.d);
             var xml = $(XmlDoc);
             var Details = xml.find("DataDetails");

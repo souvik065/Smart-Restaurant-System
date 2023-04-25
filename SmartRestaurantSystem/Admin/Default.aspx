@@ -176,22 +176,28 @@
                 dataType: "json",
                 success: function (response) {
                     var result = response.d;
-                    if (result.includes("Invalid")) {
+                    if (result["Msg"].includes("Invalid")) {
                         alert("Invalid UserName or Password")
-                    } else {
-                        debugger;
-                        var StaffType = '<%=Session["StaffType"]%>';
+                        
+                    } else if (result["Msg"].includes("Valid")) {
+                        
+                        var StaffType = result["StaffType"];
+                        <%--//'<%=Session["StaffType"]%>';--%>
 
                         if (StaffType == 'Admin') {
                             window.location.href = "CategoryMaster.aspx";
 
-                        } else if(StaffType == 'Kitchen Staff'){
+                        } else if (StaffType == 'Kitchen Staff') {
                             window.location.href = "../Kitchen/Dashboard.aspx";
 
+                        } else if (StaffType == 'Billing Staff') {
+                            window.location.href = "../Billing/Dashboard.aspx";
+
                         }
-                        
 
                     }
+
+                    
 
                 },
                 error: function (err) {
@@ -203,27 +209,26 @@
         });
 
 
+        function Redirect() {
+
+            debugger;
+            var StaffType = '<%=Session["StaffType"]%>';
+
+            if (StaffType == 'Admin') {
+                window.location.href = "CategoryMaster.aspx";
+
+            } else if (StaffType == 'Kitchen Staff') {
+                window.location.href = "../Kitchen/Dashboard.aspx";
+
+            }
+        }
+
+
         var RememberMe = $('#rbtnRemeberMe');
 
 
 
-        function Logout() {
-
-
-            $.ajax({
-                url: "../WebServices/CheckLoginWebService.asmx/Logout",
-                method: "POST",
-                data: "{}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (res) {
-                    var msg = res.d;
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
+       
 
 
         function ListAllStaffType() {
@@ -251,6 +256,25 @@
             });
 
 
+        }
+
+
+        function Logout() {
+
+
+            $.ajax({
+                url: "../WebServices/CheckLoginWebService.asmx/Logout",
+                method: "POST",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var msg = res.d;
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
         }
 
     </script>

@@ -5,9 +5,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <form id="form1" runat="server">
-        <section class="inner-section invoice-part py-14 flex justify-center">
+        <section class="inner-section invoice-part py-14 flex justify-center py-10 my-14">
             <div class="text-white ">
-                <div class="row space-y-5s">
+                <div class="row space-y-5">
+                    <div class=" flex justify-center">
+                        <img src="Template/img/download%20(6).png" />
+                    </div>
                     <div class="col-lg-12 text-3xl font-bold">
                         <br />
                         <div class="alert-info">
@@ -16,7 +19,7 @@
                     </div>
                     <div class="col-lg-12 font-semibold text-2xl">
                         <div class="account-card">
-                            <div class="account-title">
+                            <div class="account-title  flex justify-center ">
                                 <h4>order recieved</h4>
                             </div>
                             <div class="account-content">
@@ -46,7 +49,7 @@
                     }
                 }
 
-                InsertOrderDetails();
+                UpdatePaymentStatus(true, 'Online');
             })
 
 
@@ -142,6 +145,69 @@
                 
             }
 
+
+            function UpdatePaymentStatus(PaymentStatus, PaymentMode) {
+
+                //var PaymentStatus = $('#hdnPayemntStatus');
+                //var PaymentMode = $('#hdnPaymentMode');
+
+                $.ajax({
+
+                    url: "WebServices/OrderMasterWebService.asmx/UpdatePaymentStatus",
+                    method: "POST",
+                    data: "{TableID:" + JSON.stringify(localStorage.getItem("TableID")) + ", PaymentStatus:" + JSON.stringify(PaymentStatus) + ", PaymentMode:" + JSON.stringify(PaymentMode) + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        var result = res.d;
+                        if (result.includes("error")) {
+                            console.log(result);
+                        } else if (result.includes("Success")) {
+                            ViewOrderStatus();
+
+                            swal.fire({
+                                icon: "success",
+                                title: "Order Payment Mode Cash",
+                                text: "You have to proceed your Payment to the Bill Counter",
+                                showDenyButton: true,
+                                background: '#27272a',
+                                showCancelButton: true,
+                                denyButtonText: 'Menu',
+                                confirmButtonText: 'Order Status',
+                                cancelButtonText: 'No, cancel!',
+                                reverseButtons: true
+
+
+
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+                                    location.href = "ViewOrders.aspx";
+
+
+
+                                } else if (result.isDenied) {
+
+                                    location.href = "Menu.aspx";
+
+
+                                } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+
+                                }
+                            });
+
+                        }
+                    },
+
+                    async: false,
+                    error: function (err) {
+                        console.log(err);
+                    }
+
+                });
+
+            }
             
 
         </script>

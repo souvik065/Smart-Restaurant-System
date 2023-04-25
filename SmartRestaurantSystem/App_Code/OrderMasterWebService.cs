@@ -67,7 +67,7 @@ public class OrderMasterWebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string UpdatePaymentStatus(Int32 TableID, Boolean PaymentStatus)
+    public string UpdatePaymentStatus(Int32 TableID, Boolean PaymentStatus, String PaymentMode)
     {
         String msg = "";
         SqlConnection con = new SqlConnection(Global.StrCon);
@@ -79,6 +79,49 @@ public class OrderMasterWebService : System.Web.Services.WebService
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TableID", TableID).DbType = DbType.Int32;
             cmd.Parameters.AddWithValue("@PaymentStatus", PaymentStatus).DbType = DbType.Boolean;
+            cmd.Parameters.AddWithValue("@PaymentMode", PaymentMode).DbType = DbType.String;
+
+
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            msg = "Payemnt Successfully";
+
+
+            con.Close();
+
+
+
+        }
+        catch (Exception Exe)
+        {
+            msg = "error" + Exe.Message;
+
+        }
+        finally
+        {
+
+        }
+        return msg;
+
+
+    }
+
+
+    [WebMethod]
+    public string UpdateCashPaymentStatus(Int32 TableID, Boolean PaymentStatus, String OrderID)
+    {
+        String msg = "";
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        try
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("UpdateCashPaymentStatus", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@TableID", TableID).DbType = DbType.Int32;
+            cmd.Parameters.AddWithValue("@PaymentStatus", PaymentStatus).DbType = DbType.Boolean;
+            cmd.Parameters.AddWithValue("@OrderID", OrderID).DbType = DbType.String;
+
 
             cmd.ExecuteNonQuery();
             cmd.Dispose();
@@ -115,6 +158,18 @@ public class OrderMasterWebService : System.Web.Services.WebService
         cmd.Parameters.AddWithValue("@TableID", TableID).DbType = DbType.Int32;
         return GetDataWithoutPaging(cmd).GetXml();
     }
+
+
+    [WebMethod] //-- Executing SubCategory GET/Read Function --// 
+    public string ListAllCashPayments()
+    {
+        SqlConnection con = new SqlConnection(Global.StrCon);
+        SqlCommand cmd = new SqlCommand("ListAllCashPayments", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        return GetDataWithoutPaging(cmd).GetXml();
+    }
+
+
 
     [WebMethod]
     public string GetLatestOrderNo(Int32 TableNo)

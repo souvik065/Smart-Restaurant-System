@@ -9,6 +9,14 @@ public partial class Kitchen_Dashboard : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["UserID"] == null)
+        {
+            if(Session["StaffType"] != "Kitchen Staff")
+            {
+                Response.Redirect("~/Admin/Default.aspx");
 
+            }
+
+        }
     }
 }

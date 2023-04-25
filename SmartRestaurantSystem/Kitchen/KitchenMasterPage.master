@@ -102,12 +102,17 @@
                                         </svg>
                                     </span>
                                 </div>
-                                <div>
+                                <div id="menu-btn" class="cursor-pointer">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                         </svg>
                                     </span>
+                                </div>
+                                <div id="menu-div" class="hidden bg-black h-auto w-auto py-3 px-3 absolute right-5 top-16">
+                                    <div>
+                                        <input id="btnLogout" type="button" value="Logout" class="bg-yellow-900 text-white py-2 px-3 hover:bg-yellow-700 cursor-pointer" />
+                                    </div>
                                 </div>
 
                             </div>
@@ -323,6 +328,15 @@
 
         });
 
+        $("#btnLogout").on('click', function () {
+            Logout();
+            location.reload();
+        });
+
+        $("#menu-btn").on('click', function () {
+            $("#menu-div").toggleClass("hidden");
+        })
+
         var loader = document.getElementById("preloader");
         //window.addEventListener("load", function () {
         //    loader.style.display = "none";
@@ -350,6 +364,24 @@
                 })
 
             }
+        }
+
+        function Logout() {
+
+
+            $.ajax({
+                url: "../WebServices/CheckLoginWebService.asmx/Logout",
+                method: "POST",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var msg = res.d;
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
         }
 
         const widthSize = window.matchMedia("(max-width:1024px)");

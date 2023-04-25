@@ -24,6 +24,7 @@
                                 <span>/</span>
                                 <div class="cursor-pointer" onclick="ListAllSubCategoryMenu()">SubCategory</div>
 
+
                             </div>
                         </div>
                     </div>
@@ -518,9 +519,11 @@
             var dishes = [...document.querySelectorAll(".dish")];
 
 
-            for (var dish of dishdetails) {
+            
+
+            for (var dish of dishes) {
                 dish.addEventListener("click", function (e) {
-                    $("#"+this.id+"-Price-Div").slideToggle();
+                    $("#" + this.id + "-Price-Div").slideToggle();
                 });
             }
 
@@ -569,7 +572,7 @@
 
 
 
-                    divTag += `<div class="dish flex cursor-pointer  space-x-3 menu-list  my-auto" >
+                    divTag += `<div id="` + $(this).find("DishID").text() +`" class="dish flex cursor-pointer  space-x-3 menu-list  my-auto"  >
                                 <div class="border-4 2xl:h-48 2xl:w-48 xl:h-44 xl:w-44 sm:h-36 sm:w-36  lg:w-1/3 h-28 w-28 border-gray-500 rounded-full  overflow-hidden">
                                     <img alt="Dish" class="h-full w-full" src="Assets/Images/`+ $(this).find("DishPhoto").text()+`" />
                                 </div>

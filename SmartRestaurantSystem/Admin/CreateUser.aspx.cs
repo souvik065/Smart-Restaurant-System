@@ -9,6 +9,14 @@ public partial class Admin_CreateUser : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["UserID"] == null)
+        {
+            if (Session["StaffType"] != "Admin")
+            {
+                Response.Redirect("Default.aspx");
 
+            }
+
+        }
     }
 }

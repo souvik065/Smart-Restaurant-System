@@ -370,32 +370,23 @@
         
 
         function OrderItem() {
-            //var customername = $("#txtCustomerName");
-            //var mobileno = $("#txtMobileNo");
-            //var email = $("#txtEmail");
+          
             var BillAmt = $("#totalamt").text().trim();
-
-            //var Validate = FormValidation(customername, mobileno, email);
-            //if (Validate == true) {
-
-                //var PaymentMode = document.querySelector("input[name='rbtnPaymentMode']:checked");
-                //if (PaymentMode != null) {
-                //    PaymentMode = document.querySelector("input[name='rbtnPaymentMode']:checked").value;
-                //} else {
-                //    swal.fire({
-                //        icon: "warning",
-                //        text: "Please Select the Payment Mode.",
-                //        background: '#27272a',
-                //    })
-
-                //}
-
-
-                /*if (PaymentMode != null) {*/
-                    //InsertCustomerDetail();
-
             localStorage.setItem("OrderID", null);
 
+            swal.fire({
+                icon: "info",
+                text: "Are you sure. You Want to Place Order",
+                background: '#27272a',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'cancel!',
+                reverseButtons: true
+
+
+
+            }).then((result) => {
+                if (result.isConfirmed) {
 
                     $.ajax({
 
@@ -415,6 +406,40 @@
                                 InsertOrderDetails();
                                 UpdateCartDetail();
                                 FillCartDetails();
+
+
+                                swal.fire({
+                                    icon: "success",
+                                    title: "Order Placed Successfully",
+                                    text: "Do you want to see your Order Status or Order Something Else.",
+                                    showDenyButton: true,
+                                    background: '#27272a',
+                                    showCancelButton: true,
+                                    denyButtonText: 'Menu',
+                                    confirmButtonText: 'Order Status',
+                                    cancelButtonText: 'No, cancel!',
+                                    reverseButtons: true
+
+
+
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+
+                                        location.href = "ViewOrders.aspx";
+
+
+
+                                    } else if (result.isDenied) {
+
+                                        location.href = "Menu.aspx";
+
+
+                                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+
+                                    }
+                                });
+
                             }
                         },
                         error: function (err) {
@@ -423,49 +448,33 @@
 
                     });
 
+                   
 
                     
 
-                    function closeblock() {
-                        $("#CustomerDetails").hide();
-                    }
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    //swal.fire({
+                    //    title: "Cancelled",
+                    //    text: "Your Record is Safe :)",
+                    //    icon: "info",
+                    //    background: '#27272a',
+
+                    //})
+
+                }
+            })
+
+
+
+
+                    
+
 
                     
                
 
 
-                swal.fire({
-                    icon: "success",
-                    title: "Order Placed Successfully",
-                    text: "Do you want to see your Order Status or Order Something Else.",
-                    showDenyButton: true,
-                    background: '#27272a',
-                    showCancelButton: true,
-                    denyButtonText: 'Menu',
-                    confirmButtonText: 'Order Status',
-                    cancelButtonText: 'No, cancel!',
-                    reverseButtons: true
-
-
-
-                }).then((result) => {
-                    if (result.isConfirmed) {
-
-                        location.href = "ViewOrders.aspx";
-
-
-
-                    } else if (result.isDenied) {
-
-                        location.href = "Menu.aspx";
-
-
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-
-                    }
-                })
-
+           
          
 
 

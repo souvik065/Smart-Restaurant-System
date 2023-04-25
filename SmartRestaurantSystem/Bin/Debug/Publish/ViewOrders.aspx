@@ -99,6 +99,13 @@
 
     </section>
 
+    <!-- Hidden Fields Start-->
+    <input id="hdnPaymentMode" type="hidden" />
+    <input id="hdnPayemntStatus" type="hidden" />
+    <!-- Hidden Fields End-->
+
+    
+
     <!-- Table Start-->
     <section class="h-full bg-restaurantly-brown text-white overflow-x-hidden px-5">
         <div class="flex  justify-center py-16">
@@ -171,7 +178,7 @@
         </div>
     </section>
 
-      <form id="formPaymentSuccess" action="charge.aspx" runat="server">
+      <form id="formpaymentsuccess" action="PaymentSuccess.aspx" runat="server">
         <input type="hidden" id="razorpay_payment_id" name="razorpay_payment_id" />
         <input type="hidden" id="razorpay_order_id" name="razorpay_order_id" />
         <input type="hidden" id="razorpay_signature" name="razorpay_signature" />
@@ -201,7 +208,6 @@
 
         setInterval(function () {
             var table = $("#tblViewOrderDetails").DataTable
-
             ViewOrderStatus();
 
         }, 5000);
@@ -221,6 +227,8 @@
                 }
             });
         }
+
+
 
         function OnSuccess(response) {
             var xmlDoc = $.parseXML(response.d);
@@ -259,7 +267,6 @@
             $("#totalitems").html(Details.length);
             $("#totalamt").html(TotalAmt);
 
-
         }
 
 
@@ -267,11 +274,10 @@
 
             $("#CustomerDetails").show();
 
-
         });
 
-        function MakePayment() {
 
+        function MakePayment() {
 
             var customername = $("#txtCustomerName");
             var mobileno = $("#txtMobileNo");
@@ -295,56 +301,22 @@
 
                 if (PaymentMode != null) {
                     InsertCustomerDetail();
-
+                    debugger;
                     if (PaymentMode == "Online") {
 
                         startpayment();
                     } else if (PaymentMode == "Cash") {
-                        UpdatePaymentStatus(true);
-                        ViewOrderStatus();
+                        $('#hdnPayemntStatus').val(false);
+                        $('#hdnPaymentMode').val("Cash");
+                        UpdatePaymentStatus(false, 'Cash');
+
+
+                       
                     }
-
-
-
                     
                     closeblock()
 
-
                     
-
-
-
-                    swal.fire({
-                        icon: "success",
-                        title: "Order Payment Mode Cash",
-                        text: "You have to proceed your Payment to the Bill Counter",
-                        showDenyButton: true,
-                        background: '#27272a',
-                        showCancelButton: true,
-                        denyButtonText: 'Menu',
-                        confirmButtonText: 'Order Status',
-                        cancelButtonText: 'No, cancel!',
-                        reverseButtons: true
-
-
-
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-
-                            location.href = "ViewOrders.aspx";
-
-
-
-                        } else if (result.isDenied) {
-
-                            location.href = "Menu.aspx";
-
-
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-
-                        }
-                    });
 
                 }
 
@@ -439,29 +411,29 @@
             }
 
             // boolean whether to show image inside a white frame. (default: true)
+            debugger;
             options.theme.image_padding = false;
             options.handler = function (response) {
                 var paymentid = response.razorpay_payment_id;
                 var rzporderid = customerinfo["orderid"];
                 var sign = response.razorpay_signature;
-
-                document.getelementbyid('razorpay_payment_id').value = paymentid;
-                document.getelementbyid('razorpay_order_id').value = rzporderid;
-                document.getelementbyid('razorpay_signature').value = sign;
+                document.getElementById('razorpay_payment_id').value = paymentid;
+                document.getElementById('razorpay_order_id').value = rzporderid;
+                document.getElementById('razorpay_signature').value = sign;
 
                 var billamt = $("#totalamt").text().trim();
-                var paymentmode = document.queryselector("input[name='rbtnpaymentmode']:checked");
+                var paymentmode = document.querySelector("input[name='rbtnpaymentmode']:checked");
 
-                if (paymentmode != null) {
-                    paymentmode = document.queryselector("input[name='rbtnpaymentmode']:checked").value;
-                } else {
-                    swal.fire({
-                        icon: "warning",
-                        text: "please select the payment mode.",
-                        background: '#27272a',
-                    })
+                //if (paymentmode != null) {
+                //    paymentmode = document.querySelector("input[name='rbtnpaymentmode']:checked").value;
+                //} else {
+                //    swal.fire({
+                //        icon: "warning",
+                //        text: "please select the payment mode.",
+                //        background: '#27272a',
+                //    })
 
-                }
+                //}
 
                 $("#formpaymentsuccess").submit();
 
@@ -478,7 +450,7 @@
                 backdropclose: false
             };
 
-            var rzp = new razorpay(options);
+            var rzp = new Razorpay(options);
             rzp.on('payment.failed', function (response) {
                 window.location.href = "paymentfailure.aspx";
                 console.log(response);
@@ -532,13 +504,16 @@
         }
 
 
-        function UpdatePaymentStatus(PaymentStatus){
+        function UpdatePaymentStatus(PaymentStatus, PaymentMode){
+
+            //var PaymentStatus = $('#hdnPayemntStatus');
+            //var PaymentMode = $('#hdnPaymentMode');
 
             $.ajax({
 
                 url: "WebServices/OrderMasterWebService.asmx/UpdatePaymentStatus",
                 method: "POST",
-                data: "{TableID:" + JSON.stringify(localStorage.getItem("TableID")) + ", PaymentStatus:" + JSON.stringify(PaymentStatus)+"}",
+                data: "{TableID:" + JSON.stringify(localStorage.getItem("TableID")) + ", PaymentStatus:" + JSON.stringify(PaymentStatus)+", PaymentMode:"+JSON.stringify(PaymentMode)+"}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (res) {
@@ -546,6 +521,39 @@
                     if (result.includes("error")) {
                         console.log(result);
                     } else if (result.includes("Success")) {
+                        ViewOrderStatus();
+
+                        swal.fire({
+                            icon: "success",
+                            title: "Order Payment Mode Cash",
+                            text: "You have to proceed your Payment to the Bill Counter",
+                            showDenyButton: true,
+                            background: '#27272a',
+                            showCancelButton: true,
+                            denyButtonText: 'Menu',
+                            confirmButtonText: 'Order Status',
+                            cancelButtonText: 'No, cancel!',
+                            reverseButtons: true
+
+
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+
+                                location.href = "ViewOrders.aspx";
+
+
+
+                            } else if (result.isDenied) {
+
+                                location.href = "Menu.aspx";
+
+
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+
+                            }
+                        });
                         
                     }
                 },
@@ -591,7 +599,6 @@
             if (Details.length > 0) {
                 $("#lblCartCount").html(Details.length);
                 $("#lblCartTotalItem").html(Details.length);
-
 
             }
 
