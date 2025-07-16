@@ -29,6 +29,7 @@ It allows restaurant staff and customers to interact efficiently through a smart
 
 ## 📂 Project Structure
 
+```
 Smart-Restaurant-System/
 │
 ├── App_Code/ # Backend logic (C# classes)
@@ -41,6 +42,8 @@ Smart-Restaurant-System/
 ├── Reservation.aspx # Table reservation page
 ├── Web.config # Configuration file
 └── README.md # Project documentation
+
+```
 
 
 ---
